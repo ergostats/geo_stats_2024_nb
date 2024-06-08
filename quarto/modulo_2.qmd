@@ -1,0 +1,179 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+```{r}
+library(sf)
+library(ggplot2)
+```
+
+# Importación y exportación de datos espaciales
+
+Los datos geoespaciales en formato vectorial suelen almacenarse en formato shapefile. Dado que la estructura de puntos, líneas y polígonos es diferente, cada shapefile individual sólo puede contener un tipo de vector (todos los puntos, todas las líneas o todos los polígonos). No encontrarás una mezcla de objetos de puntos, líneas y polígonos en un mismo shapefile.
+
+## Leer un shapefile
+
+Usaremos el paquete `sf` para trabajar con datos vectoriales en R.
+
+Los shapefiles que vamos a importar son: - Puntos: Paraderos en vía Cuenca - Molleturo. - Lineas: Vía princial Cuenca - Molleturo y caminos pedestres hacia las lagunas en el Parque Nacional El Cajas. - Polígonos: Lagunas del Parque Nacional El Cajas.
+
+Para leer el archivo shapefile en R usaremos el comando `st_read()`.
+
+```{r}
+puntos <- st_read("data/shp/paraderos_cajas.shp")
+lineas <- st_read("data/shp/vias_cajas.shp")
+poligonos <- st_read("data/shp/lagunas_cajas.shp")
+```
+
+### Metadatos y atributos del shapefile
+
+Cuando importamos shapefile a R, la función `st_read()` guarda información acerca de los datos. Nos interesan especialmente los **metadatos** geoespaciales, que describen el *formato*, el *SRC*, la *extensión* y otros componentes de los datos vectoriales, así como los atributos que describen las propiedades asociadas a cada objeto vectorial individual.
+
+### Metadados espaciales
+
+Los metadatos clave de todos los shapefiles incluyen:
+
+-   **Tipo de objeto:** la clase del objeto importado.
+-   **Sistema de referencia de coordenadas (SRC):** la proyección de los datos.
+-   **Extensión:** la extensión espacial (es decir, el área geográfica que cubre el shapefile) del shapefile.
+
+Podemos ver los metadatos del shapefile simplemente llamando al objeto en la consola:
+
+```{r}
+poligonos
+```
+
+Nuestro objeto `poligonos` son polígonos de la clase `POLYGON`, en el sistema de coordenadas geográficas SRC WGS 84.
+
+El SRC juega un papel crucial en la interpretación de los valores de extensión de un objeto espacial, pues define las unidades en las que se expresan. Esta información resulta fundamental para comprender la cobertura geográfica real de un shapefile u objeto espacial R, ya que estos representan la extensión espacial del objeto en el mundo real.
+
+### Atributos de los datos espaciales
+
+Cada objeto de un shapefile tiene uno o más atributos asociados. Los atributos de un shapefile son similares a los campos o columnas de una hoja de cálculo. Cada fila de la hoja de cálculo tiene un conjunto de columnas asociadas que describen el elemento de la fila. En el caso de un shapefile, cada fila representa un objeto espacial - por ejemplo, una carretera, representada como una línea en un shapefile de líneas, tendrá asociada una fila de atributos. Estos atributos pueden incluir diferentes tipos de información que describen los objetos almacenados en un shapefile. Así, nuestra carretera, puede tener un nombre, longitud, número de carriles, límite de velocidad, tipo de carretera y otros atributos almacenados con ella.
+
+## Graficar un shapefile
+
+A continuación, vamos a visualizar los datos en nuestro objeto `sf` utilizando el paquete `ggplot2`.
+
+Vamos a personalizar nuestro trazado de límites estableciendo el tamaño, el color y el relleno de nuestro trazado. Al trazar objetos sf con ggplot2, es necesario utilizar el sistema de coordenadas `coord_sf()`.
+
+```{r}
+ggplot() +
+  geom_sf(data = poligonos) +
+  ggtitle("Parque Nacional El Cajas") +
+  coord_sf()
+```
+
+Para agregar colores a los polígonos usamos los argumentos `fill` para el relleno y `color` para el borde.
+
+```{r}
+ggplot() +
+  geom_sf(data = poligonos, fill = "steelblue", color = "steelblue") +
+  ggtitle("Parque Nacional El Cajas") +
+  coord_sf()
+```
+
+### Visualizar multiples shapefiles
+
+Usando la librería `ggplot2` esta tarea es bastante sencilla, simplemente tenemos que agregar las nuevas capas usando el símbolo `+`.
+
+```{r}
+ggplot() +
+  geom_sf(data = poligonos, fill = "steelblue", color = "steelblue") +
+  geom_sf(data = lineas) +
+  geom_sf(data = puntos) +
+  ggtitle("Parque Nacional El Cajas") +
+  coord_sf()
+```
+
+Ahora que tenemos un gráfico básico, podemos personalizarlo cambiando la simbología. Como queremos mostrar los diferentes tipos de caminos en este sitio, también haremos que el color de los datos `lines` se establezca de acuerdo con el atributo `highway`. Esto también creará una leyenda para nuestro gráfico. Y finalmente, como también queremos incluir la ubicación de los paraderos en la leyenda, haremos que el relleno de los datos `puntos` se establezca de acuerdo con el atributo `nombre`.
+
+```{r}
+ggplot() +
+  geom_sf(data = poligonos, fill = "steelblue", color = "steelblue") +
+  geom_sf(data = lineas, aes(color = highway)) +
+  geom_sf(data = puntos, aes(fill = nombre)) +
+  ggtitle("Parque Nacional El Cajas") +
+  coord_sf()
+```
+
+A continuación, vamos a construir una leyenda personalizada utilizando la simbología (los colores y símbolos) que hemos utilizado para crear el gráfico anterior. Utilizaremos las funciones de `ggplot2` para especificar la simbología y cambiar los nombres de las leyendas. Añadiremos `color` para las líneas y `fill` para el relleno de los puntos. También ajustaremos los títulos de las leyendas pasando un nombre a las respectivas paletas de color y relleno.
+
+```{r}
+col_lineas <- c("orange", "brown")
+col_puntos <- c("black", "black")
+
+ggplot() +
+  geom_sf(data = poligonos, fill = "steelblue", color = "steelblue") +
+  geom_sf(data = lineas, aes(color = highway)) +
+  geom_sf(data = puntos, aes(fill = nombre), color = "black") +
+  scale_color_manual(values = col_lineas, name = "Tipos de camino") +
+  scale_fill_manual(values = col_puntos, name = "Paraderos") +
+  ggtitle("Parque Nacional El Cajas") + 
+  coord_sf()
+
+```
+
+### Mapas interactivos
+
+En R podemos crear mapas interactivos usando el paquete `mapview`.
+
+```{r}
+library(mapview)
+
+mapview(poligonos)
+```
+
+## Leer un raster
+
+Usaremos el paquete `terra` para trabajar con datos raster en R.
+
+El raster que vamos a importar es:
+
+-   Un modelo de elevación digital (DEM) del volcán Chimborazo.
+
+Para leer el archivo raster en R usaremos el comando `rast()`.
+
+```{r}
+library(terra)
+
+dem_chimborazo <- rast("data/raster/DEM_Chimborazo.tif") 
+```
+
+### Metadatos del raster
+
+En esta sección trabajaremos con una serie de archivos GeoTIFF. El formato GeoTIFF contiene un conjunto de etiquetas incrustadas con metadatos sobre los datos ráster. Podemos utilizar la función `describe()` para obtener información acerca del *SRC*, *tamaño del raster*, *tamaño del pixel*, entre otros.
+
+```{r}
+describe("data/raster/DEM_Chimborazo.tif")
+```
+
+Al igual que los metadatos del shapefile podemos obtener información del objeto raste simplemente llamando al objeto en la consola:
+
+```{r}
+dem_chimborazo
+```
+
+Nuestro objeto `dem_chimborazo` es un raster de la clase `SpatRaster`, en el sistema de coordenadas geográficas SRC WGS 84 con unas dimensiones de `dimensions  : 272, 294, 1  (nrow, ncol, nlyr)`. Donde `nlyr` se refiere al número de bandas que contiene el raster.
+
+La información anterior incluye un informe de valores mínimos y máximos, pero no otras estadísticas de rangos de datos. De forma similar a otras estructuras de datos de R, como vectores y data frames, las estadísticas descriptivas de los datos ráster pueden obtenerse de la siguiente forma:
+
+```{r}
+summary(values(dem_chimborazo))
+```
+
+## Graficar un raster
+
+Para visualizar estos datos en R utilizando `ggplot2`, necesitamos convertirlos en un dataframe. El paquete terra tiene una función integrada para la conversión a un dataframe ploteable.
+
+```{r}
+dem_chimborazo_df <- as.data.frame(dem_chimborazo, xy = TRUE)
+
+ggplot() +
+  geom_raster(data = dem_chim_df,
+              aes(x = x, y = y, fill = DEM_Chimborazo)) +
+  scale_fill_viridis_c() +
+  coord_quickmap()
+```
