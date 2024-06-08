@@ -1,0 +1,142 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+# 1. Introducción al software R para análisis espacial
+
+## La revolución de los datos espaciales
+
+Antes del cambio de siglo, había una aguda escasez de datos y herramientas para el análisis geográfico. Los primeros geógrafos utilizaron diversas herramientas, como barómetros, brújulas y sextantes, para avanzar en el conocimiento del mundo por ejemplo solo con la invención del cronómetro marino en 1761 fue posible calcular la longitud en el mar, lo que permitió a los barcos tomar rutas más directas.
+
+Hoy en día, los investigadores y profesionales no tienen esas limitaciones y en algunos casos se enfrentan al problema contrario: demasiados datos; demasiadas herramientas.
+
+La mayoría de los teléfonos disponen ya de un receptor de posicionamiento global (GPS). Sensores que van desde satélites y vehículos semiautónomos hasta científicos ciudadanos miden incesantemente cada rincón del mundo. El ritmo de producción de datos puede ser abrumador, con tecnologías emergentes como los vehículos autónomos que generan cientos o incluso miles de GB de datos al día. Esta revolución de los datos espaciales impulsa la demanda de hardware informático de alto rendimiento y software eficiente y escalable para manejar y extraer la señal del ruido. 
+
+## Software libre
+
+Entre las opciones disponibles para gestionar este aluvión de datos, el software libre se presenta como una alternativa particularmente atractiva. A diferencia del software de pago, que suele ser costoso y con una distribución limitada y protegida, el software libre ofrece a los usuarios un conjunto de libertades esenciales: ejecutar, copiar, distribuir, estudiar, modificar y mejorar el software.
+
+Las ventajas que ofrece esta filosofía de apertura y colaboración inherente al software libre son las siguientes:
+
+-   **Ritmo de desarrollo y longevidad:** Cientos de personas envían cada día informes de errores y sugieren nuevas funciones y mejoras de la documentación de los proyectos de código abierto, un ritmo de evolución que la mayoría de las soluciones propietarias simplemente no pueden seguir.
+-   **Interoperabilidad:** Mientras que los productos patentados tienden a ser monopolios difíciles de mantener, el software de código abierto es más parecido a una federación de herramientas modulares que pueden combinarse de diferentes maneras.
+-   **Reproductibilidad:** El software de código abierto elimina una importante barrera a la reproducibilidad al permitir que otros comprueben sus hallazgos o apliquen sus métodos en nuevos contextos utilizando las mismas herramientas. La combinación del uso de herramientas a las que cualquiera puede acceder gratuitamente con la posibilidad de compartir código y datos significa que los resultados de su trabajo pueden ser comprobados y desarrollados por otros.
+-   **Comunidad:** La comunidad le permite obtener soporte mucho más rápido y, a menudo, de mayor calidad que con un equipo de soporte centralizado y de presupuesto limitado asociado al software propietario. 
+
+## Progreso de software geoespacial
+
+En las últimas décadas, el software libre y de código abierto para el análisis geoespacial (FOSS4G) ha experimentado un avance vertiginoso. Gracias a organizaciones como [OSGeo](https://www.osgeo.org/), las técnicas geográficas avanzadas ya no son un privilegio exclusivo de aquellos con acceso a hardware y software costosos. Ahora, cualquier persona puede descargar y ejecutar software de alto rendimiento para geocomputación, democratizando el acceso al conocimiento y las herramientas para analizar y comprender nuestro mundo. 
+
+## Enfoque GUI vs CLI
+
+Los Sistemas de Información Geográfica (SIG) de código abierto, como [QGIS](https://www.qgis.org/es/site/), han democratizado el acceso al análisis geográfico a nivel mundial. Si bien estos productos de software ofrecen potentes funcionalidades, su énfasis en la interfaz gráfica de usuario (GUI) puede limitar la capacidad de los usuarios para documentar y compartir sus flujos de trabajo de manera precisa y replicable.
+
+Para superar esta limitación, es fundamental fomentar el uso de la CLI junto con la GUI en los SIG de código abierto. La CLI proporciona un entorno flexible y preciso para registrar y compartir los pasos de análisis, permitiendo a otros usuarios replicar los resultados y verificar su validez. 
+
+## Introduccion a R
+
+R es un lenguaje y entorno multiplataforma de código abierto para el análisis estadístico, la visualización de datos y el aprendizaje automático. Con una amplia gama de paquetes, R también soporta la estadística geoespacial avanzada y modelización.
+
+En esencia, R se presenta como un lenguaje de programación funcional orientado a objetos ideal para el desarrollo de herramientas geoespaciales. Su capacidad para interactuar con diversos softwares, incluyendo una amplia gama de geolibrerías y funciones SIG, lo convierte en una herramienta versátil y potente.
+
+Además, su naturaleza extensible facilita la integración con otros lenguajes mediante paquetes como Rcpp y reticulate, posibilitando el acceso a código C++ y Python, por ejemplo. 
+
+## Instalación de R y RStudio
+
+Para empezar a utilizar R, necesitaras adquirir tu propia copia. Esta sección te mostrará cómo [descargar R](https://cran.rstudio.com/), así como RStudio, una aplicación de software que facilita el uso de R. 
+
+### Descargar e instalar R 
+
+#### Windows
+
+Para instalar R en Windows, haga clic en el enlace [Descargar R para Windows](https://cran.rstudio.com/bin/windows/). A continuación, haga clic en el enlace [base](https://cran.rstudio.com/bin/windows/base/). A continuación, haga clic en el primer enlace de la parte superior de la nueva página. Este enlace debería decir algo parecido a [Descargar R 4.4.0 para Windows](https://cran.rstudio.com/bin/windows/base/R-4.4.0-win.exe). El enlace descarga un programa instalador, que instala la versión más actualizada de R para Windows. Ejecute este programa y siga los pasos del asistente de instalación que aparece. El asistente instalará R en sus carpetas de archivos de programa y colocará un acceso directo en su menú Inicio. Tenga en cuenta que necesitará tener todos los privilegios de administración apropiados para instalar nuevo software en su máquina.
+
+#### Mac
+
+Para instalar R en un Mac, haga clic en el enlace [Descargar R para Mac](https://cran.rstudio.com/bin/macosx/). A continuación, haga clic en el [enlace del paquete R-4.4.0](https://cran.rstudio.com/bin/macosx/big-sur-arm64/base/R-4.4.0-arm64.pkg) (o en el enlace del paquete de la versión más reciente de R). Se descargará un instalador que le guiará a través del proceso de instalación, que es muy sencillo. El instalador le permite personalizar su instalación, pero los valores predeterminados serán adecuados para la mayoría de los usuarios. 
+
+### Descargar e instalar RStudio
+
+Puedes [descargar RStudio](https://posit.co/download/rstudio-desktop/) de forma gratuita. Sólo tiene que hacer clic en el botón Descargar RStudio y seguir las sencillas instrucciones que aparecen a continuación. Una vez que haya instalado RStudio, puedes abrirlo como cualquier otro programa de su ordenador, normalmente haciendo clic en un icono del escritorio.
+
+## RStudio
+
+RStudio es un entorno de desarrollo integrado (IDE) para R y Python. Incluye una consola, un editor que resalta la sintaxis y admite la ejecución directa del código, así como herramientas de trazado, historial, depuración y gestión del espacio de trabajo. 
+
+### Interfaz de RStudio
+
+### Paquetes en R
+
+Muchas de las funciones más útiles de R no vienen precargadas al iniciar R, sino que residen en paquetes que pueden instalarse sobre R. Un paquete de R agrupa funciones útiles, archivos de ayuda y conjuntos de datos. Puedes utilizar estas funciones dentro de tu propio código R una vez que cargues el paquete en el que se encuentran.
+
+#### Instalar paquetes
+
+Para utilizar un paquete R, primero debes instalarlo en tu ordenador y luego cargarlo en tu sesión R actual. La forma más sencilla de instalar un paquete R es con la función `install.packages()`. Abre R y escribe lo siguiente en la línea de comandos:
+
+```{r}
+# install.packages("nombre del paquete")
+```
+
+Esto buscará el paquete especificado en la colección de paquetes alojados en el sitio CRAN. Cuando R encuentre el paquete, lo descargará en una carpeta de bibliotecas de tu ordenador.
+
+Puedes instalar varios paquetes a la vez enlazando sus nombres con la función de concatenación de `c`. Por ejemplo, para instalar los paquetes `sf`, `terra` y `tidyverse`, ejecuta:
+
+```{r}
+# install.packages(c("sf", "terra", "tidyverse"))
+```
+
+#### Cargar paquetes
+
+Instalar un paquete no pone inmediatamente sus funciones a tu alcance. Sólo las coloca en tu ordenador. Para utilizar un paquete de R, a continuación tienes que cargarlo en tu sesión de R con el comando:
+
+```{r}
+library(sf)
+```
+
+`library` pondrá a tu disposición todas las funciones, conjuntos de datos y archivos de ayuda del paquete hasta que cierre su sesión actual de R.
+
+## Buenas practicas en R
+
+-   Comentarios
+-   Buscar ayuda
+-   Mensajes
+-   Errores
+-   Cancelar comando
+-   Limpiar consola
+
+# 2. Herramientas básicas de R para la manipulación de datos espaciales
+
+Para este curso, emplearemos principalmente los siguientes paquetes: `sf`, `terra`, `tidyverse` y `ggplot2`.
+
+## `sf`
+
+[Simple features](https://en.wikipedia.org/wiki/Simple_Features)es un modelo de datos jerárquico desarrollado y aprobado por el Open Geospatial Consortium (OGC) que representa una amplia gama de tipos de geometría.
+
+El paquete [sf](https://r-spatial.github.io/sf/) puede representar todos los tipos comunes de geometría vectorial: puntos, líneas, polígonos y sus respectivas versiones multi (que agrupan características del mismo tipo en una única característica). `sf` también admite colecciones de geometría, que pueden contener múltiples tipos de geometría en un único objeto.
+
+\![\[Pasted image 20240604212339.png\]\]
+
+## `terra`
+
+El paquete [terra](https://rspatial.org/index.html) soporta objetos raster en R. Proporciona un amplio conjunto de funciones para crear, leer, exportar, manipular y procesar conjuntos de datos raster. \## `tidyverse`
+
+El paquete [tidyverse](https://www.tidyverse.org/) es una colección de paquetes orientados a la manipulación, importación, exploración y visualización de datos y que se utiliza exhaustivamente en ciencia de datos.
+
+El uso de este paquete permite facilitar el trabajo estadístico y la generación de trabajos reproducibles. Está compuesto de los siguientes paquetes:
+
+-   readr
+-   dplyr
+-   ggplot2
+-   tibble
+-   tidyr
+-   purr
+-   stringr
+-   forcats
+
+## `ggplot2`
+
+El paquete [ggplot2](https://ggplot2.tidyverse.org/) des un sistema para crear gráficos de forma declarativa, basado en [La Gramática de los Gráficos](https://link.springer.com/book/10.1007/0-387-28695-0)y forma parte del conjunto de librerías llamado [tidyverse](https://www.tidyverse.org/)
+
+La idea es simple: Tú proporciona los datos, le dices a ggplot2 cómo asignar variables a la estética, qué gráficos primitos vas a usar, y él se encarga de los detalles.
