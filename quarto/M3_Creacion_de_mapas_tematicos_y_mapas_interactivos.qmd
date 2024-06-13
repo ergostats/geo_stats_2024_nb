@@ -1,0 +1,141 @@
+---
+title: "M3 Creación de mapas temáticos y mapas interactivos"
+format: html
+editor: visual
+---
+
+```{r}
+#| echo: false
+
+library(leaflet)
+library(leafpop)
+```
+
+# Mapas interactivos
+
+El paquete `leaflet` permite crear mapas dinámicos e interactivos utilizando la librería Leaflet de JavaScript.
+
+## Mapa básico
+
+Para crear un mapa básico tendrás que: 1. Llamar a la función `leaftlet()` 2. Cargar capas con el operador *pipe* (`%>%`). 3. Añadir un mapa base. Por defecto usaremos `addTiles()` para agregar el mapa base de OpenStreetMaps. 4. Establecer el punto central y el nivel de zoom con `setView()`
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% 
+  setView(lng = -78.18, lat = -1.83, zoom = 6)
+```
+
+## Mapas base
+
+El estilo de mapa por defecto de `addTiles` se puede cambiar con `addProviderTiles`. Revisa [esta lista](https://leaflet-extras.github.io/leaflet-providers/preview/)para previsualizar distintos temas.
+
+```{r}
+leaflet() %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(lng = -78.18, lat = -1.83, zoom = 6)
+```
+
+## Añadir polígonos
+
+Es posible polígonos o geometrías espaciales a los mapas a partir de archivos shapefile o geojson. En este ejemplo usaremos: a) los límites provinciales del Ecuador continental y b) el número de beneficiarios de la modalidad de teletrabajo, dentro del sector público y privado; para crear un mapa que permita observar el número de beneficiarios de teletrabajo por provincia. [Cita](https://www.datosabiertos.gob.ec/dataset/teletrabajo)
+
+Para importar los polígonos tendrás que pasar los datos de entrada a la función `addPolygons`.
+
+```{r}
+contratosTeleProv <- st_read("data/shp/LIMITE_PROVINCIAL_CONALI_CNE_2022.shp")
+contratosTeleProv <- st_transform(contratosTeleProv, 4326)
+
+leaflet() %>% 
+  addTiles %>% 
+  addPolygons(data = contratosTeleProv)
+```
+
+## Colores
+
+Queremos que el color del mapa cambie según el número de beneficiarios de la modalidad de teletrabajo. Para lograr esto crearemos una paleta de colores usando la función `colorNumeric` y la paleta `YlGnBu` del paquete [`RColorBrewer`](https://www.datanovia.com/en/blog/the-a-z-of-rcolorbrewer-palette/).
+
+```{r}
+color_pal <- colorNumeric("YlGnBu", domain = contratosTeleProv$CONTRATOS)
+
+
+leaflet() %>% 
+  addTiles() %>% 
+  
+  addPolygons(
+    data = contratosTeleProv, 
+    
+    # Cambiamos el color de relleno de los poligonos
+    fillColor = ~color_pal(CONTRATOS),
+    fillOpacity = 0.8,
+    
+    # Cambiamos el color del borde de los poligonos
+    color = "black")
+```
+
+## Pop ups
+
+Los pop ups pueden aparecer cuando se hace click sobre un marcador, polígono, etc. haciendo uso del argumento `popup`. Estos popups se pueden utilizar para mostrar información relevante sobre un punto o región.
+
+En nuestro ejemplo usaremos la función `popupTable` de la librería `leafpop` para agregar la `Provincia` y `Contratos` al mapa.
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% 
+  
+  addPolygons(
+    data = contratosTeleProv, 
+    
+    # Cambiamos el color de relleno de los poligonos
+    fillColor = ~color_pal(CONTRATOS),
+    fillOpacity = 0.8,
+    
+    # Cambiamos el color del borde de los poligonos
+    color = "black", 
+    
+    # Agregamos los popups
+    popup = popupTable(x = contratosTeleProv,
+                       feature.id = FALSE,
+                       row.numbers = FALSE,
+                       zcol = c("PROVINCIA", "CONTRATOS")),
+    
+    # Cuando pases el mouse sobre un poligo se iluminará 
+    highlight = highlightOptions(
+      fillColor = "darkgreen", 
+      weight = 1))
+```
+
+## Leyenda
+
+Con `addLegend` puedes hacer que se muestre una leyenda a los mapas de Leaflet. Tendrás que importar los valores y la paleta de colores correspondiente además de la posición o el título.
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% 
+  
+  addPolygons(
+    data = contratosTeleProv, 
+    
+    # Cambiamos el color de relleno de los poligonos
+    fillColor = ~color_pal(CONTRATOS),
+    fillOpacity = 0.8,
+    
+    # Cambiamos el color del borde de los poligonos
+    color = "black",
+    
+    # Agregamos los popups
+    popup = popupTable(x = contratosTeleProv,
+                       feature.id = FALSE,
+                       row.numbers = FALSE,
+                       zcol = c("PROVINCIA", "CONTRATOS")),
+    
+    # Cuando pases el mouse sobre un poligo se iluminará 
+    highlight = highlightOptions(
+      fillColor = "darkgreen", 
+      weight = 1)) %>%
+      
+    addLegend(
+	    position = "bottomleft",
+	    pal = color_pal,
+	    values = contratosTeleProv$CONTRATOS,
+	    title = "Contratos de Teletrabajo por Provincia")
+```
