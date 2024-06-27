@@ -62,7 +62,7 @@ plot(d)
 
 *Figura 2* : Ejemplo de datos reales. Elevación en celdas de la cuadrícula de raster que cubren Luxemburgo.
 
-##  **Datos geoestadísticos**
+## **Datos geoestadísticos**
 
 Los datos geoestadísticos nos llevan a explorar un mundo donde la información fluye de manera continua a través del espacio. Es como si cada punto en el mapa tuviera su propia historia que contar, y nuestro desafío es tejer estas historias juntas para comprender la imagen completa. Por ejemplo, al observar la contaminación del aire, no nos limitamos a simples puntos de medición; más bien, nos sumergimos en la red interconectada de cómo la contaminación se propaga y afecta diferentes áreas.
 
@@ -161,7 +161,7 @@ ggplot(data = datos_ratio) +
 
 *Figura 5 Inversión en TICS en Ecuador 2018-2021*
 
-##  Datos de Movilidad
+## Datos de Movilidad
 
 Los datos de movilidad son como ríos invisibles que conectan diferentes lugares, mostrándonos cómo las personas y otras entidades se desplazan de un lugar a otro. Es como observar el flujo de personas en una ciudad, viendo cómo se mueven de un vecindario a otro, o seguir el movimiento de vehículos en una red de carreteras. Estos datos nos ayudan a comprender cómo interactúan los lugares y cómo se propagan fenómenos como enfermedades o información a través de estas redes invisibles.
 

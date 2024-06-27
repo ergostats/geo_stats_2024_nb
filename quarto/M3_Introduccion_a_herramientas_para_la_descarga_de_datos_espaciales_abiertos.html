@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>M3 Introducción a herramientas para la descarga de datos espaciales abiertos</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/clipboard/clipboard.min.js"></script>
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/quarto-html/quarto.js"></script>
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/quarto-html/popper.min.js"></script>
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/quarto-html/anchor.min.js"></script>
+<link href="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/leaflet-1.3.1/leaflet.js"></script>
+
+<link href="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/proj4-2.6.2/proj4.min.js"></script>
+
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+
+<link href="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+
+<script src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/libs/leaflet-binding-2.2.0/leaflet.js"></script>
+
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">M3 Introducción a herramientas para la descarga de datos espaciales abiertos</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Quiero hacer un análisis, pero ¿de dónde obtengo los datos?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+<section id="datos-vectoriales" class="level1">
+<h1>Datos vectoriales</h1>
+<section id="osmdata" class="level2">
+<h2 class="anchored" data-anchor-id="osmdata"><code>osmdata</code></h2>
+<p>El paquete <code>osmdata</code> permite descargar e importar información de OpenStreetMap en distintos formatos, como <a href="https://cran.r-project.org/web/packages/sf/index.html">Simple Features</a> (<code>sf</code>) o <a href="https://cran.r-project.org/web/packages/sp/index.html">Spatial</a> (<code>sp</code>).</p>
+<p>### Instalar el paquete</p>
+<p>Podemos instalar y cargar el paquete <code>osmdata</code> desde CRAN de la siguiente manera:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"osmdata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="extrayectos-datos-de-osm" class="level3">
+<h3 class="anchored" data-anchor-id="extrayectos-datos-de-osm">Extrayectos datos de OSM</h3>
+<p>Para realizar consultas específicas en los datos de OSM utilizando&nbsp;<code>osmdata</code> necesitamos:</p>
+<ol type="1">
+<li>Obtener las coordenadas de nuestra área de interés con la función <code>getbb()</code>.</li>
+<li>Realizar la consulta al servidor con la función&nbsp;<code>opq()</code>.</li>
+<li>Detallar las características que necesitamos del lugar con la función <code>add_osm_feature()</code>.</li>
+</ol>
+<p>Tras la llamada inicial <code>opq()</code>, las consultas <code>osmdata</code> se construyen añadiendo una o más “características”, que se especifican en términos de pares <code>key-value</code>. Por ejemplo, todos los hospitales se designan en OSM con <code>key = amenity</code>, de modo que una consulta de todas los hospitales en Guayaquil se puede construir de la siguiente manera:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>guayaquil_bb <span class="ot">&lt;-</span> <span class="fu">getbb</span>(<span class="st">"Guayaquil Ecuador"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>guayaquil_hospitales <span class="ot">&lt;-</span> guayaquil_bb <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opq</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"amenity"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">value =</span> <span class="st">"hospital"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osmdata_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para visualizar nuestro mapa usaremos <code>ggplot2</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> guayaquil_hospitales<span class="sc">$</span>osm_polygons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="M3_Introduccion_a_herramientas_para_la_descarga_de_datos_espaciales_abiertos_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Si bien esto nos permite visualizar los polígonos correspondientes a los hospitales en Guayaquil, no representa una imagen agradable a la vista. Es por esto que usaremos un mapa base interactivo que explicaremos a detalle en otra sección:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addPolygons</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> guayaquil_hospitales<span class="sc">$</span>osm_polygons) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-7e2b37c11b857cabfb08" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-7e2b37c11b857cabfb08">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addPolygons","args":[[[[{"lng":[-79.8879092,-79.88737329999999,-79.8872291,-79.887765,-79.8879092],"lat":[-2.2140517,-2.2141899,-2.2136318,-2.2134936,-2.2140517]}]],[[{"lng":[-79.88481489999999,-79.88476919999999,-79.88349770000001,-79.88350029999999,-79.8831247,-79.8831342,-79.88310269999999,-79.8830995,-79.882835,-79.8828563,-79.88308499999999,-79.8830755,-79.8831813,-79.88319509999999,-79.8838614,-79.88387470000001,-79.88400420000001,-79.8840407,-79.8841469,-79.88414419999999,-79.88481489999999],"lat":[-2.1769362,-2.1777184,-2.1776461,-2.1775902,-2.1775725,-2.177371,-2.1773695,-2.1774418,-2.1774302,-2.1769446,-2.1769546,-2.1771734,-2.177178,-2.1768593,-2.176888,-2.1768415,-2.1768016,-2.176805,-2.1768514,-2.1768971,-2.1769362]}]],[[{"lng":[-79.88009220000001,-79.8799496,-79.87979919999999,-79.8796365,-79.8795356,-79.87945999999999,-79.8793694,-79.87927019999999,-79.8791937,-79.8791739,-79.8789941,-79.878821,-79.87878790000001,-79.8788053,-79.8788366,-79.8789433,-79.8791119,-79.88095319999999,-79.8812489,-79.88166390000001,-79.8817262,-79.8812229,-79.880616,-79.88009220000001],"lat":[-2.1763894,-2.1761763,-2.1758978,-2.1754238,-2.175146,-2.1750814,-2.1750323,-2.1750304,-2.1750602,-2.1750876,-2.1761276,-2.177089,-2.1777393,-2.1779144,-2.1780851,-2.1783107,-2.1787716,-2.1785053,-2.1784742,-2.1784742,-2.1782252,-2.1777946,-2.1771617,-2.1763894]}]],[[{"lng":[-79.93015339999999,-79.9292894,-79.9295683,-79.93048090000001,-79.9313449,-79.93015339999999],"lat":[-2.2134281,-2.2126464,-2.2123343,-2.2113135,-2.2120952,-2.2134281]}]],[[{"lng":[-79.8988387,-79.8989313,-79.89903459999999,-79.8991726,-79.89967660000001,-79.8989198,-79.8986895,-79.89861980000001,-79.8983837,-79.8983247,-79.898196,-79.8977855,-79.8974549,-79.898319,-79.8982646,-79.8981852,-79.89817360000001,-79.89843759999999,-79.8985438,-79.898713,-79.8988387],"lat":[-2.2340457,-2.234182,-2.2344279,-2.2344225,-2.230746,-2.2308247,-2.2313196,-2.2313678,-2.2313678,-2.2312231,-2.2308961,-2.2309559,-2.2330931,-2.2331283,-2.2331809,-2.2340835,-2.2344037,-2.2341127,-2.2340352,-2.2340048,-2.2340457]}]],[[{"lng":[-79.8651328,-79.8649107,-79.86489090000001,-79.8641095,-79.8643187,-79.8651328],"lat":[-2.1382016,-2.138622,-2.1386121,-2.1382213,-2.1378205,-2.1382016]}]],[[{"lng":[-79.9005155,-79.90044260000001,-79.90011990000001,-79.9001928,-79.9005155],"lat":[-2.139388,-2.1394873,-2.1392505,-2.1391513,-2.139388]}]],[[{"lng":[-79.9037478,-79.9040597,-79.9035817,-79.9032698,-79.9037478],"lat":[-2.1355127,-2.1350687,-2.1347333,-2.1351774,-2.1355127]}]],[[{"lng":[-79.9457455,-79.9455791,-79.9454271,-79.9455899,-79.9457455],"lat":[-2.09576,-2.0959046,-2.0957455,-2.0955937,-2.09576]}]],[[{"lng":[-79.9456974,-79.945578,-79.945607,-79.9455274,-79.9455129,-79.9455346,-79.9456287,-79.945701,-79.94568289999999,-79.94583489999999,-79.94586750000001,-79.9456974],"lat":[-2.0965186,-2.0964355,-2.0963849,-2.0963342,-2.0962728,-2.0962041,-2.0961751,-2.0962438,-2.096045,-2.0960233,-2.0962872,-2.0965186]}]],[[{"lng":[-79.9465673,-79.9465951,-79.94661360000001,-79.9467661,-79.94712680000001,-79.9467582,-79.9463987,-79.9465419,-79.94651589999999,-79.9464945,-79.9465673],"lat":[-2.0964287,-2.0963986,-2.0963738,-2.0965023,-2.0960748,-2.0957643,-2.0961905,-2.0963112,-2.0963411,-2.0963673,-2.0964287]}]],[[{"lng":[-79.9454066,-79.94542970000001,-79.945578,-79.9455511,-79.9454066],"lat":[-2.0953429,-2.0955749,-2.0955605,-2.0953284,-2.0953429]}]],[[{"lng":[-79.9455511,-79.9455274,-79.9453863,-79.9454066,-79.9455511],"lat":[-2.0953284,-2.095123,-2.0951374,-2.0953429,-2.0953284]}]],[[{"lng":[-79.8899998,-79.8886802,-79.888766,-79.8902002,-79.8899998],"lat":[-2.1969962,-2.1973071,-2.1979826,-2.1976336,-2.1969962]}]],[[{"lng":[-79.89315209999999,-79.8926123,-79.8930019,-79.8935417,-79.89315209999999],"lat":[-2.202553,-2.2027134,-2.2040224,-2.203862,-2.202553]}]],[[{"lng":[-79.89166059999999,-79.8916342,-79.8911396,-79.89116610000001,-79.89166059999999],"lat":[-2.1570834,-2.1575643,-2.1575371,-2.1570562,-2.1570834]}]],[[{"lng":[-79.8816185,-79.87975539999999,-79.87975520000001,-79.87976279999999,-79.88157870000001,-79.8816185],"lat":[-2.1737686,-2.1736725,-2.1743128,-2.1743816,-2.1744942,-2.1737686]}]],[[{"lng":[-79.8949357,-79.89500769999999,-79.8946299,-79.89456250000001,-79.8949357],"lat":[-2.2460856,-2.2455135,-2.2454745,-2.2460603,-2.2460856]}]],[[{"lng":[-79.92653559999999,-79.9261738,-79.9263773,-79.9267241,-79.92653559999999],"lat":[-2.2078634,-2.2079764,-2.2087674,-2.208692,-2.2078634]}]],[[{"lng":[-79.8805424,-79.8807784,-79.8803119,-79.88010540000001,-79.8805424],"lat":[-2.1850788,-2.1855907,-2.1857758,-2.1852558,-2.1850788]}]],[[{"lng":[-79.93591410000001,-79.935868,-79.9359577,-79.93600379999999,-79.93591410000001],"lat":[-2.0695917,-2.0693189,-2.0693038,-2.0695765,-2.0695917]}]],[[{"lng":[-79.8805249,-79.88004220000001,-79.87982359999999,-79.8803707,-79.8805249],"lat":[-2.1862883,-2.1865028,-2.18609,-2.1858843,-2.1862883]}]],[[{"lng":[-79.8797649,-79.87920320000001,-79.8794527,-79.88001439999999,-79.8797649],"lat":[-2.1885342,-2.1888322,-2.1893018,-2.1890038,-2.1885342]}]],[[{"lng":[-79.8897594,-79.88971859999999,-79.8899184,-79.8899593,-79.8897594],"lat":[-2.2253627,-2.2249882,-2.2249665,-2.2253409,-2.2253627]}]],[[{"lng":[-79.8896348,-79.88960539999999,-79.8894346,-79.889464,-79.8896348],"lat":[-2.2258622,-2.2256842,-2.2257123,-2.2258904,-2.2258622]}]],[[{"lng":[-79.8854738,-79.8856011,-79.885559,-79.88446450000001,-79.8843236,-79.8854738],"lat":[-2.2082014,-2.2086911,-2.208758,-2.2090421,-2.2085,-2.2082014]}]],[[{"lng":[-79.8925598,-79.8923909,-79.89241800000001,-79.8925806,-79.8925721,-79.89266430000001,-79.8926719,-79.8928207,-79.89279329999999,-79.89263630000001,-79.8926445,-79.89256690000001,-79.8925598],"lat":[-2.1753142,-2.1753271,-2.1756813,-2.1756689,-2.175558,-2.175551,-2.1756501,-2.1756387,-2.1752802,-2.1752922,-2.1754003,-2.1754062,-2.1753142]}]],[[{"lng":[-79.89318350000001,-79.8932248,-79.8921203,-79.8920789,-79.89318350000001],"lat":[-2.1750885,-2.1757092,-2.1757827,-2.1751621,-2.1750885]}]],[[{"lng":[-79.9161053,-79.9160057,-79.91597659999999,-79.91607620000001,-79.9161053],"lat":[-2.2387676,-2.2387502,-2.2389164,-2.2389338,-2.2387676]}]],[[{"lng":[-79.88124790000001,-79.88150280000001,-79.88151740000001,-79.8815283,-79.8813463,-79.88128810000001,-79.88124790000001],"lat":[-2.1841328,-2.1840283,-2.1840647,-2.1842834,-2.1843534,-2.184232,-2.1841328]}]],[[{"lng":[-79.89691809999999,-79.8972778,-79.8967459,-79.8963863,-79.89691809999999],"lat":[-2.2093524,-2.2105771,-2.2107331,-2.2095083,-2.2093524]}]],[[{"lng":[-79.8991426,-79.899069,-79.8986871,-79.8987554,-79.8991426],"lat":[-2.2347017,-2.2351579,-2.2350833,-2.2346325,-2.2347017]}]],[[{"lng":[-79.8909,-79.89163910000001,-79.8912309,-79.8900314,-79.8898291,-79.8909],"lat":[-2.1824621,-2.1818907,-2.1814101,-2.1808959,-2.1810119,-2.1824621]}]],[[{"lng":[-79.88601989999999,-79.8858828,-79.8858135,-79.8858135,-79.88571949999999,-79.8856455,-79.8855038,-79.8855054,-79.88545910000001,-79.88546839999999,-79.8853867,-79.885205,-79.8853775,-79.885436,-79.8857873,-79.8858489,-79.88601989999999],"lat":[-2.1779116,-2.1783796,-2.1783612,-2.1783319,-2.1783073,-2.1783027,-2.178318,-2.1783458,-2.1783673,-2.1783981,-2.1784104,-2.1779101,-2.1778701,-2.178061,-2.1780086,-2.1778701,-2.1779116]}]],[[{"lng":[-79.9466072,-79.9463715,-79.9460115,-79.946243,-79.9466072],"lat":[-2.0969013,-2.0967172,-2.0971797,-2.0973574,-2.0969013]}]],[[{"lng":[-79.940359,-79.9383768,-79.93988160000001,-79.9396455,-79.9401122,-79.9407667,-79.9421668,-79.9416052,-79.940359],"lat":[-2.1739852,-2.1755827,-2.1772203,-2.1774133,-2.1779467,-2.1773678,-2.1761697,-2.1754455,-2.1739852]}]],[[{"lng":[-79.9385195,-79.938044,-79.9381116,-79.93830869999999,-79.93835679999999,-79.9386524,-79.9385195],"lat":[-2.2106771,-2.2108553,-2.2111041,-2.2110389,-2.2111997,-2.2111073,-2.2106771]}]],[[{"lng":[-79.8981733,-79.898149,-79.89930940000001,-79.8993399,-79.8981733],"lat":[-2.2307653,-2.2305216,-2.2304095,-2.2306248,-2.2307653]}]],[[{"lng":[-79.8959691,-79.89590579999999,-79.8946431,-79.894548,-79.8944932,-79.8945446,-79.8945674,-79.8945817,-79.89459979999999,-79.8950632,-79.89607100000001,-79.89605880000001,-79.8960501,-79.8960278,-79.8959691],"lat":[-2.2750722,-2.2751083,-2.275829,-2.2758826,-2.275898,-2.2776299,-2.2782231,-2.2785955,-2.2800836,-2.2800767,-2.2800582,-2.2791627,-2.2785286,-2.2775743,-2.2750722]}]],[[{"lng":[-79.8857311,-79.8857373,-79.8857866,-79.8859283,-79.8861809,-79.886261,-79.88626720000001,-79.8863843,-79.8863905,-79.8865878,-79.8865876,-79.88637199999999,-79.8861686,-79.88583989999999,-79.8858297,-79.8856756,-79.8849578,-79.8849932,-79.8854607,-79.88556509999999,-79.8857311],"lat":[-2.1771182,-2.1771921,-2.1772722,-2.1772907,-2.1773276,-2.1773522,-2.1774631,-2.1775,-2.1774508,-2.1774497,-2.1777525,-2.1777402,-2.1777586,-2.1777832,-2.1777155,-2.1777278,-2.1776693,-2.1772645,-2.1772406,-2.1771117,-2.1771182]}]],[[{"lng":[-79.8815006,-79.88141880000001,-79.88099099999999,-79.88076700000001,-79.88076700000001,-79.8802675,-79.88019250000001,-79.88014029999999,-79.88015900000001,-79.8805211,-79.8806177,-79.88058820000001,-79.88038969999999,-79.8804726,-79.8805248,-79.8805486,-79.88057569999999,-79.8806177,-79.8806752,-79.8807813,-79.8809717,-79.8809194,-79.8810185,-79.8813507,-79.88141229999999,-79.8814694,-79.8815838,-79.8816363,-79.88167660000001,-79.8817913,-79.88185780000001,-79.88190109999999,-79.88195090000001,-79.8819891,-79.882008,-79.8820173,-79.88202579999999,-79.882087,-79.88220370000001,-79.8822002,-79.8822409,-79.88221900000001,-79.8821913,-79.8821537,-79.8821007,-79.8820042,-79.8816528,-79.8815006],"lat":[-2.1838513,-2.183523,-2.1834989,-2.1834747,-2.1832938,-2.1834835,-2.183508,-2.1832829,-2.183248,-2.1828647,-2.182712,-2.1825565,-2.1824949,-2.1813091,-2.181348,-2.1813575,-2.1813636,-2.181363,-2.1813433,-2.1814603,-2.1813758,-2.18127,-2.1812582,-2.1812776,-2.1812804,-2.1812749,-2.1812401,-2.1812339,-2.1812361,-2.1812558,-2.1812912,-2.1813236,-2.1813779,-2.1814357,-2.1814707,-2.1815024,-2.1815688,-2.1816971,-2.181881,-2.1819937,-2.182404,-2.1831274,-2.1834144,-2.1835203,-2.183582,-2.1836235,-2.183789,-2.1838513]}]],[[{"lng":[-79.8987711,-79.8994599,-79.8998252,-79.8998811,-79.8996922,-79.89974100000001,-79.8989323,-79.898892,-79.89866929999999,-79.89864900000001,-79.8987711],"lat":[-2.1725933,-2.1724339,-2.1723516,-2.1725994,-2.172642,-2.1728984,-2.1730659,-2.1730987,-2.173152,-2.1731254,-2.1725933]}]],[[{"lng":[-79.91586789999999,-79.91584779999999,-79.9158437,-79.9158759,-79.9158867,-79.91586789999999],"lat":[-2.0783525,-2.0783458,-2.0783873,-2.0783927,-2.0783605,-2.0783525]}]],[[{"lng":[-79.88372529999999,-79.8837362,-79.8836484,-79.883348,-79.8831448,-79.88287390000001,-79.8826358,-79.8824649,-79.8823797,-79.8823294,-79.8823653,-79.8830863,-79.88341029999999,-79.8834569,-79.8836271,-79.88372529999999],"lat":[-2.1837607,-2.1838191,-2.1838399,-2.1838333,-2.1838125,-2.1837173,-2.1836342,-2.1835652,-2.1834794,-2.1833756,-2.1828792,-2.1829104,-2.1828888,-2.1831112,-2.1831827,-2.1837607]}]],[[{"lng":[-79.8822945,-79.88220370000001,-79.882087,-79.88202579999999,-79.8820173,-79.882008,-79.8819891,-79.88195090000001,-79.88190109999999,-79.88185780000001,-79.8817913,-79.88167660000001,-79.8816363,-79.8815838,-79.8814694,-79.88141229999999,-79.8813507,-79.8810185,-79.88098290000001,-79.8808696,-79.8808295,-79.8807979,-79.8806752,-79.8806177,-79.88057569999999,-79.8805486,-79.8805248,-79.8804726,-79.8804478,-79.8804324,-79.8804324,-79.8804418,-79.88045390000001,-79.88045839999999,-79.8804559,-79.8804224,-79.8804056,-79.8812324,-79.88126990000001,-79.8817152,-79.881793,-79.88186810000001,-79.8821095,-79.8824099,-79.8822838,-79.8822784,-79.8826191,-79.8828122,-79.8822945],"lat":[-2.1818331,-2.181881,-2.1816971,-2.1815688,-2.1815024,-2.1814707,-2.1814357,-2.1813779,-2.1813236,-2.1812912,-2.1812558,-2.1812361,-2.1812339,-2.1812401,-2.1812749,-2.1812804,-2.1812776,-2.1812582,-2.1811771,-2.1812186,-2.1812428,-2.1812662,-2.1813433,-2.181363,-2.1813636,-2.1813575,-2.181348,-2.1813091,-2.1812642,-2.1812079,-2.1811593,-2.1811024,-2.1810679,-2.1810386,-2.1810056,-2.1807824,-2.180442,-2.1802892,-2.1804983,-2.1804367,-2.1808816,-2.1809138,-2.1805358,-2.1807342,-2.1810022,-2.1811335,-2.1810344,-2.181624,-2.1818331]}]],[[{"lng":[-79.8891632,-79.8890344,-79.8891004,-79.8892257,-79.8891957,-79.8891632],"lat":[-2.2074758,-2.2075003,-2.2078617,-2.2078353,-2.2076469,-2.2074758]}]],[[{"lng":[-79.9051651,-79.9048056,-79.90490819999999,-79.9052026,-79.9051651],"lat":[-2.0944044,-2.0943173,-2.0939306,-2.0942583,-2.0944044]}]],[[{"lng":[-79.8895136,-79.8896033,-79.8893274,-79.8892377,-79.8895136],"lat":[-2.1289448,-2.1288298,-2.128615,-2.1287301,-2.1289448]}]],[[{"lng":[-79.9188463,-79.9187163,-79.9185944,-79.91857950000001,-79.9185097,-79.9187817,-79.9189476,-79.9189492,-79.91898639999999,-79.91885790000001,-79.9188463],"lat":[-2.221926,-2.2220278,-2.221878,-2.2218899,-2.2218029,-2.2215848,-2.2217913,-2.2217899,-2.2218362,-2.2219393,-2.221926]}]],[[{"lng":[-79.8904527,-79.8903936,-79.8901669,-79.890197,-79.890226,-79.8904527],"lat":[-2.2118474,-2.2116213,-2.2116805,-2.2117961,-2.2119066,-2.2118474]}]],[[{"lng":[-79.88511920000001,-79.8850849,-79.8850297,-79.885091,-79.8852078,-79.8851684,-79.88511920000001],"lat":[-2.2614217,-2.2614292,-2.2614486,-2.2615757,-2.261513,-2.2614208,-2.2614217]}]],[[{"lng":[-79.91974329999999,-79.9195192,-79.9193561,-79.9193582,-79.9197453,-79.91974329999999],"lat":[-2.2403151,-2.2403188,-2.2403216,-2.2404422,-2.2404356,-2.2403151]}]],[[{"lng":[-79.906189,-79.9064063,-79.9063573,-79.9063405,-79.9060147,-79.9059697,-79.90593490000001,-79.9058189,-79.9057055,-79.9056861,-79.9053863,-79.90542720000001,-79.9058618,-79.906189],"lat":[-2.2493421,-2.2498231,-2.2498453,-2.2498265,-2.2500027,-2.2500154,-2.2500161,-2.2499632,-2.2499149,-2.2498794,-2.249732,-2.2496885,-2.2494881,-2.2493421]}]],[[{"lng":[-79.9395122,-79.9397144,-79.9396751,-79.93950460000001,-79.9394729,-79.9395078,-79.9395122],"lat":[-2.1002819,-2.100341,-2.1004753,-2.1004255,-2.1004162,-2.100297,-2.1002819]}]],[[{"lng":[-79.8964957,-79.8964869,-79.89633240000001,-79.89634119999999,-79.89648219999999,-79.8964957],"lat":[-2.1692796,-2.1694361,-2.1694275,-2.169271,-2.1692789,-2.1692796]}]],[[{"lng":[-79.8903432,-79.8903538,-79.8903036,-79.89029290000001,-79.8903432],"lat":[-2.211714,-2.2117556,-2.2117684,-2.2117268,-2.211714]}]],[[{"lng":[-79.895655,-79.895667,-79.89567839999999,-79.8953954,-79.89537199999999,-79.895655],"lat":[-2.1983886,-2.1984333,-2.1984757,-2.1985515,-2.1984644,-2.1983886]}]],[[{"lng":[-79.8904026,-79.89046039999999,-79.8903454,-79.8902877,-79.89030820000001,-79.8904026],"lat":[-2.2143154,-2.2145134,-2.2145469,-2.2143488,-2.2143428,-2.2143154]}]],[[{"lng":[-79.92754720000001,-79.9277933,-79.92735450000001,-79.9270473,-79.92681589999999,-79.92754720000001],"lat":[-2.1030742,-2.1042163,-2.1043102,-2.104376,-2.1032781,-2.1030742]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-2.2800836,-2.0693038],"lng":[-79.9473393,-79.8641095]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
