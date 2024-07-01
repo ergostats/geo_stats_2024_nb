@@ -1,0 +1,213 @@
+---
+title: " Módulo I: Estadística y econometría espacial"
+subtitle: "Instalación y preparación de las herramientas de trabajo"  
+author:
+- name: Bajaña Alex
+- name: Sarango Pablo
+affiliation: 
+- Centro de Investigación Estadística ERGOSTATS
+- Centro de Investigación Estadística ERGOSTATS
+output: html
+css: estilo_html.css
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{=html}
+<style> body {text-align: justify} </style>
+```
+
+Bienvenidos **Módulo 1** del programa **"Avances en la ciencia abierta:
+Estadística y Econometría Espacial con herramientas open source"**.
+Durante 5 semanas vamos a revisar el maravilloso mundo del ambiente de
+programación R y su uso en la estadísticas y econometría espcial.
+
+Antes de empezar queremos explicar por que uso la palabra *ambiente* y
+no solo lenguaje de programación. Alrededor del globo cada vez más
+usuarios se suman al uso y aporte de nuevos elementos a este lenguaje de
+programación, dándole la propiedad de ser un elemento vivo que se nutre
+de múltiples esfuerzos individuales.
+
+Para este curso haremos uso de RStudio, una potente herramienta
+desarrollado por *Posit P. B. C* para el trabajo con R o python de forma
+amigable y que cumple con los principios del código abierto: estar al
+servicio de la gente en cualquier rincón del mundo sin importar sus
+recursos o características, en este sentido, este es un ambiente
+inclusivo y de gran potencia para la generación de una sociedad que se
+nutre de los datos y su valioso contenido.
+
+Tras este breve preámbulo, es necesario decir que no existe solo una
+manera para aprender R. Existen medios remotos como lo son *RStudio
+Cloud*, que requiere únicamente de una conexión de internet y otros
+locales como los que se van a utilizar en este curso. Aquí se describirá
+una breve guía de los recursos necesarios para la realización del curso.
+
+> Para este curso se requiere de requisitos mínimos:
+>
+> -   Computador con 8GB de memoria RAM como mínimo
+>
+> -   Version 4.3.3 de R
+>
+> -   Versión de RStudio superior a la 2022
+>
+>     En caso de no cumplir con estos recursos o en caso de necesitar
+>     asistencia cominicate con nuestro equipo para guiarte en el
+>     trabajo con Posit Cloud
+
+Este documento te servirá en caso de que no tengas instalada alguna de
+estas herramientas, si ya cumples estos requisitos, te recomendamos
+saltar a la sección **Recomendaciones para trabajar con RStudio**
+
+# Instalación de R-Base
+
+Iniciamos con la instalación de **R base**, esta instalación basta para
+nuestros propósitos, sin embargo hoy en día tenemos a disposición el
+maravilloso IDE (integrated develpment environment) de RStudio que nos
+ayuda a que la curva de aprendizaje sea más ligera para los estudiantes.
+
+Para instalar R- Base es necesario saber si nuestro computador es de 32
+o 64 bits. Una vez resulta esta duda, procederemos a hacer clic en el
+siguiente enlace:
+
+[Descarga](https://cran.r-project.org/bin/windows/base/)
+
+Este nos dará la descarga de un archivo `.exe`. Una vez descargado,
+empezamos la instalación:
+
+-   Primero, debemos elegir el lenguaje de preferencia
+-   Segundo, aceptamos los terminos y condiciones
+-   Tercero, elegimos la ruta en la que se guardará el programa
+-   Después, elegimos qué componentes deben ser instalados (se
+    recomienda dejar todas las opciones activas)
+-   Luego, elegimos aceptar todas estas configuraciones
+-   A continuación, elegimos el tipo de display (se recomienda la
+    establecida por default)
+-   Enseguida, elegimos ayuda HTML para los textos auxiliares
+-   Posteriormente, elegimos una ruta para las librerías. Si se desea
+    una carpeta en el menú de inicio, se recomienda dejar las opciones
+    por default
+-   Finalmente, algunas alternativas adicionales como son la creación de
+    una acceso rápido y la posibilidad de guardar un registro de varias
+    versiones de R (en esta ultima se recomienda mantener un historial
+    por motivos de reproducibilidad)
+
+Con eso concluye el proceso de instalación esperamos unos minutos y
+tendremos listo nuestro programa.\
+\
+![](images/clipboard-4126734131.png)
+
+> Si tienes un computador Mac, los pasos son los mismos, solo debes
+> buscar el instalador apropiado en el CRAN
+
+# Instalación de RStudio
+
+Como se mencionó, el IDE de RStudio es una herramienta potentísima que
+ayuda al usuario en el aprendizaje y eficiencia a la hora de trabajar
+gracias a la centralización de recursos que se describirán a lo largo
+del curso. Para su instalación vamos al siguiente enlace:
+
+[Instalador de
+RStudio](https://download1.rstudio.org/electron/windows/RStudio-2024.04.2-764.exe)
+
+Seguimos la configuración por default para la ruta de instalación, salvo
+que se desee instalar en un directorio especifico, lo cual no se
+recomienda debido a que el programa intentará instalar dependencias a
+partir de la ruta que elijamos. Con ello procedemos a la instalación.
+
+![](images/clipboard-826531903.png)
+
+# Recomendaciones para trabajar con Rstudio
+
+### Uso de proyectos
+
+Rstudio te permite convertir un directorio o carpeta de tu computador en
+un *proyecto*, esto será de gran ayuda para trabajar con archivos de
+manera centralziada, ordenada y eficiente. Cuando estableces un proyecto
+en Rstudio tienes la ventaja que tu carpeta se convertira en la "raiz"
+del proyecto, con ello será más facil construir rutas a tus archivos y
+scripts, ademas de que podrás trasladar tu trabajo a otro computador de
+manera más sencilla.
+
+### Remoción de restricciones para la instalación
+
+Para poder instalar librerias de R sin problemas vamos a ir a la opción
+**Tools \> Global Options \> Packages** y retiramos el cajon marcado
+"Use securre download methos HTTP":\
+\
+![](images/clipboard-1252382608.png)
+
+### Resaltar llamadas de funciones y paréntesis de colores
+
+Para poder hacer del desarrollo de nuestros *scripts* de de R una tarea
+sencilla y ordenada vamos a aprovechar dos características que ofrece
+Rstudio:
+
+-   Resaltar la llamada de funciones nos permitirá distinguir en el
+    código las funciones de las variables y otras expresiones, lo cual
+    hará más legible tu código y facilitará su interpretación cuando
+    trabajes con tus colegas.
+
+-   Los paréntesis de colores son especialmente útiles cuando anidamos
+    funciones (usamos llamadas de función dentro de otra, y así
+    sucesivamente).
+
+Para activarlos nos vamos a la opción **Tools > Global Options > Code> Display** y señalamos los recuadros de la sección **Syntax.**
+
+![](images/clipboard-3622391305.png)
+
+### Documentos Quarto
+
+Para el curso que vamos a desarrollar juntos. Quarto es una
+herramienta excelente que permite combinar código, análisis y narrativa
+en un solo documento, muy similar a lo que hacemos en Word.
+
+### ¿Cómo empezar con Quarto en RStudio?
+
+1.  **Instalación y Configuración Inicial**:
+
+-   Primero, asegúrate de tener RStudio y Quarto instalados. Puedes
+instalar Quarto desde
+[aquí](https://quarto.org/docs/get-started/).
+
+2.  **Crear un Nuevo Documento Quarto**:
+
+-   En RStudio, ve a `File` \> `New File` \> `Quarto Document`. Esto
+te creará una plantilla básica con la que puedes empezar a
+trabajar.
+-  Si es la primera vez que abres un documento Quarto, RStudio te dará la opción de instalar la librería Quarto, caso contrario puedes seguir las instrucciones del paso 1. 
+
+3.  **Combinar Código y Narrativa**:
+
+-   La magia de Quarto es que puedes escribir texto y agregar
+bloques de código en R, Python, o Julia.
+-   Puedes escribir tu narrativa alrededor de bloques de
+código, explicando tus análisis y resultados.
+
+4.  **Modos de Edición: Visual y Source**:
+
+-   RStudio ofrece dos modos de edición para Quarto: **Visual** y
+**Source**.
+-   **Visual** es más amigable y se siente como trabajar en Word.
+Aquí puedes ver cómo se verá tu documento final mientras lo
+editas.
+-   **Source** es ideal si prefieres trabajar directamente con el
+código y el markdown.
+
+-   Para cambiar entre estos modos, puedes usar los botones `Visual`
+y `Source` en la esquina superior derecha del panel de edición.
+
+![](images/clipboard-3583524357.png)
+
+
+# Recomendaciones finales
+
+Este curso busca fortalecer las habilidades de programación y estadística de los estudiantes que ya conocen la estadística y econometría espaciales. Así mismo, para aquellos estudiantes que ya posean un nivel superior de programación encontrarán en este material consejos y técnicas para incrementar su repertorio de habilidades. El componente más importante de este curso es tu participación y crítica constructiva, este curso es tuyo y haremos lo mejor juntos para llegar a un material de calidad y que te sea útil después en las aplicaciones de tu interés.
+
+Con esto concluyen nuestros primeros pasos para el curso. Por 5 semanas
+estos serán nuestros aliados en el aprendizaje y en un futuro en el
+trabajo.
+
+::: {style="text-align: center"}
+**¡ Gracias por inscribirse y nuevamente bienvenidos !**
+:::
