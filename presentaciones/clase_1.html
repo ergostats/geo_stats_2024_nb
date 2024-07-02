@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estadística y Econometría Espacial con R, Módulo I</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2024-07-01" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="tema_ergos.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide center middle
+background-image: url(img/portada_nb.png)
+background-size: 105%
+
+## Estadística y Econometría Espacial con R, Módulo I
+### Clase 1: Introducción al analísis espacial con R
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+## La revolución de los datos espaciales
+
+En el **siglo pasado:**
+
+.pull-left[
+
+- Existía una aguda escasez de datos y herramientas para el análisis geográfico.
+- Los primeros geógrafos utilizaron diversas herramientas, como barómetros, brújulas y sextantes, para avanzar en el conocimiento del mundo
+
+]
+
+.pull-right[
+&lt;img src="img/ejemplos_geografos.jpg" width="1067" /&gt;
+]
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+## La revolución de los datos espaciales
+
+**Por ejemplo: **
+
+.pull-left[
+- Solo con la invención del cronómetro marino en 1761 fue posible calcular la longitud en el mar, lo que permitió a los barcos tomar rutas más directas.
+]
+
+.pull-right[
+&lt;img src="img/ejemplos_reloj_marino.jpg" width="80%" /&gt;
+
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+## La revolución de los datos espaciales
+
+En la **actualidad:**
+
+.pull-left[
+### Existe el problema contrario: demasiados datos; demasiadas herramientas]
+
+.pull-right[
+- La mayoría de los teléfonos disponen ya de un receptor de posicionamiento global (GPS). 
+
+- Datos de sensores satelitales.
+
+- Científicos ciudadanos miden incesantemente cada rincón del mundo.
+]
+
+.center[
+
+&lt;img src="img/ejemplo_gps.png" width="55%" /&gt;
+
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+## La revolución de los datos espaciales
+
+.center[
+
+#### Esta revolución de los datos espaciales impulsa la demanda de hardware informático de alto rendimiento y software eficiente y escalable para manejar y extraer la señal del ruido.
+
+]
+
+&lt;img src="img/ejemplo_software.jpg" width="1067" /&gt;
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+# Software Libre 
+
+El software libre se presenta como una alternativa particularmente atractiva porque ofrece a los usuarios un conjunto de libertades esenciales: ejecutar, copiar, distribuir, estudiar, modificar y mejorar el software.
+
+Y las ventajas que esto ofrece son: 
+
+- Ritmo de desarrollo y longevidad
+- Interoperabilidad
+- Reproductibilidad
+- Comunidad
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+# Software Libre 
+
+## Ritmo de desarrollo y longevidad
+
+Cientos de personas envían cada día informes de errores y sugieren nuevas funciones y mejoras de la documentación de los proyectos de código abierto.
+
+## Interoperabilidad
+
+Mientras que los productos patentados tienden a ser monopolios difíciles de mantener, el software de código abierto es más parecido a una federación de herramientas modulares que pueden combinarse de diferentes maneras.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Software Libre 
+
+
+## Reproducibilidad
+
+El software de código abierto elimina una importante barrera a la reproducibilidad al permitir que otros comprueben sus hallazgos o apliquen sus métodos en nuevos contextos utilizando las mismas herramientas.
+
+
+## Comunidad
+
+La comunidad le permite obtener soporte mucho más rápido y, a menudo, de mayor calidad que con un equipo de soporte centralizado.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Progreso de software geoespacial
+
+- En las últimas décadas gracias a organizaciones como [OSGeo](https://www.osgeo.org/), las técnicas geográficas avanzadas ya no son un privilegio exclusivo de aquellos con acceso a hardware y software costosos. 
+- Ahora, cualquier persona puede descargar y ejecutar software de alto rendimiento para geocomputación.
+
+
+&lt;img src="img/ejemplo_osgeo.png" width="1600" /&gt;
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class:  middle
+
+# Enfoque GUI vs CLI
+
+- Uno de estos productos es [QGIS](https://www.qgis.org/es/site/), que es un Sistema de Información Geográfica de software libre y de código abierto que permite crear, editar, visualizar, analizar y publicar información geoespacial.
+- Si bien estos productos de software ofrecen potentes funcionalidades, su énfasis en la interfaz gráfica de usuario (GUI) puede limitar la capacidad de los usuarios para documentar y compartir sus flujos de trabajo de manera precisa y replicable.
+- Por lo que un enfoque de línea de comandos (CLI), proporciona un entorno flexible para registrar y compartir los pasos de análisis, permitiendo a otros usuarios replicar los resultados y verificar su validez.
+
+.center[
+&lt;img src="img/ejemplo_qgis.png" width="50%" /&gt;
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class:  middle
+
+# Introducción a R 
+
+- R es un lenguaje y entorno multiplataforma de código abierto para el análisis estadístico, la visualización de datos y el aprendizaje automático.
+- Con una amplia gama de paquetes, R también soporta la estadística geoespacial avanzada y modelización.
+- Además, su naturaleza extensible facilita la integración con otros lenguajes mediante paquetes como `Rcpp` y `reticulate`, posibilitando el acceso a código C++ y Python.
+
+.center[
+&lt;img src="img/ejemplo_r_logo.png" width="45%" /&gt;
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Instalación de R
+
+.pull-left[
+## Windows 
+
+Para instalar R en Windows: 
+1. Haga clic en el enlace [Descargar R para Windows](https://cran.rstudio.com/bin/windows/).
+
+1. A continuación, haga clic en el enlace [base](https://cran.rstudio.com/bin/windows/base/). 
+
+1. Finalmente, haga clic en el primer enlace de la parte superior de la nueva página. Este enlace debería decir algo parecido a [Descargar R 4.4.0 para Windows](https://cran.rstudio.com/bin/windows/base/R-4.4.0-win.exe).]
+
+.pull-right[
+
+## Mac
+Para instalar R en un Mac:
+
+1. Haga clic en el enlace [Descargar R para Mac](https://cran.rstudio.com/bin/macosx/).
+
+1. A continuación, haga clic en el enlace del [paquete R-4.4.0](https://cran.rstudio.com/bin/macosx/big-sur-arm64/base/R-4.4.0-arm64.pkg) (o en el enlace del paquete de la versión más reciente de R).]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Instalación de RStudio
+
+- En este curso accederemos a R a través de la interfaz que ofrece RStudio. 
+- RStudio es un IDE (Integrated Development Environment, o Entorno de Desarrollo Integrado) de código abierto para R, que permite interactuar con R de manera muy simple.
+
+Para descargar Rstudio, bastará con acudir a su web http://www.rstudio.com y elegir la opción **Download Rstudio** 
+
+.center[
+&lt;img src="img/instalacion_RStudio.PNG" width="90%" /&gt;
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Interfaz de RStudio
+
+.center[
+&lt;img src="img/ejemplo_interfaz.png" width="2621" /&gt;
+]
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Interfaz de RStudio 
+## Editor 
+
+.pull-left[
+&lt;img src="img/ejemplo_interfaz_editor.png" width="1608" /&gt;
+]
+
+.pull-right[
+Se encuentra en la parte superior izquierda. Aquí es donde se crean y modifican scripts. 
+]
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Interfaz de RStudio 
+## Entorno de variables (environment)
+
+.pull-left[
+&lt;img src="img/ejemplo_interfaz_entorno.png" width="1013" /&gt;
+]
+
+.pull-right[
+Se encuentra en la parte superior derecha. Aquí se muestran los objetos disponibles que hemos creado. 
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Interfaz de RStudio 
+## Consola
+
+.pull-left[
+&lt;img src="img/ejemplo_interfaz_consola.png" width="1609" /&gt;
+]
+
+.pull-right[
+Se encuentra en la parte inferior izquierda, y es donde se encontrarán la salidas de la ejecución código y cálculos. También es posible escribir código directamente en la consola.
+]
+
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Interfaz de RStudio 
+## Utilidades
+
+.pull-left[
+&lt;img src="img/ejemplo_interfaz_utilidades.png" width="1019" /&gt;
+]
+
+.pull-right[
+Se encuentra en la parte inferior derecha. Aquí encontramos: 
+
+- El panel *Files* que muestra todos los archivos y carpetas del directorio raíz. 
+- El panel *Plots* que muestra los gráficos creados con R. 
+- El panel *Packages* que muestra los paquetes intalados y opciones de intalación de paquetes.
+- El panel *Help* que muestra la información de una consulta que hagamos. 
+- El panel *Viewer* donde se puede observar gráficos dinámicos hechos en R.  
+]
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Instalar y cargar paquetes 
+
+Son colecciones de funciones,
+documentación tablas de datos, y en ocasiones utilidades como Addins para Rstudio, que permiten llegar a un objetivo establecido.
+
+.pull-left[
+- **Instalar un paquete**
+
+
+``` r
+install.packages("sf")
+```
+
+- **Instalar varios paquetes**
+
+
+``` r
+install.packages(c("sf", "terra"))
+```
+]
+
+.pull-right[
+- **Instalar la versión en desarrollo de un paquete**
+
+
+``` r
+install.packages("devtools")
+devtools::install_github("https://github.com/tidyverse/dplyr")
+```
+
+- **Cargar la librería**
+
+
+``` r
+library(sf)
+```
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+class: middle, center
+
+# Buscar ayuda 
+
+.pull-left[
+### Dentro de RStudio
+- Abrir una ventana de ayuda
+
+
+``` r
+help.start()
+```
+
+- Buscar información acerca de un tema específico
+
+
+``` r
+help.search("linear regression")
+```
+
+- Buscar ayuda sobre una función 
+
+``` r
+?...
+```
+
+]
+
+.pull-right[
+### Web 
+
+- [Stackoverflow](https://stackoverflow.com/)
+- [Rpubs](https://rpubs.com/)
+- Inteligencias Artificiales 
+
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Comentarios 
+
+Cuando escribimos código recordemos que alguien más lo va a leer.
+
+- Para comentar una línea se pone el símbolo numeral `#` antes de lo que se quiera comentar.
+- Para comentar un párrafo o una sección completa primero se debe seleccionar el contenido a comentar y a continuación presionar las teclas: `ctrl + shift + C`
+
+
+``` r
+# Esto es un comentario 
+library(terra)
+```
+
+- Añadir una nueva sección: `ctrl + shift + R`
+
+
+``` r
+# Este es el título de mi sección --------------------------
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Mensajes
+
+Cuando un mensaje aparece, R está indicando el correcto funcionamiento de esa función o sentencia. 
+
+- Ejemplo: al cargar la librería tydiverse el mensaje indica todos los conflictos y detalles que implica usar esta librería en el environment.
+
+&lt;img src="img/ejemplo_mensajes.PNG" width="1292" /&gt;
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+# Errores 
+
+En presencia de errores, R tratará de ser lo más informativo en cuanto al error y su posible ubicación en nuestro código. 
+
+**Un error, no devuelve resultados a menos que se escriba una excepción.**
+
+&lt;img src="img/ejemplo_error.PNG" width="883" /&gt;
+
+# Advertencias 
+
+R devolverá un resultado pero te dirá qué consideraciones debes tomar acerca de tus resultados.
+
+&lt;img src="img/ejemplo_advertencias.PNG" width="524" /&gt;
+
+---
+class: inverse, center, middle
+
+# !Muchas gracias por tu atención!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"tokenTransform": {
+"functionCall": "class=\"function-call\""
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
