@@ -64,7 +64,9 @@ Los datos espaciales, también conocidos como **datos geoespaciales**, hacen ref
 
 .pull-right[
 
-![](https://predikdata.com/es/wp-content/uploads/sites/2/2023/03/capas_sig.jpg)
+
+![Capas de datos geográficos](https://predikdata.com/es/wp-content/uploads/sites/2/2023/03/capas_sig.jpg)
+
 ]
 
 ---
@@ -94,20 +96,26 @@ Los datos espaciales pueden adoptar diversas formas como:
 ]
 
 ---
+
+class: inverse, center, middle
+
+## Casos de estudio 
+
+Los datos espaciales son fundamentales en diversas áreas de la ciencia de datos debido a su *capacidad* para proporcionar información georreferenciada que puede revelar *patrones, tendencias y relaciones* que no son evidentes con datos no espaciales.
+
+---
 background-image: url(img/slide_nb.png)
 background-position: top left
 background-size: 140%
 padding-top: 150px
 class: center middle
 
-## Casos de estudio 
-Los datos espaciales son fundamentales en diversas áreas de la ciencia de datos debido a su **capacidad** para proporcionar información georreferenciada que puede revelar **patrones, tendencias y relaciones** que no son evidentes con datos no espaciales.
 
 .pull-left[
 
 ### Optimización de la cadena de suministros
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,fig.height=250}
 knitr::include_graphics("img/ejemplo_cadena_suministros.jpg")
 ```
 
@@ -174,7 +182,7 @@ background-image: url(img/slide_nb.png)
 background-position: top left
 background-size: 140%
 padding-top: 150px
-class: center middle
+class:  middle
 
 # Vectores 
 
@@ -267,7 +275,7 @@ background-image: url(img/slide_nb.png)
 background-position: top left
 background-size: 140%
 padding-top: 150px
-class: center middle
+class:  middle
 
 
 ## `tidyverse`
@@ -474,6 +482,23 @@ resumen <- read_sav("data/2020_ENESEM_BDD_TIC.sav") %>%
     q75 = quantile(total_empleados, probs = 0.75, na.rm = TRUE),
     empresas = n()
   )
+
+
+
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+## La *pipe* o escribir código como una oración
+
+
+```{r, echo=FALSE, message = FALSE}
+
 
 resumen
 
