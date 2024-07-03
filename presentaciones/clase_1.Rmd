@@ -82,13 +82,11 @@ class: center middle
 En la **actualidad:**
 
 .pull-left[
-### Existe el problema contrario: demasiados datos; demasiadas herramientas]
+#### Existe el problema contrario: demasiados datos; demasiadas herramientas]
 
 .pull-right[
 - La mayoría de los teléfonos disponen ya de un receptor de posicionamiento global (GPS). 
-
 - Datos de sensores satelitales.
-
 - Científicos ciudadanos miden incesantemente cada rincón del mundo.
 ]
 
