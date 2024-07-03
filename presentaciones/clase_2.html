@@ -1,29 +1,22 @@
----
-title: "Estadística y Econometría Espacial con R, Módulo I"
-subtitle: "Clase 2: Herramientas básicas de R para la manipulación de datos espaciales"  
-date: '`r Sys.Date()`'
-output:
-  xaringan::moon_reader:
-    seal: false
-    lib_dir: libs
-    css: tema_ergos.css
-    nature:
-      highlightStyle: solarized-light
-      highlightLines: true
-      countIncrementalSlides: false
-      tokenTransform:
-        'functionCall': 'class="function-call"'
-params: 
-    background_img: "img/portada_nb.png"
-    highlightStyle: solarized-light
----
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estadística y Econometría Espacial con R, Módulo I</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2024-07-03" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="tema_ergos.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
 
 class: title-slide center middle
-background-image: url(`r params$background_img`)
+background-image: url(img/portada_nb.png)
 background-size: 105%
 
-## `r rmarkdown::metadata$title`
-#### `r rmarkdown::metadata$subtitle`
+## Estadística y Econometría Espacial con R, Módulo I
+#### Clase 2: Herramientas básicas de R para la manipulación de datos espaciales
 
 ---
 background-image: url(img/slide_nb.png)
@@ -33,11 +26,7 @@ padding-top: 150px
 class: center middle
 ## Sesgos y datos
 
-```{r out.height=250,out.width=400,fig.align='center', echo=FALSE}
-
-knitr::include_graphics("img/bias-bias.jpg")
-
-```
+&lt;img src="img/bias-bias.jpg" width="400" height="250" style="display: block; margin: auto;" /&gt;
 
 - Empleamos la modelación matemática para minimizar los *sesgos concientes o inconcientes*
 - Sin embargo la interpretación de los datos y los resultados recaen en el ser humano
@@ -107,18 +96,14 @@ Los datos espaciales son fundamentales en diversas áreas de la ciencia de datos
 
 ### Optimización de la cadena de suministros
 
-```{r, echo=FALSE}
-knitr::include_graphics("img/ejemplo_cadena_suministros.jpg")
-```
+&lt;img src="img/ejemplo_cadena_suministros.jpg" width="1105" /&gt;
 
 ]
 
 .pull-right[
 ### Modelización de catástrofes
 
-```{r, echo=FALSE}
-knitr::include_graphics("img/ejemplo_catastrofes.jpg")
-```
+&lt;img src="img/ejemplo_catastrofes.jpg" width="1467" /&gt;
 
 ]
 
@@ -133,18 +118,14 @@ class: center middle
 
 ### Análisis del mercado inmobiliario
 
-```{r, echo=FALSE}
-knitr::include_graphics("img/ejemplo_mercado_inmobiliario.jpg")
-```
+&lt;img src="img/ejemplo_mercado_inmobiliario.jpg" width="1467" /&gt;
 
 ]
 
 .pull-right[
 ###  Análisis sanitario
 
-```{r, echo=FALSE}
-knitr::include_graphics("img/ejemplo_salud.jpg")
-```
+&lt;img src="img/ejemplo_salud.jpg" width="1467" /&gt;
 
 ]
 
@@ -164,9 +145,7 @@ Los dos modelos de datos más utilizados para almacenar datos geoespaciales son 
 ]
 
 .right-column[
-```{r, echo=FALSE, out.width="50%"}
-knitr::include_graphics("img/ejemplo_raster_vector.jpg")
-```
+&lt;img src="img/ejemplo_raster_vector.jpg" width="50%" /&gt;
 ]
 
 ---
@@ -185,9 +164,7 @@ class: center middle
 ]
 
 .pull-right[
-```{r, echo=FALSE}
-knitr::include_graphics("img/ejemplo_geometria_vectores.png")
-```
+&lt;img src="img/ejemplo_geometria_vectores.png" width="1011" /&gt;
 ]
 
 
@@ -206,9 +183,7 @@ class: middle
 - En el mundo espacial, cada píxel representa un área de la superficie terrestre. Por ejemplo, en el ráster que se muestra a continuación, cada píxel representa una clase concreta de cubierta terrestre que se encontraría en ese lugar del mundo real.
 
 .center[
-```{r, echo=FALSE, out.width="50%"}
-knitr::include_graphics("img/ejemplo_uso_suelo.PNG")
-```
+&lt;img src="img/ejemplo_uso_suelo.PNG" width="50%" /&gt;
 
 ]
 
@@ -234,9 +209,7 @@ Para este curso, emplearemos principalmente los siguientes paquetes: `sf`, `terr
 
 
 .pull-right[
-```{r, echo=FALSE, out.width="50%"}
-knitr::include_graphics("img/ejemplo_Sf_logo.png")
-```
+&lt;img src="img/ejemplo_Sf_logo.png" width="50%" /&gt;
 
 ]
 
@@ -257,9 +230,7 @@ El paquete terra soporta objetos raster en R. Proporciona un amplio conjunto de 
 ]
 
 .pull-right[
-```{r, echo=FALSE, out.width="50%"}
-knitr::include_graphics("img/ejemplo_terra.png")
-```
+&lt;img src="img/ejemplo_terra.png" width="50%" /&gt;
 ]
 
 ---
@@ -274,9 +245,7 @@ class: center middle
 
 .pull-left[
 
-```{r, echo=FALSE}
-knitr::include_graphics("img/ejemplo_tidyverse.png")
-```
+&lt;img src="img/ejemplo_tidyverse.png" width="984" /&gt;
 
 ]
 
@@ -313,25 +282,25 @@ class: middle
 Pensemos en el juego del floron:
 
 .center[
-> El *florón* **está** en mis manos <br>
-de mis manos ya **paso** <br>
-las *monjitas carmelitas* <br>
-se **fueron** a Popayan <br>
-a **buscar** lo que han perdido <br>
+&gt; El *florón* **está** en mis manos &lt;br&gt;
+de mis manos ya **paso** &lt;br&gt;
+las *monjitas carmelitas* &lt;br&gt;
+se **fueron** a Popayan &lt;br&gt;
+a **buscar** lo que han perdido &lt;br&gt;
 debajo del arrayan
 
 ]
 
 Vamos a identificar dos sujetos (en cursiva): *el floron*, y *las monjitas*. Escribamos este canción como si se tratara de código de R. Primero para el florón:
 
-```{r, eval=FALSE}
+
+``` r
 ## Objeto:
-floron <- floroncito()
+floron &lt;- floroncito()
 
-floron <- está(qué = floron, en = mis_manos)
+floron &lt;- está(qué = floron, en = mis_manos)
 
-floron <- pasó(qué = floron, de_donde = mis_manos, cuando = ya)
-
+floron &lt;- pasó(qué = floron, de_donde = mis_manos, cuando = ya)
 ```
 
 ---
@@ -345,27 +314,27 @@ class: middle
 
 Ahora para las monjitas carmelitas:
 
-```{r, eval = FALSE}
+
+``` r
 ## Objeto:
-monjitas <- carmelitas()
+monjitas &lt;- carmelitas()
 
-monitas <- fueron(quienes = monjitas, donde = Popayan)
+monitas &lt;- fueron(quienes = monjitas, donde = Popayan)
 
-monitas <- buscar(quienes = monjitas, qué = lo_se_a_perdido, donde = debajo_arrayan)
-
+monitas &lt;- buscar(quienes = monjitas, qué = lo_se_a_perdido, donde = debajo_arrayan)
 ```
 
 Tanto para el florón como para las monjitas hemos descrito **verbos** y **sujetos**. Lo que en R se traduce como **funciones** y **objetos/argumentos**.
 
 Podemos reescribir el caso de las monjitas:
 
-```{r, eval = FALSE}
+
+``` r
 buscar(
   quienes = fueron(quienes = monjitas, 
                   donde = Popayan), # Despues de irse, buscan
   qué = lo_se_a_perdido, donde = debajo_arrayan
 )
-
 ```
 
 ---
@@ -377,24 +346,24 @@ class: middle
 
 ## La *pipe* o escribir código como una oración
 
-En el primer caso, se entiende que es una **secuencia de pasos** que alteran el estado del **sujeto/objeto**. En el segundo caso se complica la lectura, pero el resultado es igual, R va a evaluar las funciones **de adentro hacia afuera**. Sin embargo podemos hacer más legible el código con una **pipe** o `%>%`:
+En el primer caso, se entiende que es una **secuencia de pasos** que alteran el estado del **sujeto/objeto**. En el segundo caso se complica la lectura, pero el resultado es igual, R va a evaluar las funciones **de adentro hacia afuera**. Sin embargo podemos hacer más legible el código con una **pipe** o `%&gt;%`:
 
 **Floroncito:**
 
-```{r, eval=FALSE}
-floron <- floroncito() %>% 
-  está(en = mis_manos) %>% 
-  pasó(de_donde = mis_manos, cuando = ya)
 
+``` r
+floron &lt;- floroncito() %&gt;% 
+  está(en = mis_manos) %&gt;% 
+  pasó(de_donde = mis_manos, cuando = ya)
 ```
 
 **Monjitas:**
 
-```{r, eval=FALSE}
-monjitas <- carmelitas() %>% 
-  fueron(donde = Popayan) %>% 
-  buscar(qué = lo_se_a_perdido, donde = debajo_arrayan)
 
+``` r
+monjitas &lt;- carmelitas() %&gt;% 
+  fueron(donde = Popayan) %&gt;% 
+  buscar(qué = lo_se_a_perdido, donde = debajo_arrayan)
 ```
 
 ---
@@ -443,7 +412,7 @@ Primero descompongamos el ejercicio en pasos:
 3. **Agrupar** los *dato/tablas* por tamaño
 4. **Calcular** con los *datos/tabla* los momentos de la distribución
 
-> Primero filtramos para que las operaciones se realicen con menos observaciones
+&gt; Primero filtramos para que las operaciones se realicen con menos observaciones
 
 Fijemonos que se cumplen las condiciones para usar la pipe 😎
 
@@ -458,14 +427,15 @@ class: middle
 ## La *pipe* o escribir código como una oración
 
 
-```{r, echo=TRUE, message = FALSE}
+
+``` r
 library(haven) 
 library(tidyverse) 
 
-resumen <- read_sav("data/2020_ENESEM_BDD_TIC.sav") %>% 
-  filter(des_tamano == "Mediana Empresa A") %>% 
-  mutate(total_empleados = tic2_5_pers_ocup_h + tic2_5_pers_ocup_m) %>% 
-  group_by(des_sector) %>% 
+resumen &lt;- read_sav("data/2020_ENESEM_BDD_TIC.sav") %&gt;% 
+  filter(des_tamano == "Mediana Empresa A") %&gt;% 
+  mutate(total_empleados = tic2_5_pers_ocup_h + tic2_5_pers_ocup_m) %&gt;% 
+  group_by(des_sector) %&gt;% 
   summarise(
     media = mean(total_empleados, na.rm = TRUE),
     desviacion = sd(total_empleados, na.rm = TRUE),
@@ -476,8 +446,17 @@ resumen <- read_sav("data/2020_ENESEM_BDD_TIC.sav") %>%
   )
 
 resumen
+```
 
-
+```
+## # A tibble: 5 × 7
+##   des_sector   media desviacion mediana   q25   q75 empresas
+##   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
+## 1 Comercio      18.0       28.8    10    5.25  19.5       54
+## 2 Construcción  26.4       25.0    16    8     40         35
+## 3 Manufactura   42.1       28.0    42   18.2   60         24
+## 4 Minería       44.0       28.4    32.5 24.8   69.8       24
+## 5 Servicios     48.2       60.3    35   13.5   62.5      215
 ```
 
 ---
@@ -494,22 +473,21 @@ En el ejemplo anterior empleamos la función `mutate` para crear la variable `to
 $$
 \bar{x} \pm z_{\alpha/2}\frac{\sigma}{\sqrt{n}}
 $$
-Con $\alpha = 0.05$ y $z\sim N(0,1)$:
+Con `\(\alpha = 0.05\)` y `\(z\sim N(0,1)\)`:
 
-```{r}
 
-intervalo <- resumen %>% 
+``` r
+intervalo &lt;- resumen %&gt;% 
   
   # Creamos nuevas variables a partir del resultado anterior
   
   mutate(error_estandar = (qnorm(0.975)*desviacion)/sqrt(empresas),
          inferior = media - error_estandar,
-         superior = media + error_estandar) %>% 
+         superior = media + error_estandar) %&gt;% 
   
   # Elegimos las variables de interes
   
   select(des_sector,inferior,media,superior)
-
 ```
 
 ---
@@ -523,8 +501,9 @@ class: middle
 
 Vamos a ver estos valores de forma gráfica:
 
-```{r}
-plot <- intervalo %>% 
+
+``` r
+plot &lt;- intervalo %&gt;% 
   # La pipe nos permitira llamar a las variables de tabla dentro
   # de las capas de ggplot:
   ggplot() +
@@ -537,9 +516,6 @@ plot <- intervalo %>%
   geom_point(mapping = aes(x = des_sector,
                            y = media),
              color = "orange")
-
-  
-
 ```
 
 
@@ -554,13 +530,7 @@ class: middle
 ## Gráfico de los intervalos de confianza
 
 
-```{r, echo=FALSE,fig.height=5,out.width=500,fig.align='center'}
-plot +
-  labs(y = "Número de empleados",
-       x = "Actividad económica",
-       title = "Intervalo de confianza para la media",
-       subtitle = "Empresas medianas tipo A")
-```
+&lt;img src="clase_2_files/figure-html/unnamed-chunk-20-1.png" width="500" style="display: block; margin: auto;" /&gt;
 
 Podemos decir estadisticamente la las actividades de manufactura minería y servicios contratan más empleados con respecto a las actividades de comercio. No podemos decir lo mismo entre el comercio y la construcción.
 
@@ -586,20 +556,20 @@ class: middle
 
 Ya sea para **filtrar** o para crear variables **lógicas** tenemos algunos operadores:
 
-```{r, echo = FALSE}
-knitr::kable(
-tibble::tibble(
-      Operador = c("<", "<=", ">", ">=", "==", "!=", "!x", "x | y", "x || y", 
-                   "x & y",
-                   "is.na(x)"),
-   Descripción = c("Menor a", "Menor o igual a", "Mayor a",
-                   "Mayor o igual a", "Igual",
-                   "No igual", "No x", "x ó y (elemento a elemento)", 
-                   "x ó y (de vectores)",
-                   "'x' y 'y'", "¿Son vacios o missing?")
-),
-)
-```
+
+|Operador         |Descripción                 |
+|:----------------|:---------------------------|
+|&lt;                |Menor a                     |
+|&lt;=               |Menor o igual a             |
+|&gt;                |Mayor a                     |
+|&gt;=               |Mayor o igual a             |
+|==               |Igual                       |
+|!=               |No igual                    |
+|!x               |No x                        |
+|x &amp;#124; y       |x ó y (elemento a elemento) |
+|x &amp;#124;&amp;#124; y |x ó y (de vectores)         |
+|x &amp; y            |'x' y 'y'                   |
+|is.na(x)         |¿Son vacios o missing?      |
 
 ---
 background-image: url(img/slide_nb.png)
@@ -612,34 +582,7 @@ class: middle
 
 Recordemos de la distribución de la variable **logaritmo de inversión en TICS**:
 
-```{r echo=FALSE,fig.height=5,fig.align='center', warning=FALSE,message=FALSE}
-
-tabla <- read_sav("data/2020_ENESEM_BDD_TIC.sav") 
-
-tabla <- tabla %>% 
-  mutate(log_tic = log(tic1_2))
-
-media <- mean(tabla$log_tic,na.rm = T)
-
-tabla %>% 
-  ggplot() +
-  geom_histogram(aes(x = log(tic1_2)),
-                 fill = "orange",
-                 alpha = 0.6) +
-  geom_vline(xintercept = media,
-             color = "orange") +
-   geom_text(aes(x = media -1 ,
-                y = 100,
-                label = round(media,3)),
-             color = "orange") +
-  theme_minimal() +
-  labs(x = "log(Valor invertido en TIC)",
-       y = "Empresas",
-       title = "Inversión en tecnlogías de la informción",
-       subtitle = "Todas las empresas, datos no ponderados")
-  
-
-```
+&lt;img src="clase_2_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 background-image: url(img/slide_nb.png)
@@ -652,40 +595,7 @@ class: middle
 
 La media truncada al 5% (2.5% en cada cola):
 
-```{r echo=FALSE,fig.height=5,fig.align='center', warning=FALSE,message=FALSE}
-
-tabla <- read_sav("data/2020_ENESEM_BDD_TIC.sav") 
-
-tabla <- tabla %>% 
-  mutate(log_tic = log(tic1_2),
-         q025 = quantile(log_tic,probs = 0.025,na.rm = T),
-         q975 = quantile(log_tic,probs = 0.975,na.rm = T),
-         dummy = between(log_tic,q025,q975),
-         dummy = factor(dummy)) 
-
-media <- mean(tabla$log_tic,na.rm = T)
-
-tabla %>% 
-  ggplot() +
-  geom_histogram(aes(x = log_tic,
-                     alpha = dummy),
-                 fill = "orange", show.legend = FALSE) +
-  geom_vline(xintercept = media,
-             color = "orange") +
-  geom_text(aes(x = media -0.7 ,
-                y = 100,
-                label = round(media,3)),
-             color = "orange") +
-  scale_alpha_manual(values = c(0.2,0.6))  +
-  
-  theme_minimal() +
-  labs(x = "log(Valor invertido en TIC)",
-       y = "Empresas",
-       title = "Inversión en tecnologías de la informción",
-       subtitle = "Todas las empresas, datos no ponderados")
-  
-
-```
+&lt;img src="clase_2_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 background-image: url(img/slide_nb.png)
@@ -697,44 +607,148 @@ padding-top: 150px
 
 La transformación **winsorize** al 95%:
 
-```{r echo=FALSE,fig.height=5,fig.align='center', warning=FALSE,message=FALSE}
-
-tabla <- read_sav("data/2020_ENESEM_BDD_TIC.sav") 
-
-tabla <- tabla %>% 
-  mutate(log_tic = log(tic1_2),
-         q025 = quantile(log_tic,probs = 0.025,na.rm = T),
-         q975 = quantile(log_tic,probs = 0.975,na.rm = T),
-         log_tic= case_when(
-           log_tic <= q025 ~ q025,
-           log_tic >= q975 ~ q975,
-           TRUE ~ log_tic
-         ))  
-
-media <- mean(tabla$log_tic,na.rm = T)
-
-tabla %>% 
-  ggplot() +
-  geom_histogram(aes(x = log_tic),
-                 fill = "orange",
-                 alpha = 0.6) +
-  geom_vline(xintercept = media,
-             color = "orange") +
-  geom_text(aes(x = media -0.7 ,
-                y = 100,
-                label = round(media,3)),
-             color = "orange") +
-  
-  theme_minimal() +
-  labs(x = "log(Valor invertido en TIC)",
-       y = "Empresas",
-       title = "Inversión en tecnologías de la informción",
-       subtitle = "Todas las empresas, datos no ponderados")
-  
-
-```
+&lt;img src="clase_2_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse center middle
 
 # Gracias por la atención
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"tokenTransform": {
+"functionCall": "class=\"function-call\""
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
