@@ -1,0 +1,227 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 3: Tipos de Datos Vectoriales"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+#### `r rmarkdown::metadata$subtitle`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## Shapefile 
+
+Los datos geoespaciales en formato vectorial suelen almacenarse en formato `shapefile`.
+
+.pull-left[
+**Obligatorios**
+- `.shp` datos geométricos.
+- `.shx` índice posicional de los datos geométricos.
+- `.dbf` almacena atributos de cada *shape*.
+
+**Opcionales**
+- `.prj` texto plano que describre la *proyección*.
+- `.sbn` y `.sbx` índices espaciales.
+]
+
+.pull-right[
+![](https://pestrisk.org/wp-content/uploads/2021/03/shp-icon.jpeg)
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Atributos de los datos vectoriales
+
+.pull-left[
+- Son todos los **datos descriptivos** asociados a **entidades geográficas**.
+- Los atributos de un shapefile son similares a los campos o columnas de una hoja de cálculo. 
+]
+
+.pull-right[
+![](https://raw.githubusercontent.com/NEONScience/NEON-Data-Skills/dev-aten/graphics/vector-general/Attribute_Table.png)
+]
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Metadatos de los datos vectoriales
+
+Son datos acerca de los datos.
+
+Los metadatos clave para todos los shapefiles incluyen:
+- **Tipo de objeto**: la clase del objeto importado.
+- **Sistema de referencia de coordenadas (CRS)**: la proyección de los datos.
+- **Extensión**: el área geográfica que cubre el archivo shape.
+
+![](https://datacarpentry.org/organization-geospatial/fig/dc-spatial-raster/spatial_extent.png)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## GeoTIFF
+
+- Los datos ráster suelen presentarse en formato `GeoTIFF`.
+- Es una imagen con **referencia espacial** relacionada con el mundo real.
+- Su extensión es `.tif`.
+
+.center[
+![](https://gsp.humboldt.edu/OLM_2019/Lessons/GIS/04%20CreatingSpatialData/Images/rasterdatamodel.png)
+]
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Metadatos de los datos raster 
+
+Los metadatos clave para los raster incluyen:
+
+- **Sistema de referencia de coordenadas (CRS)**: la proyección de los datos.
+- **Extensión**: el área geográfica que cubre el raster.
+- **Dimensión**: el tamaño del archivo en pixeles. 
+- **Resolución**: el tamaño de cada pixel. 
+
+![](https://raw.githubusercontent.com/NEONScience/NEON-Data-Skills/main/graphics/raster-general/raster_resolution.png)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Sistema de referencia de coordenadas (CRS)
+
+- El CRS de los datos espaciales especifica el **origen** y la **unidad de medida** de las coordenadas espaciales. 
+- Las localizaciones en la Tierra pueden referenciarse utilizando CRS no proyectadas (también llamadas geográficas) o proyectadas. 
+
+.center[
+![](https://www.earthdatascience.org/images/earth-analytics/spatial-data/spatial-projection-transformations-crs.png)
+]
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## CRS  geográfico
+
+- Un **CRS  geográfico** utiliza *latitud* y *longitud* para representar ubicaciones en la superficie elipsoidal tridimensional de la Tierra. 
+- **Latitud**: mide ángulos al norte o al sur del ecuador `0°` oscilando entre `-90° S` hasta `90° N`.
+- **Longitud**: mide los ángulos al oeste o al este del primer meridiano oscilan entre `-180° W` hasta los `180° E`.
+
+.center[
+![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTSfchtZVdYytGavEo5t2P2Ky0VSi8glhfzu8Fy7H4_Wu2uLq4ii95rWsyHP09d3QGaL60ev6cTkcVFE1V3xkUv0DanspVsdHCdTgGXIjZCZLPlPd1YwfqU0FYaSfBx_IrPC3MndHHYlZI/s1600/latitudylongitud.gif)
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## CRS proyectado
+
+- Un **CRS proyectado** utiliza *coordenadas cartesianas* para referenciar una ubicación en una representación bidimensional de la Tierra.
+- Todas las **proyecciones** producen alguna **distorsión** de la superficie terrestre y no pueden conservar simultáneamente todas las propiedades de **área, dirección, forma y distancia**.
+
+![](https://i0.wp.com/ensedeciencia.com/wp-content/uploads/2023/09/Copia-de-C-EdCiencia-P-2023-09-29T152154.082.jpg?resize=800%2C451&ssl=1)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Los mapas que han visto están mal 
+
+[Ejemplo revelador](https://www.thetruesize.com/)
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Proyección UTM 
+
+- Es una **proyección cilíndrica** se proyecta el globo terráqueo sobre una superficie cilíndrica.
+- Es una **proyección transversa** el eje del cilindro es coincidente con el eje ecuatorial.
+- Mantiene el valor de los **ángulos**.
+- Cada **zona UTM**, expresada por un **número de huso (1-60)** y una **letra de zona (C-X)** se descompone en **regiones rectangulares de 100 km de lado**.
+- Los valores de las coordenadas **UTM (X e Y)** son **siempre positivos**; los ejes cartesianos X e Y se establecen sobre el huso, siendo el eje X el ecuador y el eje Y el meridiano.
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Mercator_projection_Square.JPG/800px-Mercator_projection_Square.JPG)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## ¿Cómo se ve un lugar en distintas coordenadas?
+
+.pull-left[
+**Grados decimales**
+- Latitud: `-0.2298500`  
+- Longitud: `-78.5249500`
+
+**UTM**
+- Zona: `17S`
+- X: `775495.16544253 E`  
+- Y: `9974570.7854669 N`
+]
+
+.pull-right[
+![](https://www.shutterstock.com/image-photo/view-el-panecillo-center-quito-600nw-535492369.jpg)
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Códigos EPSG
+
+- El **código EPSG** corresponde a las siglas, en inglés, de **European Petroleum Survey Group**, organización científica relacionada a la industria petrolera. 
+- Elaboró una base de datos que contiene información a nivel mundial sobre los sistemas de referencia de coordenadas (nombre, tipo, código), proyecciones cartográficas, entre otros.
+
+![](https://i0.wp.com/www.hakankocaman.com/wp-content/uploads/ImageEPSGlogo.gif?fit=960%2C720&ssl=1)
