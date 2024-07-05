@@ -467,13 +467,13 @@ class: middle
 
 ```
 ## # A tibble: 5 × 7
-##   des_sector          media desviacion mediana   q25   q75 empresas
-##   &lt;chr&gt;               &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
-## 1 "Comercio"           18.0       28.8    10    5.25  19.5       54
-## 2 "Construcci\u00f3n"  26.4       25.0    16    8     40         35
-## 3 "Manufactura"        42.1       28.0    42   18.2   60         24
-## 4 "Miner\u00eda"       44.0       28.4    32.5 24.8   69.8       24
-## 5 "Servicios"          48.2       60.3    35   13.5   62.5      215
+##   des_sector   media desviacion mediana   q25   q75 empresas
+##   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
+## 1 Comercio      18.0       28.8    10    5.25  19.5       54
+## 2 Construcción  26.4       25.0    16    8     40         35
+## 3 Manufactura   42.1       28.0    42   18.2   60         24
+## 4 Minería       44.0       28.4    32.5 24.8   69.8       24
+## 5 Servicios     48.2       60.3    35   13.5   62.5      215
 ```
 
 ---
@@ -547,7 +547,7 @@ class: middle
 ## Gráfico de los intervalos de confianza
 
 
-&lt;img src="clase_2_files/figure-html/unnamed-chunk-21-1.png" width="500" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase_2_files/figure-html/unnamed-chunk-22-1.png" width="500" style="display: block; margin: auto;" /&gt;
 
 Podemos decir estadisticamente la las actividades de manufactura minería y servicios contratan más empleados con respecto a las actividades de comercio. No podemos decir lo mismo entre el comercio y la construcción.
 
@@ -574,19 +574,19 @@ class: middle
 Ya sea para **filtrar** o para crear variables **lógicas** tenemos algunos operadores:
 
 
-|Operador         |Descripción                  |
-|:----------------|:----------------------------|
-|&lt;                |Menor a                      |
-|&lt;=               |Menor o igual a              |
-|&gt;                |Mayor a                      |
-|&gt;=               |Mayor o igual a              |
-|==               |Igual                        |
-|!=               |No igual                     |
-|!x               |No x                         |
+|Operador         |Descripción                 |
+|:----------------|:---------------------------|
+|&lt;                |Menor a                     |
+|&lt;=               |Menor o igual a             |
+|&gt;                |Mayor a                     |
+|&gt;=               |Mayor o igual a             |
+|==               |Igual                       |
+|!=               |No igual                    |
+|!x               |No x                        |
 |x &amp;#124; y       |x ó y (elemento a elemento) |
-|x &amp;#124;&amp;#124; y |x ó y (de vectores)          |
-|x &amp; y            |'x' y 'y'                    |
-|is.na(x)         |¿Son vacios o missing?       |
+|x &amp;#124;&amp;#124; y |x ó y (de vectores)         |
+|x &amp; y            |'x' y 'y'                   |
+|is.na(x)         |¿Son vacios o missing?      |
 
 ---
 background-image: url(img/slide_nb.png)
@@ -599,7 +599,7 @@ class: middle
 
 Recordemos de la distribución de la variable **logaritmo de inversión en TICS**:
 
-&lt;img src="clase_2_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase_2_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 background-image: url(img/slide_nb.png)
@@ -612,7 +612,7 @@ class: middle
 
 La media truncada al 5% (2.5% en cada cola):
 
-&lt;img src="clase_2_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase_2_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 background-image: url(img/slide_nb.png)
@@ -624,7 +624,7 @@ padding-top: 150px
 
 La transformación **winsorize** al 95%:
 
-&lt;img src="clase_2_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase_2_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse center middle

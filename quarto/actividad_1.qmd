@@ -1,0 +1,90 @@
+---
+title: "Documento  de trabajo # 1"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto permite combinar narrativa y código en un mismo documento. El preámbulo que tienen arriba se conoce como YAML, este dará forma a nuestro documento de salida.
+
+## Running Code
+
+Este es el chunk para instalar, librerías, recuerda comentarlo, pero en Quarto tienes la opción `eval: false`
+
+```{r}
+install.packages(c("tidyverse","gapminder"))
+```
+
+Vamos a analizar el conjunto de datos `gapminder`:
+
+```{r}
+library(gapminder) 
+library(tidyverse) 
+
+resumen <- --- %>% 
+  filter() %>%  # Nos quedamos con el caso de Ecuador
+  mutate(PIB_TOTAL == ------) %>% 
+  group_by() %>% 
+  summarise()
+
+
+```
+
+Si en el chunk utilizas `echo: false` ¿Qué sucede?.
+
+En `Rstudio` puedes ver el botón **Render on save** para ver los resultados cada vez que guardes el documento Quarto en la ventana **Viewer**.
+
+Calculemos ahora los intervalos de confianza:
+
+```{r}
+intervalo <- resumen %>% 
+  
+  # Creamos nuevas variables a partir del resultado anterior
+  
+  mutate(error_estandar = (---*---)/---(---),
+         inferior = media - error_estandar,
+         superior = media + error_estandar) %>% 
+  
+  # Elegimos las variables de interes
+  
+  select(----,inferior,media,superior)
+```
+
+Para visualizar los datos vamos a pensar en capas, muy similar a lo que hablamos sobre los datos geográficos:
+
+```{r}
+plot <- intervalo %>% 
+  # La pipe nos permitira llamar a las variables de tabla dentro
+  # de las capas de ggplot:
+  ggplot() +
+  # Barras de error para el intervalo:
+  geom_errorbar(mapping = aes(x = ---,
+                              ymin = inferior,
+                              ymax = superior),
+                color = "orange", width = 0.2) +
+  # Ploteamos la media
+  geom_point(mapping = aes(x = ----,
+                           y = media),
+             color = "orange")
+```
+
+Ahora hagamos los plots de las distribuciones dejando de lado los outliers:
+
+### Distribución original
+
+```{r}
+
+```
+
+### Distribución con la medía truncada
+
+```{r}
+
+```
+
+### Distribución con el filtro o transformación winsorize
+
+```{r}
+
+```
