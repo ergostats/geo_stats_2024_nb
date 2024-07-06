@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estadística y Econometría Espacial con R, Módulo I</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2024-07-05" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="tema_ergos.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide center middle
+background-image: url(img/portada_nb.png)
+background-size: 105%
+
+## Estadística y Econometría Espacial con R, Módulo I
+#### Clase 3: Tipos de Datos Vectoriales
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## Shapefile 
+
+Los datos geoespaciales en formato vectorial suelen almacenarse en formato `shapefile`.
+
+.pull-left[
+**Obligatorios**
+- `.shp` datos geométricos.
+- `.shx` índice posicional de los datos geométricos.
+- `.dbf` almacena atributos de cada *shape*.
+
+**Opcionales**
+- `.prj` texto plano que describre la *proyección*.
+- `.sbn` y `.sbx` índices espaciales.
+]
+
+.pull-right[
+![](https://pestrisk.org/wp-content/uploads/2021/03/shp-icon.jpeg)
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+## Atributos de los datos vectoriales
+
+.pull-left[
+- Son todos los **datos descriptivos** asociados a **entidades geográficas**.
+- Los atributos de un shapefile son similares a los campos o columnas de una hoja de cálculo. 
+]
+
+.pull-right[
+![](https://raw.githubusercontent.com/NEONScience/NEON-Data-Skills/dev-aten/graphics/vector-general/Attribute_Table.png)
+]
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+## Metadatos de los datos vectoriales
+
+Son datos acerca de los datos.
+
+Los metadatos clave para todos los shapefiles incluyen:
+- **Tipo de objeto**: la clase del objeto importado.
+- **Sistema de referencia de coordenadas (CRS)**: la proyección de los datos.
+- **Extensión**: el área geográfica que cubre el archivo shape.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+
+![](https://datacarpentry.org/organization-geospatial/fig/dc-spatial-raster/spatial_extent.png)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## GeoTIFF
+
+- Los datos ráster suelen presentarse en formato `GeoTIFF`.
+- Es una imagen con **referencia espacial** relacionada con el mundo real.
+- Su extensión es `.tif`.
+
+
+.center[
+![](https://gsp.humboldt.edu/OLM_2019/Lessons/GIS/04%20CreatingSpatialData/img/rasterdatamodel.png)
+]
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Metadatos de los datos raster 
+
+Los metadatos clave para los raster incluyen:
+
+- **Sistema de referencia de coordenadas (CRS)**: la proyección de los datos.
+- **Extensión**: el área geográfica que cubre el raster.
+- **Dimensión**: el tamaño del archivo en pixeles. 
+- **Resolución**: el tamaño de cada pixel. 
+
+![](https://raw.githubusercontent.com/NEONScience/NEON-Data-Skills/main/graphics/raster-general/raster_resolution.png)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Sistema de referencia de coordenadas (CRS)
+
+- El CRS de los datos espaciales especifica el **origen** y la **unidad de medida** de las coordenadas espaciales. 
+- Las localizaciones en la Tierra pueden referenciarse utilizando CRS no proyectadas (también llamadas geográficas) o proyectadas. 
+
+.center[
+
+&lt;img src=https://www.earthdatascience.org/img/earth-analytics/spatial-data/spatial-projection-transformations-crs.png width="50%"&gt;
+  
+]
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## CRS  geográfico
+
+- Un **CRS  geográfico** utiliza *latitud* y *longitud* para representar ubicaciones en la superficie elipsoidal tridimensional de la Tierra. 
+- **Latitud**: mide ángulos al norte o al sur del ecuador `0°` oscilando entre `-90° S` hasta `90° N`.
+- **Longitud**: mide los ángulos al oeste o al este del primer meridiano oscilan entre `-180° W` hasta los `180° E`.
+
+.center[
+![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTSfchtZVdYytGavEo5t2P2Ky0VSi8glhfzu8Fy7H4_Wu2uLq4ii95rWsyHP09d3QGaL60ev6cTkcVFE1V3xkUv0DanspVsdHCdTgGXIjZCZLPlPd1YwfqU0FYaSfBx_IrPC3MndHHYlZI/s1600/latitudylongitud.gif)
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## CRS proyectado
+
+- Un **CRS proyectado** utiliza *coordenadas cartesianas* para referenciar una ubicación en una representación bidimensional de la Tierra.
+- Todas las **proyecciones** producen alguna **distorsión** de la superficie terrestre y no pueden conservar simultáneamente todas las propiedades de **área, dirección, forma y distancia**.
+
+.center[
+
+&lt;img src=https://i0.wp.com/ensedeciencia.com/wp-content/uploads/2023/09/Copia-de-C-EdCiencia-P-2023-09-29T152154.082.jpg?resize=800%2C451&amp;ssl=1 width="50%"&gt;
+
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+## Los mapas que han visto están mal 
+
+[Ejemplo revelador](https://www.thetruesize.com/)
+
+&lt;img src = https://th.bing.com/th/id/R.685722d7ff747c074d4728e716eb56c4?rik=Ey22dKrCH9evug&amp;pid=ImgRaw&amp;r=0 width = "50%"&gt;
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class:  middle
+
+## Proyección UTM 
+
+- Es una **proyección cilíndrica** se proyecta el globo terráqueo sobre una superficie cilíndrica.
+- Es una **proyección transversa** el eje del cilindro es coincidente con el eje ecuatorial.
+- Mantiene el valor de los **ángulos**.
+- Cada **zona UTM**, expresada por un **número de huso (1-60)** y una **letra de zona (C-X)** se descompone en **regiones rectangulares de 100 km de lado**.
+- Los valores de las coordenadas **UTM (X e Y)** son **siempre positivos**; los ejes cartesianos X e Y se establecen sobre el huso, siendo el eje X el ecuador y el eje Y el meridiano.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+&lt;img src = https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Mercator_projection_Square.JPG/800px-Mercator_projection_Square.JPG width = "60%"&gt;
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## ¿Cómo se ve un lugar en distintas coordenadas?
+
+.pull-left[
+**Grados decimales**
+- Latitud: `-0.2298500`  
+- Longitud: `-78.5249500`
+
+**UTM**
+- Zona: `17S`
+- X: `775495.16544253 E`  
+- Y: `9974570.7854669 N`
+]
+
+.pull-right[
+![](https://www.shutterstock.com/image-photo/view-el-panecillo-center-quito-600nw-535492369.jpg)
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Códigos EPSG
+
+- El **código EPSG** corresponde a las siglas, en inglés, de **European Petroleum Survey Group**, organización científica relacionada a la industria petrolera. 
+- Elaboró una base de datos que contiene información a nivel mundial sobre los sistemas de referencia de coordenadas (nombre, tipo, código), proyecciones cartográficas, entre otros.
+
+.center[
+
+&lt;img src =https://i0.wp.com/www.hakankocaman.com/wp-content/uploads/ImageEPSGlogo.gif?fit=960%2C720&amp;ssl=1 width = "60%"&gt;
+
+]
+
+---
+
+class: inverse, center, middle
+
+## Unión de tablas
+
+![](https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/YCAF3C4UUFFGPKUXI3V55CESKI.jpg)
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+class: middle
+##¿Qué son los `join` y por qué son importantes?
+
+Generalmente necesitamos combinar información de distintas tablas.
+
+Obtener datos específicos de distintas tablas, y presentar la información de una mejor manera, resulta de ayuda para la toma de decisiones.
+
+Entonces, la función `join()` nos permite asociar 2 o más tablas, **en base a una columna que tengan en común**.
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+class: middle
+## Función: inner_join()
+
+Mantiene **solo** los registros comúnes de ambas bases. Esta función busca coincidencias entre 2 tablas, en función a una o más columnas que tienen en común. De tal modo que sólo la **intersección** se mostrará en los resultados.
+
+&lt;img src="img/inner_join.png" width="400" height="150" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+inner_join(x = tabla_personas,
+           y = tabla_vivienda,
+           by = "id_hogar")
+
+# O con la pipe:
+tabla_personas %&gt;% inner_join(tabla_vivienda) 
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+class: middle
+## Función: left_join()
+
+Mantiene los registros de la base de la izquierda y rellena con `Nas` los registros que no estan en la base de la derecha. A diferencia de un `inner_join()`, donde se busca una intersección respetada por ambas tablas, con `left_join()` se da prioridad a la tabla de la **izquierda**, y se busca en la tabla derecha. Si no existe ninguna coincidencia para alguna de las filas de la tabla de la izquierda, de igual forma todos los resultados de la primera tabla se muestran.
+
+
+&lt;img src="img/left_join.png" width="600" height="150" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+left_join(x = tabla_personas,
+           y = tabla_vivienda,
+           by = "id_hogar")
+```
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+class: middle
+## Función: rigth_join()
+
+En el caso de `rigth_join()` la situación es muy similar, pero aquí se da prioridad a la tabla de la derecha. Es decir, mantiene los registros de la base de la derecha y rellena con `NAs` los registros que no estan en la base de la izquierda. De tal modo que si usamos dicha función, estaremos mostrando todas las filas de la tabla de la derecha.
+
+
+&lt;img src="img/rigth_join.png" width="600" height="150" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+right_join(x = tabla_personas,
+           y = tabla_vivienda,
+           by = "id_hogar")
+```
+
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+class: middle
+## Función: full_join()
+
+Mientras que `left_join()` muestra todas las filas de la tabla **izquierda**, y `rigth_join()` muestra todas las correspondientes a la tabla **derecha**, `full_join()` se encarga de mostrar **todas las filas** de ambas tablas, sin importar que no existan coincidencias (usará `NULL` como un valor por defecto para dichos casos). Es decir, mantiene todos los registros en ambas bases (coincidencias y no coincidencias).
+
+&lt;img src="img/full_join.png" width="600" height="150" style="display: block; margin: auto;" /&gt;
+
+
+``` r
+full_join(x = tabla_personas,
+           y = tabla_vivienda,
+           by = "id_hogar")
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+# Simulamos una base de datos
+
+
+``` r
+library(tidyverse)
+library(gt)
+
+set.seed(1984)
+
+datos_sim &lt;- tibble(
+  id = sample(str_c("ID-",1:100),1000,replace = T),
+  anio = sample(1936:1970,1000,replace = T),
+  mes = sample(1:12,1000,replace = T),
+  dia = sample(1:31,1000,replace = T),
+  sexo = sample(c("Mujer","Hombre"),1000,replace = T),
+  g_edad = sample(c("Joven","Adulto","Anciano"),1000,replace = T),
+  valor = rpois(1000,300),
+  ahorro = rpois(1000,100)
+) 
+```
+
+En ocasiones sera importante simular datos, para este ejercicio haremos un ejercicio de compras y ahorro diario para 100 personas distintas durante los años 1936 y 1970. Los valores de compras vienen dados por una distribución Poisson con lambda 300 y el ahorro con un lambda de 100.
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Diccionario de variables:
+
+<div id="vyfghepktp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vyfghepktp table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#vyfghepktp thead, #vyfghepktp tbody, #vyfghepktp tfoot, #vyfghepktp tr, #vyfghepktp td, #vyfghepktp th {
+  border-style: none;
+}
+
+#vyfghepktp p {
+  margin: 0;
+  padding: 0;
+}
+
+#vyfghepktp .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#vyfghepktp .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vyfghepktp .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vyfghepktp .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vyfghepktp .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vyfghepktp .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vyfghepktp .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vyfghepktp .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vyfghepktp .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vyfghepktp .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#vyfghepktp .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vyfghepktp .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vyfghepktp .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vyfghepktp .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vyfghepktp .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyfghepktp .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vyfghepktp .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vyfghepktp .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vyfghepktp .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyfghepktp .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vyfghepktp .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyfghepktp .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vyfghepktp .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyfghepktp .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vyfghepktp .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyfghepktp .gt_left {
+  text-align: left;
+}
+
+#vyfghepktp .gt_center {
+  text-align: center;
+}
+
+#vyfghepktp .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vyfghepktp .gt_font_normal {
+  font-weight: normal;
+}
+
+#vyfghepktp .gt_font_bold {
+  font-weight: bold;
+}
+
+#vyfghepktp .gt_font_italic {
+  font-style: italic;
+}
+
+#vyfghepktp .gt_super {
+  font-size: 65%;
+}
+
+#vyfghepktp .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#vyfghepktp .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vyfghepktp .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vyfghepktp .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vyfghepktp .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vyfghepktp .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vyfghepktp .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Variables">Variables</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Descripción">Descripción</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Variables" class="gt_row gt_left">id</td>
+<td headers="Descripción" class="gt_row gt_left">Identificador de la persona</td></tr>
+    <tr><td headers="Variables" class="gt_row gt_left">anio</td>
+<td headers="Descripción" class="gt_row gt_left">Año de la compra</td></tr>
+    <tr><td headers="Variables" class="gt_row gt_left">mes</td>
+<td headers="Descripción" class="gt_row gt_left">Mes de la compra</td></tr>
+    <tr><td headers="Variables" class="gt_row gt_left">dia</td>
+<td headers="Descripción" class="gt_row gt_left">Día de la compra</td></tr>
+    <tr><td headers="Variables" class="gt_row gt_left">sexo</td>
+<td headers="Descripción" class="gt_row gt_left">Sexo del comprador</td></tr>
+    <tr><td headers="Variables" class="gt_row gt_left">g_edad</td>
+<td headers="Descripción" class="gt_row gt_left">Grupo etario</td></tr>
+    <tr><td headers="Variables" class="gt_row gt_left">valor</td>
+<td headers="Descripción" class="gt_row gt_left">Valor de la compra</td></tr>
+    <tr><td headers="Variables" class="gt_row gt_left">ahorro</td>
+<td headers="Descripción" class="gt_row gt_left">Ahorro</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+---
+class: inverse, center, middle
+
+# Como funciona `ggplot2`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Argumentos
+
+Tabla:
+
+
+``` r
+*tabla %&gt;%
+  ggplot() + geom_{{tipo}}({{aes}}) 
+```
+
+Mapping:
+
+
+``` r
+tabla %&gt;% ggplot() + 
+* geom_{{tipo}}(
+    {{aes}}) 
+```
+
+Aesthetic:
+
+
+``` r
+tabla %&gt;% ggplot() + geom_{{tipo}}( 
+*   {{aes}}
+    ) 
+```
+
+...: Otros argumentos:
+
+
+``` r
+tabla %&gt;% ggplot() + geom_{{tipo}}( {{aes}},
+*                                   ...)
+```
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Nube de puntos
+
+Grafico básico:
+
+
+``` r
+ggplot(data = datos_sim) +
+  geom_point(
+*   mapping = aes(x = valor,
+*                 y = ahorro
+*                 )
+    )
+```
+
+&lt;img src="clase_3_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+
+``` r
+datos_sim %&gt;% 
+  ggplot() +
+  geom_point(
+*   mapping = aes(x = valor,
+*                 y = ahorro
+*   )
+  )
+```
+
+&lt;img src="clase_3_files/figure-html/unnamed-chunk-15-2.png" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+# Personalización
+
+Añadir **color**, **size**, **alpha**, y **shape** en el aesthetic para hacer más bonito el gráfico.  
+
+.pull-left[
+### Shape:
+![](https://www.datanovia.com/en/wp-content/uploads/dn-tutorials/ggplot2/figures/030-ggplot-point-shapes-r-pch-list-showing-different-point-shapes-in-rstudio-1.png)
+
+]
+
+.pull-right[
+.left[
+- `size`: Puede ser:
+  - Un valor entero si deseo que todos los puntos tengan el mismo tamaño
+  - Una variable numérica que determine el tamaño del punto
+- `color:` Puede ser:
+  - Un string con el nombre del color (en inglés)
+  - Colores HTML (Ejemplo: '#d7215b')
+- `alpha:` Valor entre 0 (transparente) y 1 (solido)
+
+]
+]
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### Dando formato al gráfico
+
+
+``` r
+plot &lt;- mpg %&gt;% 
+  ggplot() + 
+  geom_point(aes(x = displ, 
+                 y = hwy,
+                 color = "red"),
+*            size = 4,
+*            shape = 5,
+*            alpha = 0.5,
+*            show.legend = T) +
+  geom_smooth(
+*   aes(x = displ,
+*       y = hwy),
+*   color = "blue",
+    show.legend = T) +
+  labs(title  = "Gráfico bonito",
+       caption = "Elaborado por: Eric Blair",
+       color = "Variable") +
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+# Gráfico personalizado
+
+
+``` r
+plot
+```
+
+```
+## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+```
+
+```
+## Warning in vp$just: encuentros parciales de 'just' to 'justification'
+```
+
+&lt;img src="clase_3_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse center middle
+
+# Gracias por la atención
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"tokenTransform": {
+"functionCall": "class=\"function-call\""
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

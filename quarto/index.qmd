@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Motivación del curso"
 format: html
 editor: visual
 ---
@@ -16,7 +16,7 @@ Aquí tienes los enlaces a algunos proyectos exitosos de análisis estadístico 
 
 -   Enlace: [Movebank - Elephant Tracking](https://www.movebank.org/cms/webapp?gwt_fragment=page=studies,path=study1807299477)
 
-![](images/clipboard-1914824533.png)
+![](images/clipboard-4199095113.png)
 
 ### 2. Análisis de la Distribución de Enfermedades
 
@@ -24,15 +24,15 @@ Aquí tienes los enlaces a algunos proyectos exitosos de análisis estadístico 
 
 -   Enlace: [Análisis Multitemporal de la Distribución Espacial del Dengue en Planeta Rica](https://repositorio.unicordoba.edu.co/server/api/core/bitstreams/70717165-373c-4271-abdd-70f427e1bdce/content)
 
-![](images/clipboard-3057140027.png)
+### ![](images/clipboard-954091141.png)
 
 ### 3. Estudios de Mercado y Análisis Económico Espacial
 
-**Análisis espacial del mercado inmobiliario en Boston**: - Descripción: Este proyecto utiliza modelos espaciales para analizar la distribución de precios de viviendas en Boston y cómo las variables socioeconómicas influyen en estos precios.
+**Análisis espacial del mercado inmobiliario en Boston**:
 
--   Enlace: [Boston Housing Data Analysis](https://data.boston.gov/dataset/housing)
+Este proyecto utiliza modelos espaciales para (entre muchas coasas) analizar la distribución de precios de viviendas en Boston y cómo las variables socioeconómicas influyen en estos precios. En este ejemplo mostramos como miden el cambio en la extensión del dosel arbóreo, que en otras palabras representa la copa o parte superior de los arboles, con ello se puede ver la perdida o ganancia de terreno que se ha dado en bostón ocupado por vegetación.
 
-![](images/clipboard-3451734375.png)
+-   Enlace: [Boston Housing Data Analysis](https://storymaps.arcgis.com/stories/43dccf3f51104a86ac8c4790a13e9d71)
 
 ### 4. Análisis del Impacto Ambiental
 
@@ -40,7 +40,7 @@ Aquí tienes los enlaces a algunos proyectos exitosos de análisis estadístico 
 
 -   Enlace: [Amazon Mining Impact](https://glad.earthengine.app/view/global-forest-change#bl=off;old=off;dl=1;lon=20;lat=10;zoom=3;)
 
-![](images/clipboard-4253250923.png)
+![](images/clipboard-3401899218.png)
 
 Estos proyectos ilustran la aplicación práctica de técnicas de análisis estadístico espacial y econometría espacial, y muestran cómo la programación en R y las herramientas de código abierto son fundamentales para llevar a cabo estos estudios. A lo largo del curso, aprenderás a utilizar R y paquetes como `tidyverse`, `sf`, `terra`, y `geomodels` para desarrollar tus propios análisis espaciales.
 

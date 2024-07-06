@@ -56,6 +56,7 @@ background-image: url(img/slide_nb.png)
 background-position: top left
 background-size: 140%
 padding-top: 150px
+class: middle
 
 ## Atributos de los datos vectoriales
 
@@ -74,6 +75,7 @@ background-image: url(img/slide_nb.png)
 background-position: top left
 background-size: 140%
 padding-top: 150px
+class: middle
 
 ## Metadatos de los datos vectoriales
 
@@ -83,6 +85,14 @@ Los metadatos clave para todos los shapefiles incluyen:
 - **Tipo de objeto**: la clase del objeto importado.
 - **Sistema de referencia de coordenadas (CRS)**: la proyección de los datos.
 - **Extensión**: el área geográfica que cubre el archivo shape.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
 
 ![](https://datacarpentry.org/organization-geospatial/fig/dc-spatial-raster/spatial_extent.png)
 
@@ -99,8 +109,9 @@ padding-top: 150px
 - Es una imagen con **referencia espacial** relacionada con el mundo real.
 - Su extensión es `.tif`.
 
+
 .center[
-![](https://gsp.humboldt.edu/OLM_2019/Lessons/GIS/04%20CreatingSpatialData/Images/rasterdatamodel.png)
+![](https://gsp.humboldt.edu/OLM_2019/Lessons/GIS/04%20CreatingSpatialData/img/rasterdatamodel.png)
 ]
 ---
 background-image: url(img/slide_nb.png)
@@ -131,7 +142,9 @@ padding-top: 150px
 - Las localizaciones en la Tierra pueden referenciarse utilizando CRS no proyectadas (también llamadas geográficas) o proyectadas. 
 
 .center[
-![](https://www.earthdatascience.org/images/earth-analytics/spatial-data/spatial-projection-transformations-crs.png)
+
+<img src=https://www.earthdatascience.org/img/earth-analytics/spatial-data/spatial-projection-transformations-crs.png width="50%">
+  
 ]
 ---
 background-image: url(img/slide_nb.png)
@@ -160,24 +173,31 @@ padding-top: 150px
 - Un **CRS proyectado** utiliza *coordenadas cartesianas* para referenciar una ubicación en una representación bidimensional de la Tierra.
 - Todas las **proyecciones** producen alguna **distorsión** de la superficie terrestre y no pueden conservar simultáneamente todas las propiedades de **área, dirección, forma y distancia**.
 
-![](https://i0.wp.com/ensedeciencia.com/wp-content/uploads/2023/09/Copia-de-C-EdCiencia-P-2023-09-29T152154.082.jpg?resize=800%2C451&ssl=1)
+.center[
+
+<img src=https://i0.wp.com/ensedeciencia.com/wp-content/uploads/2023/09/Copia-de-C-EdCiencia-P-2023-09-29T152154.082.jpg?resize=800%2C451&ssl=1 width="50%">
+
+]
 
 ---
 background-image: url(img/slide_nb.png)
 background-position: top left
 background-size: 140%
 padding-top: 150px
+class: center middle
 
 ## Los mapas que han visto están mal 
 
 [Ejemplo revelador](https://www.thetruesize.com/)
 
+<img src = https://th.bing.com/th/id/R.685722d7ff747c074d4728e716eb56c4?rik=Ey22dKrCH9evug&pid=ImgRaw&r=0 width = "50%">
 
 ---
 background-image: url(img/slide_nb.png)
 background-position: top left
 background-size: 140%
 padding-top: 150px
+class:  middle
 
 ## Proyección UTM 
 
@@ -187,7 +207,14 @@ padding-top: 150px
 - Cada **zona UTM**, expresada por un **número de huso (1-60)** y una **letra de zona (C-X)** se descompone en **regiones rectangulares de 100 km de lado**.
 - Los valores de las coordenadas **UTM (X e Y)** son **siempre positivos**; los ejes cartesianos X e Y se establecen sobre el huso, siendo el eje X el ecuador y el eje Y el meridiano.
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Mercator_projection_Square.JPG/800px-Mercator_projection_Square.JPG)
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: center middle
+
+<img src = https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Mercator_projection_Square.JPG/800px-Mercator_projection_Square.JPG width = "60%">
 
 ---
 background-image: url(img/slide_nb.png)
@@ -224,4 +251,343 @@ padding-top: 150px
 - El **código EPSG** corresponde a las siglas, en inglés, de **European Petroleum Survey Group**, organización científica relacionada a la industria petrolera. 
 - Elaboró una base de datos que contiene información a nivel mundial sobre los sistemas de referencia de coordenadas (nombre, tipo, código), proyecciones cartográficas, entre otros.
 
-![](https://i0.wp.com/www.hakankocaman.com/wp-content/uploads/ImageEPSGlogo.gif?fit=960%2C720&ssl=1)
+.center[
+
+<img src =https://i0.wp.com/www.hakankocaman.com/wp-content/uploads/ImageEPSGlogo.gif?fit=960%2C720&ssl=1 width = "60%">
+
+]
+
+---
+
+class: inverse, center, middle
+
+## Unión de tablas
+
+![](https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/YCAF3C4UUFFGPKUXI3V55CESKI.jpg)
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+class: middle
+##¿Qué son los `join` y por qué son importantes?
+
+Generalmente necesitamos combinar información de distintas tablas.
+
+Obtener datos específicos de distintas tablas, y presentar la información de una mejor manera, resulta de ayuda para la toma de decisiones.
+
+Entonces, la función `join()` nos permite asociar 2 o más tablas, **en base a una columna que tengan en común**.
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+class: middle
+## Función: inner_join()
+
+Mantiene **solo** los registros comúnes de ambas bases. Esta función busca coincidencias entre 2 tablas, en función a una o más columnas que tienen en común. De tal modo que sólo la **intersección** se mostrará en los resultados.
+
+```{r out.height=150,out.width=400,fig.align='center', echo=FALSE}
+
+knitr::include_graphics("img/inner_join.png")
+
+```
+
+```{r, eval = FALSE, message=F}
+
+inner_join(x = tabla_personas,
+           y = tabla_vivienda,
+           by = "id_hogar")
+
+# O con la pipe:
+tabla_personas %>% inner_join(tabla_vivienda) 
+
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+class: middle
+## Función: left_join()
+
+Mantiene los registros de la base de la izquierda y rellena con `Nas` los registros que no estan en la base de la derecha. A diferencia de un `inner_join()`, donde se busca una intersección respetada por ambas tablas, con `left_join()` se da prioridad a la tabla de la **izquierda**, y se busca en la tabla derecha. Si no existe ninguna coincidencia para alguna de las filas de la tabla de la izquierda, de igual forma todos los resultados de la primera tabla se muestran.
+
+
+```{r out.height=150,out.width=600,fig.align='center', echo=FALSE}
+
+knitr::include_graphics("img/left_join.png")
+
+```
+
+```{r, eval = FALSE, message=F}
+
+left_join(x = tabla_personas,
+           y = tabla_vivienda,
+           by = "id_hogar")
+
+```
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+class: middle
+## Función: rigth_join()
+
+En el caso de `rigth_join()` la situación es muy similar, pero aquí se da prioridad a la tabla de la derecha. Es decir, mantiene los registros de la base de la derecha y rellena con `NAs` los registros que no estan en la base de la izquierda. De tal modo que si usamos dicha función, estaremos mostrando todas las filas de la tabla de la derecha.
+
+
+```{r out.height=150,out.width=600,fig.align='center', echo=FALSE}
+
+knitr::include_graphics("img/rigth_join.png")
+
+```
+
+```{r, eval = FALSE, message=F}
+
+right_join(x = tabla_personas,
+           y = tabla_vivienda,
+           by = "id_hogar")
+
+```
+
+
+---
+
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+class: middle
+## Función: full_join()
+
+Mientras que `left_join()` muestra todas las filas de la tabla **izquierda**, y `rigth_join()` muestra todas las correspondientes a la tabla **derecha**, `full_join()` se encarga de mostrar **todas las filas** de ambas tablas, sin importar que no existan coincidencias (usará `NULL` como un valor por defecto para dichos casos). Es decir, mantiene todos los registros en ambas bases (coincidencias y no coincidencias).
+
+```{r out.height=150,out.width=600,fig.align='center', echo=FALSE}
+
+knitr::include_graphics("img/full_join.png")
+
+```
+
+```{r, eval = FALSE, message=F}
+
+full_join(x = tabla_personas,
+           y = tabla_vivienda,
+           by = "id_hogar")
+
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+# Simulamos una base de datos
+
+```{r, message=FALSE}
+
+library(tidyverse)
+library(gt)
+
+set.seed(1984)
+
+datos_sim <- tibble(
+  id = sample(str_c("ID-",1:100),1000,replace = T),
+  anio = sample(1936:1970,1000,replace = T),
+  mes = sample(1:12,1000,replace = T),
+  dia = sample(1:31,1000,replace = T),
+  sexo = sample(c("Mujer","Hombre"),1000,replace = T),
+  g_edad = sample(c("Joven","Adulto","Anciano"),1000,replace = T),
+  valor = rpois(1000,300),
+  ahorro = rpois(1000,100)
+) 
+
+```
+
+En ocasiones sera importante simular datos, para este ejercicio haremos un ejercicio de compras y ahorro diario para 100 personas distintas durante los años 1936 y 1970. Los valores de compras vienen dados por una distribución Poisson con lambda 300 y el ahorro con un lambda de 100.
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Diccionario de variables:
+
+```{r, echo=FALSE}
+
+tibble(Variables = names(datos_sim),
+       `Descripción` = c("Identificador de la persona",
+                         "Año de la compra",
+                         "Mes de la compra",
+                         "Día de la compra",
+                         "Sexo del comprador",
+                         "Grupo etario",
+                         "Valor de la compra",
+                         "Ahorro")) %>% 
+  gt()
+
+```
+
+---
+class: inverse, center, middle
+
+# Como funciona `ggplot2`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Argumentos
+
+Tabla:
+
+```{r, eval=FALSE}
+tabla %>%         #<<
+  ggplot() + geom_{{tipo}}({{aes}}) 
+```
+
+Mapping:
+
+```{r, eval=FALSE}
+tabla %>% ggplot() + 
+  geom_{{tipo}}( #<<
+    {{aes}}) 
+```
+
+Aesthetic:
+
+```{r, eval=FALSE}
+tabla %>% ggplot() + geom_{{tipo}}( 
+    {{aes}}   #<<
+    ) 
+```
+
+...: Otros argumentos:
+
+```{r, eval=FALSE}
+tabla %>% ggplot() + geom_{{tipo}}( {{aes}},
+                                    ...) #<<
+```
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Nube de puntos
+
+Grafico básico:
+
+```{r,fig.height=4,fig.align='center',fig.width=6}
+ggplot(data = datos_sim) +
+  geom_point(
+    mapping = aes(x = valor, #<<
+                  y = ahorro #<<
+                  )          #<<
+    )
+datos_sim %>% 
+  ggplot() +
+  geom_point(
+    mapping = aes(x = valor, #<<
+                  y = ahorro #<<
+    )          #<<
+  )
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+# Personalización
+
+Añadir **color**, **size**, **alpha**, y **shape** en el aesthetic para hacer más bonito el gráfico.  
+
+.pull-left[
+### Shape:
+![](https://www.datanovia.com/en/wp-content/uploads/dn-tutorials/ggplot2/figures/030-ggplot-point-shapes-r-pch-list-showing-different-point-shapes-in-rstudio-1.png)
+
+]
+
+.pull-right[
+.left[
+- `size`: Puede ser:
+  - Un valor entero si deseo que todos los puntos tengan el mismo tamaño
+  - Una variable numérica que determine el tamaño del punto
+- `color:` Puede ser:
+  - Un string con el nombre del color (en inglés)
+  - Colores HTML (Ejemplo: '#d7215b')
+- `alpha:` Valor entre 0 (transparente) y 1 (solido)
+
+]
+]
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### Dando formato al gráfico
+
+```{r}
+plot <- mpg %>% 
+  ggplot() + 
+  geom_point(aes(x = displ, 
+                 y = hwy,
+                 color = "red"),
+             size = 4,           #<<     
+             shape = 5,          #<<
+             alpha = 0.5,        #<<
+             show.legend = T) +  #<<
+  geom_smooth(
+    aes(x = displ,               #<<
+        y = hwy),                #<<
+    color = "blue",              #<<
+    show.legend = T) +
+  labs(title  = "Gráfico bonito",
+       caption = "Elaborado por: Eric Blair",
+       color = "Variable") +
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+# Gráfico personalizado
+
+```{r,fig.height=5,fig.align='center',fig.width=7}
+plot
+```
+
+---
+
+class: inverse center middle
+
+# Gracias por la atención

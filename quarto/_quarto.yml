@@ -1,0 +1,13 @@
+project:
+  type: book
+book:
+  title: "Guía del estudiante para el curso de estadística y econometría espacial"
+  author: 
+    - Alex Bajaña
+    - Pablo Sarango
+    - Paúl Yungán
+  chapters:
+    - index.qmd
+    - m1_1_introduccion_r.qmd
+    - m1_2_importancia_datos_esp.qmd
+    - m1_3_tipos_datos_esp.qmd

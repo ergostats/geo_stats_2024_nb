@@ -1,10 +1,8 @@
 ---
-title: "Untitled"
+title: "Introducción al software R para análisis espacial"
 format: html
 editor: visual
 ---
-
-# 1. Introducción al software R para análisis espacial
 
 ## La revolución de los datos espaciales
 

@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Guía del estudiante para el curso de estadística y econometría espacial - 2&nbsp; Introducción al software R para análisis espacial</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./m1_2_importancia_datos_esp.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./m1_1_introduccion_r.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción al software R para análisis espacial</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Guía del estudiante para el curso de estadística y econometría espacial</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivación del curso</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./m1_1_introduccion_r.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción al software R para análisis espacial</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./m1_2_importancia_datos_esp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importancia de los Datos Espaciales en la Ciencia de Datos</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./m1_3_tipos_datos_esp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Tipos de Datos Espaciales</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#la-revolución-de-los-datos-espaciales" id="toc-la-revolución-de-los-datos-espaciales" class="nav-link active" data-scroll-target="#la-revolución-de-los-datos-espaciales"><span class="header-section-number">2.1</span> La revolución de los datos espaciales</a></li>
+  <li><a href="#software-libre" id="toc-software-libre" class="nav-link" data-scroll-target="#software-libre"><span class="header-section-number">2.2</span> Software libre</a></li>
+  <li><a href="#progreso-de-software-geoespacial" id="toc-progreso-de-software-geoespacial" class="nav-link" data-scroll-target="#progreso-de-software-geoespacial"><span class="header-section-number">2.3</span> Progreso de software geoespacial</a></li>
+  <li><a href="#enfoque-gui-vs-cli" id="toc-enfoque-gui-vs-cli" class="nav-link" data-scroll-target="#enfoque-gui-vs-cli"><span class="header-section-number">2.4</span> Enfoque GUI vs CLI</a></li>
+  <li><a href="#introduccion-a-r" id="toc-introduccion-a-r" class="nav-link" data-scroll-target="#introduccion-a-r"><span class="header-section-number">2.5</span> Introduccion a R</a></li>
+  <li><a href="#instalación-de-r-y-rstudio" id="toc-instalación-de-r-y-rstudio" class="nav-link" data-scroll-target="#instalación-de-r-y-rstudio"><span class="header-section-number">2.6</span> Instalación de R y RStudio</a>
+  <ul class="collapse">
+  <li><a href="#descargar-e-instalar-r" id="toc-descargar-e-instalar-r" class="nav-link" data-scroll-target="#descargar-e-instalar-r"><span class="header-section-number">2.6.1</span> Descargar e instalar R</a></li>
+  <li><a href="#descargar-e-instalar-rstudio" id="toc-descargar-e-instalar-rstudio" class="nav-link" data-scroll-target="#descargar-e-instalar-rstudio"><span class="header-section-number">2.6.2</span> Descargar e instalar RStudio</a></li>
+  </ul></li>
+  <li><a href="#rstudio" id="toc-rstudio" class="nav-link" data-scroll-target="#rstudio"><span class="header-section-number">2.7</span> RStudio</a>
+  <ul class="collapse">
+  <li><a href="#interfaz-de-rstudio" id="toc-interfaz-de-rstudio" class="nav-link" data-scroll-target="#interfaz-de-rstudio"><span class="header-section-number">2.7.1</span> Interfaz de RStudio</a></li>
+  <li><a href="#paquetes-en-r" id="toc-paquetes-en-r" class="nav-link" data-scroll-target="#paquetes-en-r"><span class="header-section-number">2.7.2</span> Paquetes en R</a></li>
+  </ul></li>
+  <li><a href="#buenas-practicas-en-r" id="toc-buenas-practicas-en-r" class="nav-link" data-scroll-target="#buenas-practicas-en-r"><span class="header-section-number">2.8</span> Buenas practicas en R</a></li>
+  <li><a href="#herramientas-básicas-de-r-para-la-manipulación-de-datos-espaciales" id="toc-herramientas-básicas-de-r-para-la-manipulación-de-datos-espaciales" class="nav-link" data-scroll-target="#herramientas-básicas-de-r-para-la-manipulación-de-datos-espaciales"><span class="header-section-number">3</span> 2. Herramientas básicas de R para la manipulación de datos espaciales</a>
+  <ul class="collapse">
+  <li><a href="#sf" id="toc-sf" class="nav-link" data-scroll-target="#sf"><span class="header-section-number">3.1</span> <code>sf</code></a></li>
+  <li><a href="#terra" id="toc-terra" class="nav-link" data-scroll-target="#terra"><span class="header-section-number">3.2</span> <code>terra</code></a></li>
+  <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link" data-scroll-target="#ggplot2"><span class="header-section-number">3.3</span> <code>ggplot2</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción al software R para análisis espacial</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="la-revolución-de-los-datos-espaciales" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="la-revolución-de-los-datos-espaciales"><span class="header-section-number">2.1</span> La revolución de los datos espaciales</h2>
+<p>Antes del cambio de siglo, había una aguda escasez de datos y herramientas para el análisis geográfico. Los primeros geógrafos utilizaron diversas herramientas, como barómetros, brújulas y sextantes, para avanzar en el conocimiento del mundo por ejemplo solo con la invención del cronómetro marino en 1761 fue posible calcular la longitud en el mar, lo que permitió a los barcos tomar rutas más directas.</p>
+<p>Hoy en día, los investigadores y profesionales no tienen esas limitaciones y en algunos casos se enfrentan al problema contrario: demasiados datos; demasiadas herramientas.</p>
+<p>La mayoría de los teléfonos disponen ya de un receptor de posicionamiento global (GPS). Sensores que van desde satélites y vehículos semiautónomos hasta científicos ciudadanos miden incesantemente cada rincón del mundo. El ritmo de producción de datos puede ser abrumador, con tecnologías emergentes como los vehículos autónomos que generan cientos o incluso miles de GB de datos al día. Esta revolución de los datos espaciales impulsa la demanda de hardware informático de alto rendimiento y software eficiente y escalable para manejar y extraer la señal del ruido.</p>
+</section>
+<section id="software-libre" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="software-libre"><span class="header-section-number">2.2</span> Software libre</h2>
+<p>Entre las opciones disponibles para gestionar este aluvión de datos, el software libre se presenta como una alternativa particularmente atractiva. A diferencia del software de pago, que suele ser costoso y con una distribución limitada y protegida, el software libre ofrece a los usuarios un conjunto de libertades esenciales: ejecutar, copiar, distribuir, estudiar, modificar y mejorar el software.</p>
+<p>Las ventajas que ofrece esta filosofía de apertura y colaboración inherente al software libre son las siguientes:</p>
+<ul>
+<li><strong>Ritmo de desarrollo y longevidad:</strong> Cientos de personas envían cada día informes de errores y sugieren nuevas funciones y mejoras de la documentación de los proyectos de código abierto, un ritmo de evolución que la mayoría de las soluciones propietarias simplemente no pueden seguir.</li>
+<li><strong>Interoperabilidad:</strong> Mientras que los productos patentados tienden a ser monopolios difíciles de mantener, el software de código abierto es más parecido a una federación de herramientas modulares que pueden combinarse de diferentes maneras.</li>
+<li><strong>Reproductibilidad:</strong> El software de código abierto elimina una importante barrera a la reproducibilidad al permitir que otros comprueben sus hallazgos o apliquen sus métodos en nuevos contextos utilizando las mismas herramientas. La combinación del uso de herramientas a las que cualquiera puede acceder gratuitamente con la posibilidad de compartir código y datos significa que los resultados de su trabajo pueden ser comprobados y desarrollados por otros.</li>
+<li><strong>Comunidad:</strong> La comunidad le permite obtener soporte mucho más rápido y, a menudo, de mayor calidad que con un equipo de soporte centralizado y de presupuesto limitado asociado al software propietario.</li>
+</ul>
+</section>
+<section id="progreso-de-software-geoespacial" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="progreso-de-software-geoespacial"><span class="header-section-number">2.3</span> Progreso de software geoespacial</h2>
+<p>En las últimas décadas, el software libre y de código abierto para el análisis geoespacial (FOSS4G) ha experimentado un avance vertiginoso. Gracias a organizaciones como <a href="https://www.osgeo.org/">OSGeo</a>, las técnicas geográficas avanzadas ya no son un privilegio exclusivo de aquellos con acceso a hardware y software costosos. Ahora, cualquier persona puede descargar y ejecutar software de alto rendimiento para geocomputación, democratizando el acceso al conocimiento y las herramientas para analizar y comprender nuestro mundo.</p>
+</section>
+<section id="enfoque-gui-vs-cli" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="enfoque-gui-vs-cli"><span class="header-section-number">2.4</span> Enfoque GUI vs CLI</h2>
+<p>Los Sistemas de Información Geográfica (SIG) de código abierto, como <a href="https://www.qgis.org/es/site/">QGIS</a>, han democratizado el acceso al análisis geográfico a nivel mundial. Si bien estos productos de software ofrecen potentes funcionalidades, su énfasis en la interfaz gráfica de usuario (GUI) puede limitar la capacidad de los usuarios para documentar y compartir sus flujos de trabajo de manera precisa y replicable.</p>
+<p>Para superar esta limitación, es fundamental fomentar el uso de la CLI junto con la GUI en los SIG de código abierto. La CLI proporciona un entorno flexible y preciso para registrar y compartir los pasos de análisis, permitiendo a otros usuarios replicar los resultados y verificar su validez.</p>
+</section>
+<section id="introduccion-a-r" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="introduccion-a-r"><span class="header-section-number">2.5</span> Introduccion a R</h2>
+<p>R es un lenguaje y entorno multiplataforma de código abierto para el análisis estadístico, la visualización de datos y el aprendizaje automático. Con una amplia gama de paquetes, R también soporta la estadística geoespacial avanzada y modelización.</p>
+<p>En esencia, R se presenta como un lenguaje de programación funcional orientado a objetos ideal para el desarrollo de herramientas geoespaciales. Su capacidad para interactuar con diversos softwares, incluyendo una amplia gama de geolibrerías y funciones SIG, lo convierte en una herramienta versátil y potente.</p>
+<p>Además, su naturaleza extensible facilita la integración con otros lenguajes mediante paquetes como Rcpp y reticulate, posibilitando el acceso a código C++ y Python, por ejemplo.</p>
+</section>
+<section id="instalación-de-r-y-rstudio" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="instalación-de-r-y-rstudio"><span class="header-section-number">2.6</span> Instalación de R y RStudio</h2>
+<p>Para empezar a utilizar R, necesitaras adquirir tu propia copia. Esta sección te mostrará cómo <a href="https://cran.rstudio.com/">descargar R</a>, así como RStudio, una aplicación de software que facilita el uso de R.</p>
+<section id="descargar-e-instalar-r" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="descargar-e-instalar-r"><span class="header-section-number">2.6.1</span> Descargar e instalar R</h3>
+<section id="windows" class="level4" data-number="2.6.1.1">
+<h4 data-number="2.6.1.1" class="anchored" data-anchor-id="windows"><span class="header-section-number">2.6.1.1</span> Windows</h4>
+<p>Para instalar R en Windows, haga clic en el enlace <a href="https://cran.rstudio.com/bin/windows/">Descargar R para Windows</a>. A continuación, haga clic en el enlace <a href="https://cran.rstudio.com/bin/windows/base/">base</a>. A continuación, haga clic en el primer enlace de la parte superior de la nueva página. Este enlace debería decir algo parecido a <a href="https://cran.rstudio.com/bin/windows/base/R-4.4.0-win.exe">Descargar R 4.4.0 para Windows</a>. El enlace descarga un programa instalador, que instala la versión más actualizada de R para Windows. Ejecute este programa y siga los pasos del asistente de instalación que aparece. El asistente instalará R en sus carpetas de archivos de programa y colocará un acceso directo en su menú Inicio. Tenga en cuenta que necesitará tener todos los privilegios de administración apropiados para instalar nuevo software en su máquina.</p>
+</section>
+<section id="mac" class="level4" data-number="2.6.1.2">
+<h4 data-number="2.6.1.2" class="anchored" data-anchor-id="mac"><span class="header-section-number">2.6.1.2</span> Mac</h4>
+<p>Para instalar R en un Mac, haga clic en el enlace <a href="https://cran.rstudio.com/bin/macosx/">Descargar R para Mac</a>. A continuación, haga clic en el <a href="https://cran.rstudio.com/bin/macosx/big-sur-arm64/base/R-4.4.0-arm64.pkg">enlace del paquete R-4.4.0</a> (o en el enlace del paquete de la versión más reciente de R). Se descargará un instalador que le guiará a través del proceso de instalación, que es muy sencillo. El instalador le permite personalizar su instalación, pero los valores predeterminados serán adecuados para la mayoría de los usuarios.</p>
+</section>
+</section>
+<section id="descargar-e-instalar-rstudio" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="descargar-e-instalar-rstudio"><span class="header-section-number">2.6.2</span> Descargar e instalar RStudio</h3>
+<p>Puedes <a href="https://posit.co/download/rstudio-desktop/">descargar RStudio</a> de forma gratuita. Sólo tiene que hacer clic en el botón Descargar RStudio y seguir las sencillas instrucciones que aparecen a continuación. Una vez que haya instalado RStudio, puedes abrirlo como cualquier otro programa de su ordenador, normalmente haciendo clic en un icono del escritorio.</p>
+</section>
+</section>
+<section id="rstudio" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="rstudio"><span class="header-section-number">2.7</span> RStudio</h2>
+<p>RStudio es un entorno de desarrollo integrado (IDE) para R y Python. Incluye una consola, un editor que resalta la sintaxis y admite la ejecución directa del código, así como herramientas de trazado, historial, depuración y gestión del espacio de trabajo.</p>
+<section id="interfaz-de-rstudio" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="interfaz-de-rstudio"><span class="header-section-number">2.7.1</span> Interfaz de RStudio</h3>
+</section>
+<section id="paquetes-en-r" class="level3" data-number="2.7.2">
+<h3 data-number="2.7.2" class="anchored" data-anchor-id="paquetes-en-r"><span class="header-section-number">2.7.2</span> Paquetes en R</h3>
+<p>Muchas de las funciones más útiles de R no vienen precargadas al iniciar R, sino que residen en paquetes que pueden instalarse sobre R. Un paquete de R agrupa funciones útiles, archivos de ayuda y conjuntos de datos. Puedes utilizar estas funciones dentro de tu propio código R una vez que cargues el paquete en el que se encuentran.</p>
+<section id="instalar-paquetes" class="level4" data-number="2.7.2.1">
+<h4 data-number="2.7.2.1" class="anchored" data-anchor-id="instalar-paquetes"><span class="header-section-number">2.7.2.1</span> Instalar paquetes</h4>
+<p>Para utilizar un paquete R, primero debes instalarlo en tu ordenador y luego cargarlo en tu sesión R actual. La forma más sencilla de instalar un paquete R es con la función <code>install.packages()</code>. Abre R y escribe lo siguiente en la línea de comandos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("nombre del paquete")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esto buscará el paquete especificado en la colección de paquetes alojados en el sitio CRAN. Cuando R encuentre el paquete, lo descargará en una carpeta de bibliotecas de tu ordenador.</p>
+<p>Puedes instalar varios paquetes a la vez enlazando sus nombres con la función de concatenación de <code>c</code>. Por ejemplo, para instalar los paquetes <code>sf</code>, <code>terra</code> y <code>tidyverse</code>, ejecuta:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("sf", "terra", "tidyverse"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="cargar-paquetes" class="level4" data-number="2.7.2.2">
+<h4 data-number="2.7.2.2" class="anchored" data-anchor-id="cargar-paquetes"><span class="header-section-number">2.7.2.2</span> Cargar paquetes</h4>
+<p>Instalar un paquete no pone inmediatamente sus funciones a tu alcance. Sólo las coloca en tu ordenador. Para utilizar un paquete de R, a continuación tienes que cargarlo en tu sesión de R con el comando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Linking to GEOS 3.11.2, GDAL 3.8.2, PROJ 9.3.1; sf_use_s2() is TRUE</code></pre>
+</div>
+</div>
+<p><code>library</code> pondrá a tu disposición todas las funciones, conjuntos de datos y archivos de ayuda del paquete hasta que cierre su sesión actual de R.</p>
+</section>
+</section>
+</section>
+<section id="buenas-practicas-en-r" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="buenas-practicas-en-r"><span class="header-section-number">2.8</span> Buenas practicas en R</h2>
+<ul>
+<li>Comentarios</li>
+<li>Buscar ayuda</li>
+<li>Mensajes</li>
+<li>Errores</li>
+<li>Cancelar comando</li>
+<li>Limpiar consola</li>
+</ul>
+</section>
+<section id="herramientas-básicas-de-r-para-la-manipulación-de-datos-espaciales" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 2. Herramientas básicas de R para la manipulación de datos espaciales</h1>
+<p>Para este curso, emplearemos principalmente los siguientes paquetes: <code>sf</code>, <code>terra</code>, <code>tidyverse</code> y <code>ggplot2</code>.</p>
+<section id="sf" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sf"><span class="header-section-number">3.1</span> <code>sf</code></h2>
+<p><a href="https://en.wikipedia.org/wiki/Simple_Features">Simple features</a>es un modelo de datos jerárquico desarrollado y aprobado por el Open Geospatial Consortium (OGC) que representa una amplia gama de tipos de geometría.</p>
+<p>El paquete <a href="https://r-spatial.github.io/sf/">sf</a> puede representar todos los tipos comunes de geometría vectorial: puntos, líneas, polígonos y sus respectivas versiones multi (que agrupan características del mismo tipo en una única característica). <code>sf</code> también admite colecciones de geometría, que pueden contener múltiples tipos de geometría en un único objeto.</p>
+<p>![[Pasted image 20240604212339.png]]</p>
+</section>
+<section id="terra" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="terra"><span class="header-section-number">3.2</span> <code>terra</code></h2>
+<p>El paquete <a href="https://rspatial.org/index.html">terra</a> soporta objetos raster en R. Proporciona un amplio conjunto de funciones para crear, leer, exportar, manipular y procesar conjuntos de datos raster. ## <code>tidyverse</code></p>
+<p>El paquete <a href="https://www.tidyverse.org/">tidyverse</a>&nbsp;es una colección de paquetes orientados a la manipulación, importación, exploración y visualización de datos y que se utiliza exhaustivamente en ciencia de datos.</p>
+<p>El uso de este paquete permite facilitar el trabajo estadístico y la generación de trabajos reproducibles. Está compuesto de los siguientes paquetes:</p>
+<ul>
+<li>readr</li>
+<li>dplyr</li>
+<li>ggplot2</li>
+<li>tibble</li>
+<li>tidyr</li>
+<li>purr</li>
+<li>stringr</li>
+<li>forcats</li>
+</ul>
+</section>
+<section id="ggplot2" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="ggplot2"><span class="header-section-number">3.3</span> <code>ggplot2</code></h2>
+<p>El paquete&nbsp;<a href="https://ggplot2.tidyverse.org/">ggplot2</a>&nbsp;des un sistema para crear gráficos de forma declarativa, basado en <a href="https://link.springer.com/book/10.1007/0-387-28695-0">La Gramática de los Gráficos</a>y forma parte del conjunto de librerías llamado&nbsp;<a href="https://www.tidyverse.org/">tidyverse</a></p>
+<p>La idea es simple: Tú proporciona los datos, le dices a ggplot2 cómo asignar variables a la estética, qué gráficos primitos vas a usar, y él se encarga de los detalles.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Motivación del curso">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivación del curso</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./m1_2_importancia_datos_esp.html" class="pagination-link" aria-label="Importancia de los Datos Espaciales en la Ciencia de Datos">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importancia de los Datos Espaciales en la Ciencia de Datos</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

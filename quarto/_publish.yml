@@ -1,0 +1,6 @@
+- source: project
+  quarto-pub:
+    - id: 125df734-4938-477c-bbb7-9f0091c79378
+      url: 'https://alexvbr.quarto.pub/guía-del-estudiante-para-el-curso-de-estadística-y-econometría-espacial'
+    - id: e5230e76-570f-469e-8361-bbac1e685e58
+      url: 'https://alexvbr.quarto.pub/geo_stats_nido_del_buho'

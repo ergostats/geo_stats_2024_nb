@@ -1,0 +1,272 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Guía del estudiante para el curso de estadística y econometría espacial",
+    "section": "",
+    "text": "0.1 ¿Por qué es importante la estadística espacial y la econometría espacial?\nEn el mundo actual de la ciencia de datos y la toma de decisiones, la estadística espacial y la econometría espacial juegan un papel crucial en la comprensión y el análisis de datos geoespaciales. . En este mismo mundo la cantidad de información hace que las disciplinas sean interrelacionadas, al combinar técnicas estadísticas avanzadas con datos georreferenciados, la estadística espacial y la econometría espacial, estas disciplinas permiten a los investigadores y profesionales explorar patrones espaciales, modelar relaciones entre variables y realizar predicciones en contextos geográficos, desde la ecología hasta la economía. A continuación, se presentan algunos ejemplos de aplicaciones exitosas de estas disciplinas:\nAquí tienes los enlaces a algunos proyectos exitosos de análisis estadístico espacial y econometría espacial que pueden servir como ejemplos inspiradores para los estudiantes:",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Motivación del curso</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#por-qué-es-importante-la-estadística-espacial-y-la-econometría-espacial",
+    "href": "index.html#por-qué-es-importante-la-estadística-espacial-y-la-econometría-espacial",
+    "title": "Guía del estudiante para el curso de estadística y econometría espacial",
+    "section": "",
+    "text": "0.1.1 1. Seguimiento de Especies en Hábitats Naturales\nProyecto de seguimiento de elefantes en África: - Descripción: Este proyecto rastrea el movimiento de elefantes en África utilizando dispositivos GPS para comprender sus patrones de movimiento y mejorar los esfuerzos de conservación.\n\nEnlace: Movebank - Elephant Tracking\n\n\n\n\n0.1.2 2. Análisis de la Distribución de Enfermedades\nProyecto de mapeo y análisis del dengue en Brasil: - Descripción: Este estudio analiza la distribución espacial del dengue en diferentes regiones de Brasil y los factores ambientales que contribuyen a su propagación.\n\nEnlace: Análisis Multitemporal de la Distribución Espacial del Dengue en Planeta Rica\n\n\n\n0.1.3 \n\n\n0.1.4 3. Estudios de Mercado y Análisis Económico Espacial\nAnálisis espacial del mercado inmobiliario en Boston:\nEste proyecto utiliza modelos espaciales para (entre muchas coasas) analizar la distribución de precios de viviendas en Boston y cómo las variables socioeconómicas influyen en estos precios. En este ejemplo mostramos como miden el cambio en la extensión del dosel arbóreo, que en otras palabras representa la copa o parte superior de los arboles, con ello se puede ver la perdida o ganancia de terreno que se ha dado en bostón ocupado por vegetación.\n\nEnlace: Boston Housing Data Analysis\n\n\n\n0.1.5 4. Análisis del Impacto Ambiental\nEvaluación del impacto de la minería en la selva amazónica: - Descripción: Este estudio utiliza imágenes satelitales para evaluar el impacto de la minería en la deforestación de la selva amazónica y desarrollar estrategias para la mitigación de daños ambientales.\n\nEnlace: Amazon Mining Impact\n\n\nEstos proyectos ilustran la aplicación práctica de técnicas de análisis estadístico espacial y econometría espacial, y muestran cómo la programación en R y las herramientas de código abierto son fundamentales para llevar a cabo estos estudios. A lo largo del curso, aprenderás a utilizar R y paquetes como tidyverse, sf, terra, y geomodels para desarrollar tus propios análisis espaciales.\n\n\nExisten más uso de la estadística espacial y la econometría espacial en diferentes campos, como la ecología, la agricultura, la planificación urbana, la epidemiología, la criminología, entre otros. Estas disciplinas son fundamentales para comprender la distribución y la interacción de fenómenos en el espacio, y proporcionan herramientas poderosas para la toma de decisiones basada en datos geoespaciales. Pero está en ti y tu pasión el descubrir más sobre estas disciplinas y cómo pueden aplicarse en tu campo de interés.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Motivación del curso</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#visión-general-del-curso-y-expectativas",
+    "href": "index.html#visión-general-del-curso-y-expectativas",
+    "title": "Guía del estudiante para el curso de estadística y econometría espacial",
+    "section": "0.2 Visión General del Curso y Expectativas",
+    "text": "0.2 Visión General del Curso y Expectativas\n\n0.2.1 Importancia del Open Source en el Análisis Estadístico Espacial y Econometría Espacial\nEn este curso, exploraremos el fascinante mundo del análisis estadístico espacial y la econometría espacial utilizando herramientas y metodologías de código abierto. La adopción de tecnologías open source en la ciencia de datos ha revolucionado la forma en que abordamos problemas complejos, proporcionando acceso a potentes herramientas de análisis sin barreras de costo. El software de código abierto permite a los investigadores y profesionales colaborar, compartir conocimiento y mejorar continuamente las herramientas que utilizan.\n\n\n0.2.2 Evidencia de la Calidad del Open Source\nLa calidad y efectividad del open source en el análisis estadístico espacial están bien representadas por una variedad de paquetes disponibles en CRAN. Entre ellos, destacan:\n\ntidyverse: Un conjunto de paquetes que facilitan la manipulación y visualización de datos de manera eficiente y coherente.\nsf: Un paquete que proporciona una estructura simple para el manejo y análisis de datos espaciales.\nterra: Herramientas avanzadas para el análisis de datos espaciales y rasterización.\ngeomodels: Paquete especializado en modelos geoespaciales avanzados.\n\nEstos paquetes son ejemplos del poder y la versatilidad del software de código abierto, respaldados por una comunidad activa que garantiza su actualización y mejora continua.\n\n\n0.2.3 Enfoque del Curso\nEste curso se centra en la programación con R para la aplicación en estadísticas y econometría espacial. A través de las lecciones, aprenderás no solo a utilizar estas herramientas, sino también a comprender los fundamentos teóricos que las sustentan. Nuestro objetivo es que al finalizar el curso, puedas abordar y resolver problemas espaciales complejos utilizando técnicas estadísticas avanzadas.\n\n\n0.2.4 Fuentes de Información y Datos\nDurante el curso, utilizaremos principalmente fuentes públicas de información, con un énfasis especial en las herramientas espaciales y bases de datos del Ecuador. Esto no solo proporcionará un contexto local relevante, sino que también te permitirá aplicar los conocimientos adquiridos a problemas específicos de nuestra región. Además, incorporaremos bases de datos modernas que ilustran bien el uso de la estadística espacial en contextos globales, proporcionando una visión amplia y aplicada de las técnicas que aprenderás.\n\n\n0.2.5 Expectativas\nEsperamos que los estudiantes se involucren activamente en las actividades prácticas del curso y se familiaricen con los paquetes y herramientas discutidos. La programación será una parte esencial del aprendizaje, por lo que se recomienda dedicar tiempo fuera de las sesiones para practicar y explorar las capacidades de R en el análisis espacial. Al final del curso, deberías ser capaz de:\n\nManejar y manipular datos espaciales en R utilizando paquetes especializados.\nAplicar técnicas de análisis estadístico y econometría espacial a diferentes tipos de datos.\nUtilizar bases de datos públicas y modernas para realizar análisis espaciales relevantes y significativos.\nDesarrollar habilidades de programación que te permitan abordar problemas espaciales con confianza y precisión.\n\nEstamos emocionados de acompañarte en este viaje de descubrimiento y aprendizaje en el campo de la estadística y econometría espacial. ¡Bienvenido al curso!\n\n\n\n\nEn este curso el internet y su largo contenido serán nuestros aliados. No olvides que la inteligencia artificial es tu aliada en la búsqueda de información y la resolución de problemas. Así que no dudes en utilizarla para profundizar en los temas que te interesen y enriquecer tu aprendizaje. ¡Adelante!",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Motivación del curso</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html",
+    "href": "m1_1_introduccion_r.html",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "",
+    "text": "2.1 La revolución de los datos espaciales\nAntes del cambio de siglo, había una aguda escasez de datos y herramientas para el análisis geográfico. Los primeros geógrafos utilizaron diversas herramientas, como barómetros, brújulas y sextantes, para avanzar en el conocimiento del mundo por ejemplo solo con la invención del cronómetro marino en 1761 fue posible calcular la longitud en el mar, lo que permitió a los barcos tomar rutas más directas.\nHoy en día, los investigadores y profesionales no tienen esas limitaciones y en algunos casos se enfrentan al problema contrario: demasiados datos; demasiadas herramientas.\nLa mayoría de los teléfonos disponen ya de un receptor de posicionamiento global (GPS). Sensores que van desde satélites y vehículos semiautónomos hasta científicos ciudadanos miden incesantemente cada rincón del mundo. El ritmo de producción de datos puede ser abrumador, con tecnologías emergentes como los vehículos autónomos que generan cientos o incluso miles de GB de datos al día. Esta revolución de los datos espaciales impulsa la demanda de hardware informático de alto rendimiento y software eficiente y escalable para manejar y extraer la señal del ruido.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#software-libre",
+    "href": "m1_1_introduccion_r.html#software-libre",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "2.2 Software libre",
+    "text": "2.2 Software libre\nEntre las opciones disponibles para gestionar este aluvión de datos, el software libre se presenta como una alternativa particularmente atractiva. A diferencia del software de pago, que suele ser costoso y con una distribución limitada y protegida, el software libre ofrece a los usuarios un conjunto de libertades esenciales: ejecutar, copiar, distribuir, estudiar, modificar y mejorar el software.\nLas ventajas que ofrece esta filosofía de apertura y colaboración inherente al software libre son las siguientes:\n\nRitmo de desarrollo y longevidad: Cientos de personas envían cada día informes de errores y sugieren nuevas funciones y mejoras de la documentación de los proyectos de código abierto, un ritmo de evolución que la mayoría de las soluciones propietarias simplemente no pueden seguir.\nInteroperabilidad: Mientras que los productos patentados tienden a ser monopolios difíciles de mantener, el software de código abierto es más parecido a una federación de herramientas modulares que pueden combinarse de diferentes maneras.\nReproductibilidad: El software de código abierto elimina una importante barrera a la reproducibilidad al permitir que otros comprueben sus hallazgos o apliquen sus métodos en nuevos contextos utilizando las mismas herramientas. La combinación del uso de herramientas a las que cualquiera puede acceder gratuitamente con la posibilidad de compartir código y datos significa que los resultados de su trabajo pueden ser comprobados y desarrollados por otros.\nComunidad: La comunidad le permite obtener soporte mucho más rápido y, a menudo, de mayor calidad que con un equipo de soporte centralizado y de presupuesto limitado asociado al software propietario.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#progreso-de-software-geoespacial",
+    "href": "m1_1_introduccion_r.html#progreso-de-software-geoespacial",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "2.3 Progreso de software geoespacial",
+    "text": "2.3 Progreso de software geoespacial\nEn las últimas décadas, el software libre y de código abierto para el análisis geoespacial (FOSS4G) ha experimentado un avance vertiginoso. Gracias a organizaciones como OSGeo, las técnicas geográficas avanzadas ya no son un privilegio exclusivo de aquellos con acceso a hardware y software costosos. Ahora, cualquier persona puede descargar y ejecutar software de alto rendimiento para geocomputación, democratizando el acceso al conocimiento y las herramientas para analizar y comprender nuestro mundo.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#enfoque-gui-vs-cli",
+    "href": "m1_1_introduccion_r.html#enfoque-gui-vs-cli",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "2.4 Enfoque GUI vs CLI",
+    "text": "2.4 Enfoque GUI vs CLI\nLos Sistemas de Información Geográfica (SIG) de código abierto, como QGIS, han democratizado el acceso al análisis geográfico a nivel mundial. Si bien estos productos de software ofrecen potentes funcionalidades, su énfasis en la interfaz gráfica de usuario (GUI) puede limitar la capacidad de los usuarios para documentar y compartir sus flujos de trabajo de manera precisa y replicable.\nPara superar esta limitación, es fundamental fomentar el uso de la CLI junto con la GUI en los SIG de código abierto. La CLI proporciona un entorno flexible y preciso para registrar y compartir los pasos de análisis, permitiendo a otros usuarios replicar los resultados y verificar su validez.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#introduccion-a-r",
+    "href": "m1_1_introduccion_r.html#introduccion-a-r",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "2.5 Introduccion a R",
+    "text": "2.5 Introduccion a R\nR es un lenguaje y entorno multiplataforma de código abierto para el análisis estadístico, la visualización de datos y el aprendizaje automático. Con una amplia gama de paquetes, R también soporta la estadística geoespacial avanzada y modelización.\nEn esencia, R se presenta como un lenguaje de programación funcional orientado a objetos ideal para el desarrollo de herramientas geoespaciales. Su capacidad para interactuar con diversos softwares, incluyendo una amplia gama de geolibrerías y funciones SIG, lo convierte en una herramienta versátil y potente.\nAdemás, su naturaleza extensible facilita la integración con otros lenguajes mediante paquetes como Rcpp y reticulate, posibilitando el acceso a código C++ y Python, por ejemplo.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#instalación-de-r-y-rstudio",
+    "href": "m1_1_introduccion_r.html#instalación-de-r-y-rstudio",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "2.6 Instalación de R y RStudio",
+    "text": "2.6 Instalación de R y RStudio\nPara empezar a utilizar R, necesitaras adquirir tu propia copia. Esta sección te mostrará cómo descargar R, así como RStudio, una aplicación de software que facilita el uso de R.\n\n2.6.1 Descargar e instalar R\n\n2.6.1.1 Windows\nPara instalar R en Windows, haga clic en el enlace Descargar R para Windows. A continuación, haga clic en el enlace base. A continuación, haga clic en el primer enlace de la parte superior de la nueva página. Este enlace debería decir algo parecido a Descargar R 4.4.0 para Windows. El enlace descarga un programa instalador, que instala la versión más actualizada de R para Windows. Ejecute este programa y siga los pasos del asistente de instalación que aparece. El asistente instalará R en sus carpetas de archivos de programa y colocará un acceso directo en su menú Inicio. Tenga en cuenta que necesitará tener todos los privilegios de administración apropiados para instalar nuevo software en su máquina.\n\n\n2.6.1.2 Mac\nPara instalar R en un Mac, haga clic en el enlace Descargar R para Mac. A continuación, haga clic en el enlace del paquete R-4.4.0 (o en el enlace del paquete de la versión más reciente de R). Se descargará un instalador que le guiará a través del proceso de instalación, que es muy sencillo. El instalador le permite personalizar su instalación, pero los valores predeterminados serán adecuados para la mayoría de los usuarios.\n\n\n\n2.6.2 Descargar e instalar RStudio\nPuedes descargar RStudio de forma gratuita. Sólo tiene que hacer clic en el botón Descargar RStudio y seguir las sencillas instrucciones que aparecen a continuación. Una vez que haya instalado RStudio, puedes abrirlo como cualquier otro programa de su ordenador, normalmente haciendo clic en un icono del escritorio.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#rstudio",
+    "href": "m1_1_introduccion_r.html#rstudio",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "2.7 RStudio",
+    "text": "2.7 RStudio\nRStudio es un entorno de desarrollo integrado (IDE) para R y Python. Incluye una consola, un editor que resalta la sintaxis y admite la ejecución directa del código, así como herramientas de trazado, historial, depuración y gestión del espacio de trabajo.\n\n2.7.1 Interfaz de RStudio\n\n\n2.7.2 Paquetes en R\nMuchas de las funciones más útiles de R no vienen precargadas al iniciar R, sino que residen en paquetes que pueden instalarse sobre R. Un paquete de R agrupa funciones útiles, archivos de ayuda y conjuntos de datos. Puedes utilizar estas funciones dentro de tu propio código R una vez que cargues el paquete en el que se encuentran.\n\n2.7.2.1 Instalar paquetes\nPara utilizar un paquete R, primero debes instalarlo en tu ordenador y luego cargarlo en tu sesión R actual. La forma más sencilla de instalar un paquete R es con la función install.packages(). Abre R y escribe lo siguiente en la línea de comandos:\n\n# install.packages(\"nombre del paquete\")\n\nEsto buscará el paquete especificado en la colección de paquetes alojados en el sitio CRAN. Cuando R encuentre el paquete, lo descargará en una carpeta de bibliotecas de tu ordenador.\nPuedes instalar varios paquetes a la vez enlazando sus nombres con la función de concatenación de c. Por ejemplo, para instalar los paquetes sf, terra y tidyverse, ejecuta:\n\n# install.packages(c(\"sf\", \"terra\", \"tidyverse\"))\n\n\n\n2.7.2.2 Cargar paquetes\nInstalar un paquete no pone inmediatamente sus funciones a tu alcance. Sólo las coloca en tu ordenador. Para utilizar un paquete de R, a continuación tienes que cargarlo en tu sesión de R con el comando:\n\nlibrary(sf)\n\nLinking to GEOS 3.11.2, GDAL 3.8.2, PROJ 9.3.1; sf_use_s2() is TRUE\n\n\nlibrary pondrá a tu disposición todas las funciones, conjuntos de datos y archivos de ayuda del paquete hasta que cierre su sesión actual de R.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#buenas-practicas-en-r",
+    "href": "m1_1_introduccion_r.html#buenas-practicas-en-r",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "2.8 Buenas practicas en R",
+    "text": "2.8 Buenas practicas en R\n\nComentarios\nBuscar ayuda\nMensajes\nErrores\nCancelar comando\nLimpiar consola",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#sf",
+    "href": "m1_1_introduccion_r.html#sf",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "3.1 sf",
+    "text": "3.1 sf\nSimple featureses un modelo de datos jerárquico desarrollado y aprobado por el Open Geospatial Consortium (OGC) que representa una amplia gama de tipos de geometría.\nEl paquete sf puede representar todos los tipos comunes de geometría vectorial: puntos, líneas, polígonos y sus respectivas versiones multi (que agrupan características del mismo tipo en una única característica). sf también admite colecciones de geometría, que pueden contener múltiples tipos de geometría en un único objeto.\n![[Pasted image 20240604212339.png]]",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#terra",
+    "href": "m1_1_introduccion_r.html#terra",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "3.2 terra",
+    "text": "3.2 terra\nEl paquete terra soporta objetos raster en R. Proporciona un amplio conjunto de funciones para crear, leer, exportar, manipular y procesar conjuntos de datos raster. ## tidyverse\nEl paquete tidyverse es una colección de paquetes orientados a la manipulación, importación, exploración y visualización de datos y que se utiliza exhaustivamente en ciencia de datos.\nEl uso de este paquete permite facilitar el trabajo estadístico y la generación de trabajos reproducibles. Está compuesto de los siguientes paquetes:\n\nreadr\ndplyr\nggplot2\ntibble\ntidyr\npurr\nstringr\nforcats",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_1_introduccion_r.html#ggplot2",
+    "href": "m1_1_introduccion_r.html#ggplot2",
+    "title": "2  Introducción al software R para análisis espacial",
+    "section": "3.3 ggplot2",
+    "text": "3.3 ggplot2\nEl paquete ggplot2 des un sistema para crear gráficos de forma declarativa, basado en La Gramática de los Gráficosy forma parte del conjunto de librerías llamado tidyverse\nLa idea es simple: Tú proporciona los datos, le dices a ggplot2 cómo asignar variables a la estética, qué gráficos primitos vas a usar, y él se encarga de los detalles.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introducción al software R para análisis espacial</span>"
+    ]
+  },
+  {
+    "objectID": "m1_2_importancia_datos_esp.html",
+    "href": "m1_2_importancia_datos_esp.html",
+    "title": "3  Importancia de los Datos Espaciales en la Ciencia de Datos",
+    "section": "",
+    "text": "3.1 Introducción\nLos datos espaciales son fundamentales en diversas áreas de la ciencia de datos debido a su capacidad para proporcionar información georreferenciada que puede revelar patrones, tendencias y relaciones que no son evidentes con datos no espaciales. En esta presentación, exploraremos herramientas y métodos en R para el análisis de datos espaciales y discutiremos su importancia en la ciencia de datos.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Importancia de los Datos Espaciales en la Ciencia de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "m1_2_importancia_datos_esp.html#qué-son-los-datos-espaciales",
+    "href": "m1_2_importancia_datos_esp.html#qué-son-los-datos-espaciales",
+    "title": "3  Importancia de los Datos Espaciales en la Ciencia de Datos",
+    "section": "3.2 ¿Qué son los Datos Espaciales?",
+    "text": "3.2 ¿Qué son los Datos Espaciales?\nLos datos espaciales son aquellos que tienen una referencia geográfica asociada, es decir, están vinculados a una ubicación específica en la superficie terrestre. Pueden ser de dos tipos principales:\n\nVectoriales: Representan objetos discretos (puntos, líneas, polígonos).\nRaster: Representan variables continuas, almacenadas en una matriz de celdas (imágenes satelitales).\n\nEstos datos se utilizan para mapear y analizar características geográficas y fenómenos espaciales.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Importancia de los Datos Espaciales en la Ciencia de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "m1_2_importancia_datos_esp.html#importancia-de-los-datos-espaciales",
+    "href": "m1_2_importancia_datos_esp.html#importancia-de-los-datos-espaciales",
+    "title": "3  Importancia de los Datos Espaciales en la Ciencia de Datos",
+    "section": "3.3 Importancia de los Datos Espaciales",
+    "text": "3.3 Importancia de los Datos Espaciales\n\n3.3.1 Identificación de Patrones Espaciales\nLos datos espaciales permiten identificar patrones que no son visibles en datos no espaciales. Por ejemplo, en epidemiología, se pueden detectar áreas con alta incidencia de enfermedades.\n\nlibrary(sf)\nlibrary(tmap)\n# Cargar un conjunto de datos espaciales\nnc &lt;- st_read(system.file(\"shape/nc.shp\", package=\"sf\"))\n\nReading layer `nc' from data source \n  `C:\\Users\\alex_ergostats\\AppData\\Local\\R\\win-library\\4.3\\sf\\shape\\nc.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 100 features and 14 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965\nGeodetic CRS:  NAD27\n\n# Crear un mapa temático\ntm_shape(nc) +\n  tm_polygons(col = \"BIR74\", palette = \"Reds\", title = \"Nacimientos en 1974\") +\n  tm_layout(title = \"Distribución Espacial de Nacimientos en Carolina del Norte\")\n\n\n\n\n\n\n\n\n\n\n3.3.2 Toma de Decisiones Informadas\nEn la planificación urbana, los datos espaciales son esenciales para decidir dónde construir infraestructuras como escuelas, hospitales y carreteras.\n\n# Ejemplo de planificación urbana\n\nlibrary(sp)\n\nlibrary(raster)\n\n# Crear datos de ejemplo para una planificación urbana\n\ndata(meuse)\n\ncoordinates(meuse) &lt;- ~x+y\n\n# Visualizacion simple de los puntos de muestreo\n\nplot(meuse, main = \"Puntos de Muestreo en Meuse\")",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Importancia de los Datos Espaciales en la Ciencia de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "m1_2_importancia_datos_esp.html#herramientas-en-r-para-el-análisis-espacial",
+    "href": "m1_2_importancia_datos_esp.html#herramientas-en-r-para-el-análisis-espacial",
+    "title": "3  Importancia de los Datos Espaciales en la Ciencia de Datos",
+    "section": "3.4 Herramientas en R para el Análisis Espacial",
+    "text": "3.4 Herramientas en R para el Análisis Espacial\nR ofrece una amplia gama de paquetes para el análisis de datos espaciales. Entre los más utilizados se encuentran:\n\nsf (simple features): Para manipulación y análisis de datos vectoriales.\nraster: Para trabajar con datos raster.\nspdep: Para análisis de datos espaciales dependientes.\ntmap: Para la creación de mapas temáticos.\n\n\n3.4.1 Paquete `sf`\nEl paquete `sf` permite la manipulación y análisis de datos vectoriales espaciales. Proporciona una interfaz eficiente para trabajar con datos espaciales en R.\n\n# Cargar el paquete sf\nlibrary(sf)\n\n# Leer un conjunto de datos espaciales\nnc &lt;- st_read(system.file(\"shape/nc.shp\", package=\"sf\"))\n\nReading layer `nc' from data source \n  `C:\\Users\\alex_ergostats\\AppData\\Local\\R\\win-library\\4.3\\sf\\shape\\nc.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 100 features and 14 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965\nGeodetic CRS:  NAD27\n\nnc\n\nSimple feature collection with 100 features and 14 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965\nGeodetic CRS:  NAD27\nFirst 10 features:\n    AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74\n1  0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1\n2  0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0\n3  0.143     1.630  1828    1828       Surry 37171  37171       86  3188     5\n4  0.070     2.968  1831    1831   Currituck 37053  37053       27   508     1\n5  0.153     2.206  1832    1832 Northampton 37131  37131       66  1421     9\n6  0.097     1.670  1833    1833    Hertford 37091  37091       46  1452     7\n7  0.062     1.547  1834    1834      Camden 37029  37029       15   286     0\n8  0.091     1.284  1835    1835       Gates 37073  37073       37   420     0\n9  0.118     1.421  1836    1836      Warren 37185  37185       93   968     4\n10 0.124     1.428  1837    1837      Stokes 37169  37169       85  1612     1\n   NWBIR74 BIR79 SID79 NWBIR79                       geometry\n1       10  1364     0      19 MULTIPOLYGON (((-81.47276 3...\n2       10   542     3      12 MULTIPOLYGON (((-81.23989 3...\n3      208  3616     6     260 MULTIPOLYGON (((-80.45634 3...\n4      123   830     2     145 MULTIPOLYGON (((-76.00897 3...\n5     1066  1606     3    1197 MULTIPOLYGON (((-77.21767 3...\n6      954  1838     5    1237 MULTIPOLYGON (((-76.74506 3...\n7      115   350     2     139 MULTIPOLYGON (((-76.00897 3...\n8      254   594     2     371 MULTIPOLYGON (((-76.56251 3...\n9      748  1190     2     844 MULTIPOLYGON (((-78.30876 3...\n10     160  2038     5     176 MULTIPOLYGON (((-80.02567 3...\n\n\n\n\n3.4.2 Visualización con `tmap`\n`tmap` es un paquete en R que permite la creación de mapas temáticos. Es muy útil para visualizar datos espaciales de manera efectiva.\n\nlibrary(tmap)\n\ntm_shape(nc) +\n  tm_polygons(col = \"BIR74\") +\n  tm_layout(title = \"Mapa de Carolina del Norte\")\n\n\n\n\n\n\n\n\n\n\n3.4.3 Paquete `spdep`\nEl paquete `spdep` es utilizado para el análisis de datos espaciales dependientes. Permite realizar análisis de autocorrelación espacial y crear matrices de pesos espaciales.\nPara la estadística I de Moran global, la hipótesis nula establece que el atributo que se analiza está distribuido en forma aleatoria entre las entidades del área de estudio; es decir, los procesos espaciales que promueven el patrón de valores observado constituyen una opción aleatoria. \n\nlibrary(spdep)\n\nnb &lt;- poly2nb(nc) # Crear una matriz de vecinos\n\nlw &lt;- nb2listw(nb, style=\"W\") # Convertir la matriz de vecinos en una lista de pesos\n\n# Realizar un test de Moran's I lo revisaremos a profundidad en las siguientes clases\nmoran_test &lt;- moran.test(nc$BIR74, lw)\n\nmoran_test\n\n\n    Moran I test under randomisation\n\ndata:  nc$BIR74  \nweights: lw    \n\nMoran I statistic standard deviate = 2.4055, p-value = 0.008074\nalternative hypothesis: greater\nsample estimates:\nMoran I statistic       Expectation          Variance \n      0.139319332      -0.010101010       0.003858258",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Importancia de los Datos Espaciales en la Ciencia de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "m1_2_importancia_datos_esp.html#ejemplo-de-un-análisis-espacial-básico",
+    "href": "m1_2_importancia_datos_esp.html#ejemplo-de-un-análisis-espacial-básico",
+    "title": "3  Importancia de los Datos Espaciales en la Ciencia de Datos",
+    "section": "3.5 Ejemplo de un Análisis Espacial básico",
+    "text": "3.5 Ejemplo de un Análisis Espacial básico\nVamos a realizar un análisis práctico utilizando los paquetes `sf`, `tmap`, y `spdep`. Analizaremos la distribución espacial de una variable demográfica en Carolina del Norte.\n\ntm_shape(nc) +\n  tm_polygons(col = \"BIR74\", palette = \"Blues\", title = \"Nacimientos en 1974\") +\n  tm_layout(title = \"Distribución Espacial de Nacimientos en Carolina del Norte\")\n\n\n\n\n\n\n\n\n\n3.5.1 Análisis de Autocorrelación Espacial\nLa autocorrelación espacial mide el grado en el que un valor en una ubicación es similar a los valores en ubicaciones cercanas. Utilizaremos el test de Moran’s I para evaluar la autocorrelación espacial de los nacimientos en 1974.\n\nmoran_test &lt;- moran.test(nc$BIR74, lw)\n\nmoran_test\n\n\n    Moran I test under randomisation\n\ndata:  nc$BIR74  \nweights: lw    \n\nMoran I statistic standard deviate = 2.4055, p-value = 0.008074\nalternative hypothesis: greater\nsample estimates:\nMoran I statistic       Expectation          Variance \n      0.139319332      -0.010101010       0.003858258 \n\n\nLos resultados del test de Moran’s I nos indican si existe una autocorrelación espacial significativa en los datos.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Importancia de los Datos Espaciales en la Ciencia de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "m1_2_importancia_datos_esp.html#notas-finales",
+    "href": "m1_2_importancia_datos_esp.html#notas-finales",
+    "title": "3  Importancia de los Datos Espaciales en la Ciencia de Datos",
+    "section": "3.6 Notas Finales",
+    "text": "3.6 Notas Finales\nLa integración de datos espaciales en la ciencia de datos es crucial para una comprensión más profunda de los fenómenos analizados. Los datos espaciales proporcionan un contexto geográfico que mejora la identificación de patrones y tendencias, lo que facilita una toma de decisiones más informada.\nEl uso de herramientas en R, como `sf`, `tmap`, y `spdep`, permite a los analistas realizar análisis espaciales avanzados y crear visualizaciones impactantes. Esto es esencial para campos como la epidemiología, la ecología, la planificación urbana y muchas otras disciplinas.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Importancia de los Datos Espaciales en la Ciencia de Datos</span>"
+    ]
+  },
+  {
+    "objectID": "m1_3_tipos_datos_esp.html",
+    "href": "m1_3_tipos_datos_esp.html",
+    "title": "4  Tipos de Datos Espaciales",
+    "section": "",
+    "text": "4.1 Introducción\nLos datos espaciales son fundamentales en muchas áreas, desde la geografía hasta la ciencia de datos. En R, existen varios tipos de datos espaciales que se pueden utilizar para representar información geoespacial. En este cuadernillo, exploraremos dos tipos principales de datos espaciales: puntos y polígonos.\nLos datos espaciales se utilizan en una amplia gama de campos para apoyar la toma de decisiones, incluyendo medio ambiente, salud pública, ecología, agricultura, planificación urbana, economía y sociedad. Estos datos provienen de diversas fuentes y están disponibles en múltiples formatos (Moraga y Baker 2022). Por ejemplo, los datos de teledetección, como el uso del suelo y los fenómenos ambientales, se pueden obtener a través de satélites que orbitan la Tierra y otras plataformas de captura a distancia.\nLas estaciones de monitoreo ubicadas en sitios específicos proporcionan información detallada sobre diversas variables ambientales y climáticas, como temperatura, precipitación y contaminación del aire. Las encuestas se emplean para recopilar datos sobre diferentes temas sociales, económicos y relacionados con la salud. Los datos espaciales también pueden derivarse del uso de teléfonos móviles y redes sociales, que pueden proporcionar información sobre la ubicación y actividades de los individuos.\nLos datos espaciales pueden considerarse como el resultado de observaciones de un proceso estocástico\n\\[\n\\{Z(s) : s \\in D \\subset \\mathbb{R}^d\\}\n\\]\ndonde $D$ es un conjunto en \\(\\mathbb{R}^d\\), \\(( d = 2 )\\) , y \\(Z(s)\\) denota el atributo que observamos en \\(( s )\\). Tres tipos de datos espaciales se distinguen por las características del dominio \\(D\\), a saber, datos de área (o enrejado), datos geoestadísticos y patrones de puntos (Cressie 1993). A continuación, describimos cada uno de los tipos de datos, y damos ejemplos de estos datos en diferentes contextos.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de Datos Espaciales</span>"
+    ]
+  },
+  {
+    "objectID": "m1_3_tipos_datos_esp.html#datos-de-área-o-enrejado",
+    "href": "m1_3_tipos_datos_esp.html#datos-de-área-o-enrejado",
+    "title": "4  Tipos de Datos Espaciales",
+    "section": "4.2 Datos de Área (o Enrejado)",
+    "text": "4.2 Datos de Área (o Enrejado)\nLos datos de áreas, también conocidos como datos areales o de cuadrícula, se refieren a la información recolectada en unidades geográficas específicas, como regiones administrativas o celdas de una cuadrícula. Imagina que quieres entender cómo se distribuye una enfermedad en diferentes partes de una ciudad. En lugar de mirar cada caso individualmente, podrías sumar los casos dentro de cada barrio o distrito. Esto te permite observar patrones más amplios y entender mejor cómo ciertos factores afectan la distribución de la enfermedad.\nSegun Morgan P.(2023), en los datos areales o de cuadrícula, el dominio \\(D\\) es una colección contable fija de unidades areales (regulares o irregulares) en las que se observan variables. Los datos areales usualmente surgen cuando el número de eventos correspondientes a alguna variable de interés se agregan en áreas. Por ejemplo, en la epidemiología espacial, las ubicaciones de individuos con una determinada enfermedad a menudo se agregan en áreas administrativas. Estos datos pueden analizarse para entender patrones geográficos e identificar factores de riesgo de la enfermedad, teniendo en cuenta la configuración del vecindario y otros factores conocidos que afectan el riesgo de enfermedad (Moraga, 2018a). Los datos areales también pueden surgir en aplicaciones de teledetección donde los satélites proporcionan información sobre varias variables, como temperatura, precipitación e índices de vegetación en celdas de una cuadrícula regular que cubre la región de estudio.\n\n4.2.1 Ejemplo\nEn la Figura 1 se muestra la distribución de contratos realizados por el Consejo Nacional Electoral.\n\nlibrary(sf)\nlibrary(tidyverse)\n\necuador_provinces &lt;- st_read(\"../LIMITE_PROVINCIAL_CONALI_CNE_2022.shp\")\n\nReading layer `LIMITE_PROVINCIAL_CONALI_CNE_2022' from data source \n  `C:\\Users\\alex_ergostats\\Documents\\geo_stats_2024_nb\\LIMITE_PROVINCIAL_CONALI_CNE_2022.shp' \n  using driver `ESRI Shapefile'\nSimple feature collection with 23 features and 3 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 498738.4 ymin: 9445216 xmax: 1147852 ymax: 10162550\nProjected CRS: WGS 84 / UTM zone 17S\n\n#Graficamos\nggplot(data = ecuador_provinces) +\n  geom_sf(aes(fill = CONTRATOS)) +\n  scale_fill_viridis_c() +\n  labs(title = \"Numéro de contratos realizados por provincia \",\n       fill = \"Contratos\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\nFigura 1: Número de contratos realizados en el Ecuador por provincia.\nEn la Figura 2 muestra la elevación de las celdas de la cuadrícula ráster que cubren Luxemburgo desde Terra ( Hijmans 2022 ) . En este caso, todas las áreas tienen el mismo tamaño que las celdas de una cuadrícula ráste\n\nlibrary(terra)\nd &lt;- rast(system.file(\"ex/elev.tif\", package = \"terra\"))\nplot(d)\n\n\n\n\n\n\n\n\nFigura 2 : Ejemplo de datos reales. Elevación en celdas de la cuadrícula de raster que cubren Luxemburgo.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de Datos Espaciales</span>"
+    ]
+  },
+  {
+    "objectID": "m1_3_tipos_datos_esp.html#datos-geoestadísticos",
+    "href": "m1_3_tipos_datos_esp.html#datos-geoestadísticos",
+    "title": "4  Tipos de Datos Espaciales",
+    "section": "4.3 Datos geoestadísticos",
+    "text": "4.3 Datos geoestadísticos\nLos datos geoestadísticos nos llevan a explorar un mundo donde la información fluye de manera continua a través del espacio. Es como si cada punto en el mapa tuviera su propia historia que contar, y nuestro desafío es tejer estas historias juntas para comprender la imagen completa. Por ejemplo, al observar la contaminación del aire, no nos limitamos a simples puntos de medición; más bien, nos sumergimos en la red interconectada de cómo la contaminación se propaga y afecta diferentes áreas.\nEn datos geoestadísticos, \\(D\\) representa un subconjunto continuo fijo del espacio euclidiano \\(\\mathbb{R}^d\\) .El índice espacial \\(s\\) varía de manera continua en el espacio, lo que permite la observación de \\(Z(s)\\) en todas partes dentro de \\(D\\). Usualmente, utilizamos datos \\(\\{Z(s_1),\\ldots,Z(s_n)\\}\\) observados en ubicaciones espaciales conocidas \\(\\{s_1,\\ldots,s_n\\}\\) para predecir los valores de la variable de interés en ubicaciones no muestreadas. Por ejemplo, podemos utilizar mediciones de contaminación del aire en varias estaciones de monitoreo para predecir la contaminación del aire en otras ubicaciones, teniendo en cuenta la autocorrelación espacial y otros factores conocidos que predicen el resultado de interés (Cameletti et al., 2013).\n\n4.3.1 Ejemplo\nLa Figura 3 muestra la prevalencia de la malaria en lugares específicos de Zimbabwe del paquete malariaAtlas (Pfeffer et al.2020). La prevalencia se calcula como el número de personas positivas a la malaria dividido por el número de personas examinadas en cada una de las ubicaciones.\n\nlibrary(malariaAtlas)\nd &lt;- getPR(country = \"Zimbabwe\", species = \"BOTH\")\nggplot2::autoplot(d)\n\n\n\n\n\n\n\n\nFIGURA 3: Ejemplo de datos geoestadísticos. Prevalencia de la malaria en lugares específicos de Zimbabwe.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de Datos Espaciales</span>"
+    ]
+  },
+  {
+    "objectID": "m1_3_tipos_datos_esp.html#patrones-de-puntos",
+    "href": "m1_3_tipos_datos_esp.html#patrones-de-puntos",
+    "title": "4  Tipos de Datos Espaciales",
+    "section": "4.4 Patrones de Puntos",
+    "text": "4.4 Patrones de Puntos\nLos patrones de puntos son como esas veces que encuentras un patrón en cómo las cosas suceden en diferentes lugares. Imagina un mapa lleno de puntos, donde cada punto representa algo especial que ocurrió, como un incendio en un bosque o la ubicación de personas con una enfermedad. Observando cómo se distribuyen estos puntos en el mapa, podemos descubrir pistas sobre cómo suceden estas cosas en el espacio, como si estuviéramos resolviendo un misterio espacial.\nEn los patrones de puntos, el dominio \\(D\\) es aleatorio, lo que significa que las ubicaciones de los eventos se distribuyen de manera no uniforme en el espacio. Cada punto en el patrón indica la ocurrencia de un evento en esa ubicación específica. Por ejemplo, en la ubicación de incendios forestales, \\(Z(s)\\) puede ser igual a 1 \\(\\forall s \\in D\\) para indicar la presencia de un incendio en esa ubicación, o puede ser aleatorio para proporcionar información adicional sobre el evento. El análisis de patrones de puntos nos permite entender los procesos subyacentes que generan el patrón y evaluar si la distribución espacial exhibe aleatoriedad, agrupamiento o regularidad.\n\n4.4.1 Ejemplo\nLa Figura 4 muestra las ubicaciones espaciales de 761 casos de cirrosis biliar primaria y 30210 controles que representan a la población en riesgo en el noreste de Inglaterra recopilados entre 1987 y 1994. Esta información está contenida en los pbcdatos del paquete sparr (Davies y Marshall, 2023).\n\nlibrary(sparr)\ndata(pbc)\nplot(unmark(pbc[which(pbc$marks == \"case\"), ]), main = \"Casos\")\naxis(1)\naxis(2)\ntitle(xlab = \"Este\", ylab = \"Norte\")\n\n\n\n\n\n\n\nplot(unmark(pbc[which(pbc$marks == \"control\"), ]),\n     pch = 3, main = \"Controles\")\naxis(1)\naxis(2)\ntitle(xlab = \"Este\", ylab = \"Norte\")\n\n\n\n\n\n\n\n\nFigura 4: Ejemplo de patrón de puntos. Ubicaciones de casos y controles de cirrosis biliar primaria en el noreste de Inglaterra entre 1987 y 1994",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de Datos Espaciales</span>"
+    ]
+  },
+  {
+    "objectID": "m1_3_tipos_datos_esp.html#datos-espacio-temporales",
+    "href": "m1_3_tipos_datos_esp.html#datos-espacio-temporales",
+    "title": "4  Tipos de Datos Espaciales",
+    "section": "4.5 Datos espacio-temporales",
+    "text": "4.5 Datos espacio-temporales\nLos datos espacio-temporales son como un diario detallado que registra eventos tanto en el espacio como en el tiempo. Es como tener un mapa animado que muestra cómo las cosas cambian y se desarrollan a lo largo del tiempo en diferentes lugares. Por ejemplo, podemos imaginar un registro de la contaminación del aire en diferentes estaciones de monitoreo en Alemania, capturado cada hora a lo largo de un día, o un seguimiento de los terremotos que ocurren en el mundo a lo largo de los años. Estos datos nos permiten no solo comprender cómo se distribuyen los eventos en el espacio, sino también cómo evolucionan con el tiempo.\nLos datos espacio-temporales surgen cuando la información está referenciada tanto espacial como temporalmente. Por lo tanto, podemos considerar los datos espaciales como agregaciones temporales o instantáneas temporales de un proceso espacio-temporal.\n\n4.5.1 Ejemplo\nEn la Figura 5 se plantea el gráfico del mundo considerando la población en cada país en los distintos años.\n\nlibrary(gapminder)\nlibrary(rnaturalearth)\nlibrary(tidyverse)\n\ngapminder\n\n# A tibble: 1,704 × 6\n   country     continent  year lifeExp      pop gdpPercap\n   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan Asia       1952    28.8  8425333      779.\n 2 Afghanistan Asia       1957    30.3  9240934      821.\n 3 Afghanistan Asia       1962    32.0 10267083      853.\n 4 Afghanistan Asia       1967    34.0 11537966      836.\n 5 Afghanistan Asia       1972    36.1 13079460      740.\n 6 Afghanistan Asia       1977    38.4 14880372      786.\n 7 Afghanistan Asia       1982    39.9 12881816      978.\n 8 Afghanistan Asia       1987    40.8 13867957      852.\n 9 Afghanistan Asia       1992    41.7 16317921      649.\n10 Afghanistan Asia       1997    41.8 22227415      635.\n# ℹ 1,694 more rows\n\nworld &lt;- ne_countries(scale = \"medium\", returnclass = \"sf\")\n\nworld_gapminder &lt;- gapminder %&gt;%\n  left_join(world, by = c(\"country\" = \"admin\"))\n\n\nggplot(data = world_gapminder) +\n  geom_sf(\n    aes(fill = pop,geometry = geometry),\n    color = 'gray',\n    size = 0.3\n  ) +\n  guides(fill = guide_colorbar(title = \"Población mundial\")) +\n  scale_fill_gradient(\n    limits = c(0, 235520226),\n    high = \"#010BAD\",\n    low = \"#B1B3E6\",\n    guide = \"colorbar\"\n  ) +\n  facet_wrap(. ~ year) +\n  theme(axis.text = element_blank(),\n        strip.text = element_text(\n                                  size = 10)) +\n  # labs(title = \"Inversión en TICs por Año, por Provincia y por Sector\") +\n  theme(\n    legend.position = \"bottom\",\n    strip.text = element_text(\n      face = 'bold',\n      size = 9,\n      color = 'blue'\n    ),\n    strip.background = element_rect(fill = 'white')\n  )\n\n\n\n\n\n\n\n\nFigura 5 Población mundial 1952- 2007\n\nFíjate como el territorio de Rusia aparece siempre gris. En el ejemplo que presentamos ocupamos dos fuente de datos distintas, las cuales antes deben ser procesadas para poderlas integrar y que nuestro mapa mejore sustancialmente. Para este último objetivo ocuparemos tidyverse y sus funciones.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de Datos Espaciales</span>"
+    ]
+  },
+  {
+    "objectID": "m1_3_tipos_datos_esp.html#datos-de-movilidad",
+    "href": "m1_3_tipos_datos_esp.html#datos-de-movilidad",
+    "title": "4  Tipos de Datos Espaciales",
+    "section": "4.6 Datos de Movilidad",
+    "text": "4.6 Datos de Movilidad\nLos datos de movilidad son como ríos invisibles que conectan diferentes lugares, mostrándonos cómo las personas y otras entidades se desplazan de un lugar a otro. Es como observar el flujo de personas en una ciudad, viendo cómo se mueven de un vecindario a otro, o seguir el movimiento de vehículos en una red de carreteras. Estos datos nos ayudan a comprender cómo interactúan los lugares y cómo se propagan fenómenos como enfermedades o información a través de estas redes invisibles.\nAdemás de los tres tipos clásicos de datos espaciales (es decir, datos areales, geoestadísticos y de patrones de puntos), también podemos considerar otros datos espaciales como flujos que contienen el número de individuos u otros elementos que se mueven entre ubicaciones. Aquí, vemos un ejemplo de datos de flujos del paquete epiflows. Este paquete nos permite predecir y visualizar la propagación de enfermedades infecciosas basadas en flujos entre ubicaciones geográficas. El paquete contiene datos de Brazil_epiflows con el número de viajeros entre estados brasileños y otras ubicaciones. Podemos utilizar estos datos para crear un objeto epiflows que nos permita utilizar las funciones de predicción y visualización. Luego, podemos visualizar los flujos de población con vis_epiflows utilizando una red dinámica, y map_epiflows utilizando un mapa interactivo.\n\n4.6.1 Ejemplo\n\nlibrary(\"epiflows\")\ndata(\"Brazil_epiflows\")\n\nloc &lt;- merge(x = YF_locations, y = YF_coordinates,\nby.x = \"location_code\", by.y = \"id\", sort = FALSE)\n\nef &lt;- make_epiflows(flows = YF_flows, locations = loc,\n                    coordinates = c(\"lon\", \"lat\"),\n                    pop_size = \"location_population\",\n                    duration_stay = \"length_of_stay\",\n                    num_cases = \"num_cases_time_window\",\n                    first_date = \"first_date_cases\",\n                    last_date = \"last_date_cases\")\n\n\nvis_epiflows(ef)\n\n\n\n\n\n\nmap_epiflows(ef)",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de Datos Espaciales</span>"
+    ]
+  },
+  {
+    "objectID": "m1_3_tipos_datos_esp.html#notas-finales",
+    "href": "m1_3_tipos_datos_esp.html#notas-finales",
+    "title": "4  Tipos de Datos Espaciales",
+    "section": "4.7 Notas Finales",
+    "text": "4.7 Notas Finales\nComprender los distintos tipos de datos espaciales es fundamental en una variedad de campos científicos y aplicados. Desde la salud pública hasta la gestión ambiental y la planificación urbana, los datos espaciales nos proporcionan una visión profunda sobre cómo los fenómenos se distribuyen y evolucionan en el espacio y el tiempo. Con herramientas adecuadas, podemos analizar patrones complejos, prever cambios futuros y tomar decisiones informadas que mejoren nuestra calidad de vida y la sostenibilidad de nuestro entorno. La capacidad de interpretar y utilizar estos datos no solo enriquece nuestra comprensión del mundo, sino que también nos permite responder de manera más efectiva a desafíos globales como la propagación de enfermedades, el cambio climático y la urbanización acelerada.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de Datos Espaciales</span>"
+    ]
+  }
+]

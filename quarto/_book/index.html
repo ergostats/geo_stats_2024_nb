@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Alex Bajaña">
+<meta name="author" content="Pablo Sarango">
+<meta name="author" content="Paúl Yungán">
 
-<title>Untitled</title>
+<title>Guía del estudiante para el curso de estadística y econometría espacial</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,36 +26,161 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="0_expectivativas_inicio_files/libs/clipboard/clipboard.min.js"></script>
-<script src="0_expectivativas_inicio_files/libs/quarto-html/quarto.js"></script>
-<script src="0_expectivativas_inicio_files/libs/quarto-html/popper.min.js"></script>
-<script src="0_expectivativas_inicio_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="0_expectivativas_inicio_files/libs/quarto-html/anchor.min.js"></script>
-<link href="0_expectivativas_inicio_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="0_expectivativas_inicio_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="0_expectivativas_inicio_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="0_expectivativas_inicio_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="0_expectivativas_inicio_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./m1_1_introduccion_r.html" rel="next">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
 
 </head>
 
-<body>
+<body class="nav-sidebar floating slimcontent">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-</div>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivación del curso</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Guía del estudiante para el curso de estadística y econometría espacial</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivación del curso</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./m1_1_introduccion_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción al software R para análisis espacial</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./m1_2_importancia_datos_esp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importancia de los Datos Espaciales en la Ciencia de Datos</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./m1_3_tipos_datos_esp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Tipos de Datos Espaciales</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#por-qué-es-importante-la-estadística-espacial-y-la-econometría-espacial" id="toc-por-qué-es-importante-la-estadística-espacial-y-la-econometría-espacial" class="nav-link active" data-scroll-target="#por-qué-es-importante-la-estadística-espacial-y-la-econometría-espacial"><span class="header-section-number">0.1</span> ¿Por qué es importante la estadística espacial y la econometría espacial?</a>
+  <ul class="collapse">
+  <li><a href="#seguimiento-de-especies-en-hábitats-naturales" id="toc-seguimiento-de-especies-en-hábitats-naturales" class="nav-link" data-scroll-target="#seguimiento-de-especies-en-hábitats-naturales"><span class="header-section-number">0.1.1</span> 1. Seguimiento de Especies en Hábitats Naturales</a></li>
+  <li><a href="#análisis-de-la-distribución-de-enfermedades" id="toc-análisis-de-la-distribución-de-enfermedades" class="nav-link" data-scroll-target="#análisis-de-la-distribución-de-enfermedades"><span class="header-section-number">0.1.2</span> 2. Análisis de la Distribución de Enfermedades</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">0.1.3</span> <img src="images/clipboard-954091141.png" class="img-fluid"></a></li>
+  <li><a href="#estudios-de-mercado-y-análisis-económico-espacial" id="toc-estudios-de-mercado-y-análisis-económico-espacial" class="nav-link" data-scroll-target="#estudios-de-mercado-y-análisis-económico-espacial"><span class="header-section-number">0.1.4</span> 3. Estudios de Mercado y Análisis Económico Espacial</a></li>
+  <li><a href="#análisis-del-impacto-ambiental" id="toc-análisis-del-impacto-ambiental" class="nav-link" data-scroll-target="#análisis-del-impacto-ambiental"><span class="header-section-number">0.1.5</span> 4. Análisis del Impacto Ambiental</a></li>
+  </ul></li>
+  <li><a href="#visión-general-del-curso-y-expectativas" id="toc-visión-general-del-curso-y-expectativas" class="nav-link" data-scroll-target="#visión-general-del-curso-y-expectativas"><span class="header-section-number">0.2</span> Visión General del Curso y Expectativas</a>
+  <ul class="collapse">
+  <li><a href="#importancia-del-open-source-en-el-análisis-estadístico-espacial-y-econometría-espacial" id="toc-importancia-del-open-source-en-el-análisis-estadístico-espacial-y-econometría-espacial" class="nav-link" data-scroll-target="#importancia-del-open-source-en-el-análisis-estadístico-espacial-y-econometría-espacial"><span class="header-section-number">0.2.1</span> Importancia del Open Source en el Análisis Estadístico Espacial y Econometría Espacial</a></li>
+  <li><a href="#evidencia-de-la-calidad-del-open-source" id="toc-evidencia-de-la-calidad-del-open-source" class="nav-link" data-scroll-target="#evidencia-de-la-calidad-del-open-source"><span class="header-section-number">0.2.2</span> Evidencia de la Calidad del Open Source</a></li>
+  <li><a href="#enfoque-del-curso" id="toc-enfoque-del-curso" class="nav-link" data-scroll-target="#enfoque-del-curso"><span class="header-section-number">0.2.3</span> Enfoque del Curso</a></li>
+  <li><a href="#fuentes-de-información-y-datos" id="toc-fuentes-de-información-y-datos" class="nav-link" data-scroll-target="#fuentes-de-información-y-datos"><span class="header-section-number">0.2.4</span> Fuentes de Información y Datos</a></li>
+  <li><a href="#expectativas" id="toc-expectativas" class="nav-link" data-scroll-target="#expectativas"><span class="header-section-number">0.2.5</span> Expectativas</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Untitled</h1>
+<h1 class="title">Guía del estudiante para el curso de estadística y econometría espacial</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alex Bajaña </p>
+             <p>Pablo Sarango </p>
+             <p>Paúl Yungán </p>
+          </div>
+  </div>
     
   
     
@@ -63,38 +191,38 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="por-qué-es-importante-la-estadística-espacial-y-la-econometría-espacial" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="por-qué-es-importante-la-estadística-espacial-y-la-econometría-espacial">¿Por qué es importante la estadística espacial y la econometría espacial?</h2>
+<section id="por-qué-es-importante-la-estadística-espacial-y-la-econometría-espacial" class="level2 page-columns page-full" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="por-qué-es-importante-la-estadística-espacial-y-la-econometría-espacial"><span class="header-section-number">0.1</span> ¿Por qué es importante la estadística espacial y la econometría espacial?</h2>
 <p>En el mundo actual de la ciencia de datos y la toma de decisiones, la estadística espacial y la econometría espacial juegan un papel crucial en la comprensión y el análisis de datos geoespaciales. . En este mismo mundo la cantidad de información hace que las disciplinas sean interrelacionadas, al combinar técnicas estadísticas avanzadas con datos georreferenciados, la estadística espacial y la econometría espacial, estas disciplinas permiten a los investigadores y profesionales explorar patrones espaciales, modelar relaciones entre variables y realizar predicciones en contextos geográficos, desde la ecología hasta la economía. A continuación, se presentan algunos ejemplos de aplicaciones exitosas de estas disciplinas:</p>
 <p>Aquí tienes los enlaces a algunos proyectos exitosos de análisis estadístico espacial y econometría espacial que pueden servir como ejemplos inspiradores para los estudiantes:</p>
-<section id="seguimiento-de-especies-en-hábitats-naturales" class="level3">
-<h3 class="anchored" data-anchor-id="seguimiento-de-especies-en-hábitats-naturales">1. Seguimiento de Especies en Hábitats Naturales</h3>
+<section id="seguimiento-de-especies-en-hábitats-naturales" class="level3" data-number="0.1.1">
+<h3 data-number="0.1.1" class="anchored" data-anchor-id="seguimiento-de-especies-en-hábitats-naturales"><span class="header-section-number">0.1.1</span> 1. Seguimiento de Especies en Hábitats Naturales</h3>
 <p><strong>Proyecto de seguimiento de elefantes en África</strong>: - Descripción: Este proyecto rastrea el movimiento de elefantes en África utilizando dispositivos GPS para comprender sus patrones de movimiento y mejorar los esfuerzos de conservación.</p>
 <ul>
 <li>Enlace: <a href="https://www.movebank.org/cms/webapp?gwt_fragment=page=studies,path=study1807299477">Movebank - Elephant Tracking</a></li>
 </ul>
 <p><img src="images/clipboard-4199095113.png" class="img-fluid"></p>
 </section>
-<section id="análisis-de-la-distribución-de-enfermedades" class="level3">
-<h3 class="anchored" data-anchor-id="análisis-de-la-distribución-de-enfermedades">2. Análisis de la Distribución de Enfermedades</h3>
+<section id="análisis-de-la-distribución-de-enfermedades" class="level3" data-number="0.1.2">
+<h3 data-number="0.1.2" class="anchored" data-anchor-id="análisis-de-la-distribución-de-enfermedades"><span class="header-section-number">0.1.2</span> 2. Análisis de la Distribución de Enfermedades</h3>
 <p><strong>Proyecto de mapeo y análisis del dengue en Brasil</strong>: - Descripción: Este estudio analiza la distribución espacial del dengue en diferentes regiones de Brasil y los factores ambientales que contribuyen a su propagación.</p>
 <ul>
 <li>Enlace: <a href="https://repositorio.unicordoba.edu.co/server/api/core/bitstreams/70717165-373c-4271-abdd-70f427e1bdce/content">Análisis Multitemporal de la Distribución Espacial del Dengue en Planeta Rica</a></li>
 </ul>
 </section>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section"><img src="images/clipboard-954091141.png" class="img-fluid"></h3>
+<section id="section" class="level3" data-number="0.1.3">
+<h3 data-number="0.1.3" class="anchored" data-anchor-id="section"><span class="header-section-number">0.1.3</span> <img src="images/clipboard-954091141.png" class="img-fluid"></h3>
 </section>
-<section id="estudios-de-mercado-y-análisis-económico-espacial" class="level3">
-<h3 class="anchored" data-anchor-id="estudios-de-mercado-y-análisis-económico-espacial">3. Estudios de Mercado y Análisis Económico Espacial</h3>
+<section id="estudios-de-mercado-y-análisis-económico-espacial" class="level3" data-number="0.1.4">
+<h3 data-number="0.1.4" class="anchored" data-anchor-id="estudios-de-mercado-y-análisis-económico-espacial"><span class="header-section-number">0.1.4</span> 3. Estudios de Mercado y Análisis Económico Espacial</h3>
 <p><strong>Análisis espacial del mercado inmobiliario en Boston</strong>:</p>
 <p>Este proyecto utiliza modelos espaciales para (entre muchas coasas) analizar la distribución de precios de viviendas en Boston y cómo las variables socioeconómicas influyen en estos precios. En este ejemplo mostramos como miden el cambio en la extensión del dosel arbóreo, que en otras palabras representa la copa o parte superior de los arboles, con ello se puede ver la perdida o ganancia de terreno que se ha dado en bostón ocupado por vegetación.</p>
 <ul>
 <li>Enlace: <a href="https://storymaps.arcgis.com/stories/43dccf3f51104a86ac8c4790a13e9d71">Boston Housing Data Analysis</a></li>
 </ul>
 </section>
-<section id="análisis-del-impacto-ambiental" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="análisis-del-impacto-ambiental">4. Análisis del Impacto Ambiental</h3>
+<section id="análisis-del-impacto-ambiental" class="level3 page-columns page-full" data-number="0.1.5">
+<h3 data-number="0.1.5" class="anchored" data-anchor-id="análisis-del-impacto-ambiental"><span class="header-section-number">0.1.5</span> 4. Análisis del Impacto Ambiental</h3>
 <p><strong>Evaluación del impacto de la minería en la selva amazónica</strong>: - Descripción: Este estudio utiliza imágenes satelitales para evaluar el impacto de la minería en la deforestación de la selva amazónica y desarrollar estrategias para la mitigación de daños ambientales.</p>
 <ul>
 <li>Enlace: <a href="https://glad.earthengine.app/view/global-forest-change#bl=off;old=off;dl=1;lon=20;lat=10;zoom=3;">Amazon Mining Impact</a></li>
@@ -108,14 +236,14 @@ ul.task-list li input[type="checkbox"] {
 </div></div><hr>
 </section>
 </section>
-<section id="visión-general-del-curso-y-expectativas" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="visión-general-del-curso-y-expectativas">Visión General del Curso y Expectativas</h2>
-<section id="importancia-del-open-source-en-el-análisis-estadístico-espacial-y-econometría-espacial" class="level3">
-<h3 class="anchored" data-anchor-id="importancia-del-open-source-en-el-análisis-estadístico-espacial-y-econometría-espacial">Importancia del Open Source en el Análisis Estadístico Espacial y Econometría Espacial</h3>
+<section id="visión-general-del-curso-y-expectativas" class="level2 page-columns page-full" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="visión-general-del-curso-y-expectativas"><span class="header-section-number">0.2</span> Visión General del Curso y Expectativas</h2>
+<section id="importancia-del-open-source-en-el-análisis-estadístico-espacial-y-econometría-espacial" class="level3" data-number="0.2.1">
+<h3 data-number="0.2.1" class="anchored" data-anchor-id="importancia-del-open-source-en-el-análisis-estadístico-espacial-y-econometría-espacial"><span class="header-section-number">0.2.1</span> Importancia del Open Source en el Análisis Estadístico Espacial y Econometría Espacial</h3>
 <p>En este curso, exploraremos el fascinante mundo del análisis estadístico espacial y la econometría espacial utilizando herramientas y metodologías de código abierto. La adopción de tecnologías open source en la ciencia de datos ha revolucionado la forma en que abordamos problemas complejos, proporcionando acceso a potentes herramientas de análisis sin barreras de costo. El software de código abierto permite a los investigadores y profesionales colaborar, compartir conocimiento y mejorar continuamente las herramientas que utilizan.</p>
 </section>
-<section id="evidencia-de-la-calidad-del-open-source" class="level3">
-<h3 class="anchored" data-anchor-id="evidencia-de-la-calidad-del-open-source">Evidencia de la Calidad del Open Source</h3>
+<section id="evidencia-de-la-calidad-del-open-source" class="level3" data-number="0.2.2">
+<h3 data-number="0.2.2" class="anchored" data-anchor-id="evidencia-de-la-calidad-del-open-source"><span class="header-section-number">0.2.2</span> Evidencia de la Calidad del Open Source</h3>
 <p>La calidad y efectividad del open source en el análisis estadístico espacial están bien representadas por una variedad de paquetes disponibles en CRAN. Entre ellos, destacan:</p>
 <ul>
 <li><strong>tidyverse</strong>: Un conjunto de paquetes que facilitan la manipulación y visualización de datos de manera eficiente y coherente.</li>
@@ -125,16 +253,16 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Estos paquetes son ejemplos del poder y la versatilidad del software de código abierto, respaldados por una comunidad activa que garantiza su actualización y mejora continua.</p>
 </section>
-<section id="enfoque-del-curso" class="level3">
-<h3 class="anchored" data-anchor-id="enfoque-del-curso">Enfoque del Curso</h3>
+<section id="enfoque-del-curso" class="level3" data-number="0.2.3">
+<h3 data-number="0.2.3" class="anchored" data-anchor-id="enfoque-del-curso"><span class="header-section-number">0.2.3</span> Enfoque del Curso</h3>
 <p>Este curso se centra en la programación con R para la aplicación en estadísticas y econometría espacial. A través de las lecciones, aprenderás no solo a utilizar estas herramientas, sino también a comprender los fundamentos teóricos que las sustentan. Nuestro objetivo es que al finalizar el curso, puedas abordar y resolver problemas espaciales complejos utilizando técnicas estadísticas avanzadas.</p>
 </section>
-<section id="fuentes-de-información-y-datos" class="level3">
-<h3 class="anchored" data-anchor-id="fuentes-de-información-y-datos">Fuentes de Información y Datos</h3>
+<section id="fuentes-de-información-y-datos" class="level3" data-number="0.2.4">
+<h3 data-number="0.2.4" class="anchored" data-anchor-id="fuentes-de-información-y-datos"><span class="header-section-number">0.2.4</span> Fuentes de Información y Datos</h3>
 <p>Durante el curso, utilizaremos principalmente fuentes públicas de información, con un énfasis especial en las herramientas espaciales y bases de datos del Ecuador. Esto no solo proporcionará un contexto local relevante, sino que también te permitirá aplicar los conocimientos adquiridos a problemas específicos de nuestra región. Además, incorporaremos bases de datos modernas que ilustran bien el uso de la estadística espacial en contextos globales, proporcionando una visión amplia y aplicada de las técnicas que aprenderás.</p>
 </section>
-<section id="expectativas" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="expectativas">Expectativas</h3>
+<section id="expectativas" class="level3 page-columns page-full" data-number="0.2.5">
+<h3 data-number="0.2.5" class="anchored" data-anchor-id="expectativas"><span class="header-section-number">0.2.5</span> Expectativas</h3>
 <p>Esperamos que los estudiantes se involucren activamente en las actividades prácticas del curso y se familiaricen con los paquetes y herramientas discutidos. La programación será una parte esencial del aprendizaje, por lo que se recomienda dedicar tiempo fuera de las sesiones para practicar y explorar las capacidades de R en el análisis espacial. Al final del curso, deberías ser capaz de:</p>
 <ol type="1">
 <li>Manejar y manipular datos espaciales en R utilizando paquetes especializados.</li>
@@ -144,14 +272,15 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>Estamos emocionados de acompañarte en este viaje de descubrimiento y aprendizaje en el campo de la estadística y econometría espacial. ¡Bienvenido al curso!</p>
 
+
+
 <div class="no-row-height column-margin column-container"><div class="">
 <p>En este curso el internet y su largo contenido serán nuestros aliados. No olvides que la <strong>inteligencia artificial</strong> es tu aliada en la búsqueda de información y la resolución de problemas. Así que no dudes en utilizarla para profundizar en los temas que te interesen y enriquecer tu aprendizaje. ¡Adelante!</p>
 <p><img src="https://lh3.googleusercontent.com/proxy/vmQks2cooaKLEY7lolbGyDhueIpUk8cueM4hercRg4FStCJmj4K2pZXO3o9VOuVFaxMWteDpNZlZYIc6IhwMcCyT_mmcy-HfpP4LV5eNSwpap_PqRlgbXVTlF6ojxVcOSsV-PKe-xwSmHMvo7f2rwtNnSCPR.png" class="img-fluid"></p>
 </div></div></section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -561,6 +690,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./m1_1_introduccion_r.html" class="pagination-link" aria-label="Introducción al software R para análisis espacial">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción al software R para análisis espacial</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
