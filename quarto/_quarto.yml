@@ -11,3 +11,6 @@ book:
     - m1_1_introduccion_r.qmd
     - m1_2_importancia_datos_esp.qmd
     - m1_3_tipos_datos_esp.qmd
+    - m2_1_importacion.qmd
+    - m2_2_graficos_estadisticos_ggplot2.qmd
+    - m2_3_operaciones_espaciales.qmd

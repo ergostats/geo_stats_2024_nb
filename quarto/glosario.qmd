@@ -1,0 +1,43 @@
+---
+title: "glosario"
+format: html
+editor: visual
+---
+
+### Glosario de términos: Estadística Espacial
+
+1.  **Datos Espaciales**: Información que identifica la ubicación geográfica y las características de los elementos y límites naturales o construidos en la Tierra.
+2.  **Coordenadas Cartesianas**: Sistema de referencia para representar puntos en un espacio bidimensional (x, y) o tridimensional (x, y, z).
+3.  **Vectores**: Datos espaciales representados mediante puntos, líneas y polígonos.
+4.  **Ráster**: Datos espaciales representados en una cuadrícula de píxeles, cada uno con un valor específico.
+5.  **Análisis Geoespacial**: Evaluación de datos geográficos para identificar patrones, relaciones y tendencias.
+6.  **Modelado Espacial**: Uso de modelos matemáticos para representar procesos que ocurren en el espacio geográfico.
+7.  **SIG (Sistemas de Información Geográfica)**: Herramientas para capturar, almacenar, analizar y gestionar datos geoespaciales.
+8.  **Interpolación Espacial**: Técnica para predecir valores en ubicaciones no muestreadas basándose en valores de ubicaciones conocidas.
+9.  **Autocorrelación Espacial**: Medida de la similitud entre valores de una variable en ubicaciones cercanas.
+10. **Kriging**: Método de interpolación geoespacial avanzado que estima valores en puntos no muestreados usando un modelo de variabilidad espacial.
+
+### Glosario de términos: R y RStudio
+
+1.  **R**: Lenguaje de programación y entorno de software para análisis estadístico y gráfico.
+2.  **RStudio**: Entorno de desarrollo integrado (IDE) para R, que facilita la programación y el análisis de datos.
+3.  **Paquetes**: Conjuntos de funciones, datos y documentación que amplían las capacidades de R.
+4.  **Tidyverse**: Colección de paquetes de R diseñados para la manipulación y visualización de datos.
+5.  **Data Frame**: Estructura de datos en R similar a una tabla, donde cada columna puede contener un tipo de dato diferente.
+6.  **ggplot2**: Paquete de R para la creación de gráficos.
+7.  **dplyr**: Paquete de R para la manipulación de datos, centrado en la simplificación de la sintaxis para operaciones comunes.
+8.  **sf**: Paquete para el manejo de datos espaciales en R.
+9.  **terra**: Paquete para la manipulación y análisis de datos ráster en R.
+10. **Pipe (%\>%)**: Operador en R usado para encadenar funciones de manera que el resultado de una función sea la entrada de la siguiente.
+
+### Comandos útiles y atajos de teclado en RStudio
+
+-   **Abrir Ayuda**: `help.start()`
+-   **Buscar Ayuda**: `help.search("tema")`, `?función`
+-   **Instalar Paquetes**: `install.packages("nombre_paquete")`
+-   **Cargar Paquetes**: `library(nombre_paquete)`
+-   **Atajo para Pipe**: `Ctrl + Shift + M`
+-   **Comentar Líneas**: `Ctrl + Shift + C`
+-   **Añadir Nueva Sección**: `Ctrl + Shift + R`
+
+Estos términos y comandos proporcionan una base sólida para entender y trabajar con estadística espacial y el entorno de R/RStudio.

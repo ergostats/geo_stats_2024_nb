@@ -1,0 +1,172 @@
+---
+title: "Operaciones con datos espaciales"
+format: html
+editor: visual
+---
+
+### Guía de Estudiante: Operaciones con Datos Espaciales Vectoriales usando `sf`
+
+#### Introducción
+
+En esta sección, exploraremos las operaciones con datos espaciales vectoriales utilizando la librería `sf` en R. Explicaremos detalladamente las funciones empleadas en las clases y actividades, describiendo sus argumentos y los tipos de objetos que requieren. Esta guía está diseñada para proporcionar una comprensión profunda de cómo manipular y analizar datos espaciales vectoriales.
+
+#### Funciones Básicas de `sf`
+
+##### `st_read()`
+
+La función `st_read()` se utiliza para leer archivos espaciales y convertirlos en objetos `sf`. Acepta diferentes formatos de archivos, incluidos shapefiles (.shp).
+
+```{r}
+library(sf)
+
+# Leer shapefile
+shp <- st_read("../data/shp/LIMITE_PROVINCIAL_CONALI_CNE_2022.shp")
+```
+
+**Argumentos**: - **dsn**: La ruta al archivo o base de datos. - **layer**: El nombre de la capa si el archivo contiene múltiples capas.
+
+##### `st_as_sf()`
+
+La función `st_as_sf()` convierte un objeto de datos tabulares (data.frame o tibble) en un objeto espacial `sf`.
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(sf)
+
+# Importar datos tabulados
+metro_data <- read_excel("../data/Metro_quito_usuarios_enero_2024.xlsx")
+
+# Convertir datos tabulados en objeto sf
+metro_sf <- st_as_sf(metro_data, coords = c("Long", "Lat"))
+```
+
+**Argumentos**: - **x**: El objeto a convertir. - **coords**: Un vector de nombres de las columnas que contienen las coordenadas.
+
+##### `st_crs()`
+
+La función `st_crs()` establece o recupera el sistema de referencia de coordenadas (CRS) de un objeto `sf`.
+
+```{r}
+# Asignar un sistema de referencia de coordenadas geográficas (EPSG 4326)
+st_crs(metro_sf) <- 4326
+```
+
+**Argumentos**: 
+
+- **x**: El objeto `sf`. 
+- **value**: El CRS a asignar.
+
+##### `st_transform()`
+
+La función `st_transform()` transforma las coordenadas de un objeto `sf` a un nuevo sistema de referencia de coordenadas (CRS).
+
+```{r}
+# Transformar a un sistema de coordenadas proyectado (WGS84 UTM 17S EPSG 32717)
+metro_32717 <- st_transform(metro_sf, 32717)
+```
+
+**Argumentos**: 
+
+- **x**: El objeto `sf` a transformar.
+- **crs**: El nuevo CRS (puede ser un código EPSG o una definición de PROJ4).
+
+##### `st_union()`
+
+La función `st_union()` combina múltiples geometrías en una sola geometría.
+
+```{r}
+# Disolver este shape
+shp_disuelto <- st_union(shp)
+```
+
+**Argumentos**: 
+
+- **x**: El objeto `sf` que contiene las geometrías a unir.
+
+##### `st_simplify()`
+
+La función `st_simplify()` reduce la complejidad de las geometrías, eliminando vértices innecesarios.
+
+```{r}
+# Simplificar polígonos
+shp_simplificado <- st_simplify(shp, dTolerance = 1000)
+```
+
+**Argumentos**: 
+
+- **x**: El objeto `sf` que contiene las geometrías a simplificar. 
+- **dTolerance**: La tolerancia para la simplificación (cuanto mayor es el valor, más simplificación se aplica).
+
+##### `st_centroid()`
+
+La función `st_centroid()` calcula el centroide de las geometrías.
+
+```{r}
+# Obtener centroides
+centroide <- st_centroid(shp_simplificado)
+```
+
+**Argumentos**: 
+
+- **x**: El objeto `sf` que contiene las geometrías.
+
+
+**Argumentos**: 
+
+- **x**: El primer objeto `sf`. 
+- **y**: El segundo objeto `sf` con los atributos a unir. 
+- **join**: El tipo de unión (por defecto es `st_intersects`).
+
+##### `sf_use_s2()`
+
+La función `sf_use_s2()` controla si las operaciones geométricas en `sf` utilizan la biblioteca `s2`.
+
+```{r}
+# Desactivar el uso de s2 para cálculos de geometría en sf
+sf_use_s2(FALSE)
+```
+
+**Argumentos**: 
+
+- **use_s2**: Un valor lógico que indica si se debe usar `s2` (TRUE o FALSE).
+
+#### Ejemplo Completo: Transformación y Visualización de Datos Espaciales
+
+A continuación, presentamos un ejemplo completo de cómo leer, transformar y visualizar datos espaciales utilizando las funciones de `sf` y `ggplot2`.
+
+```{r}
+library(sf)
+library(tidyverse)
+library(readxl)
+
+# Desactivar el uso de s2 para cálculos de geometría en sf
+sf_use_s2(FALSE)
+
+# Leer los datos espaciales
+datos <- read_sf("../data/shp/BC001_MERCADO_PLATAFORMA_A.shp")
+
+# Leer el archivo Excel con las administraciones zonales y sus parroquias
+admin_zones <- read_excel("../data/Administraciones_Zonales_Parroquias.xlsx")
+
+# Leer los límites de las parroquias
+datos_limites <- read_sf("../data/shp/PARROQUIAS_REF.shp")
+
+# Unir los datos de los límites con las administraciones zonales
+datos_limites <- datos_limites %>% 
+  inner_join(admin_zones)
+
+# Calcular los centroides de los datos de mercados
+puntos <- datos %>% 
+  st_centroid()
+
+# Visualizar los límites de las parroquias y los puntos de los mercados
+datos_limites %>% 
+  ggplot() +
+  geom_sf() +
+  geom_sf(data = puntos, color = "blue")
+```
+
+#### Conclusión
+
+En esta sección, hemos explorado varias funciones de la librería `sf` para manipular y analizar datos espaciales vectoriales. Desde la lectura de archivos espaciales hasta la transformación de sistemas de referencia de coordenadas y la simplificación de geometrías, estas herramientas te permitirán realizar un análisis espacial detallado y efectivo en R.

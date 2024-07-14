@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Guía del estudiante para el curso de estadística y econometría espacial - 2&nbsp; Introducción al software R para análisis espacial</title>
+<title>Guía del estudiante para el curso de estadística y econometría espacial - 6&nbsp; La grámatica de los gráficos ggplot2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./m1_2_importancia_datos_esp.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./m2_3_operaciones_espaciales.html" rel="next">
+<link href="./m2_1_importacion.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./m1_1_introduccion_r.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción al software R para análisis espacial</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./m2_2_graficos_estadisticos_ggplot2.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">La grámatica de los gráficos <code>ggplot2</code></span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -148,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./m1_1_introduccion_r.html" class="sidebar-item-text sidebar-link active">
+  <a href="./m1_1_introduccion_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción al software R para análisis espacial</span></span></a>
   </div>
 </li>
@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./m2_2_graficos_estadisticos_ggplot2.html" class="sidebar-item-text sidebar-link">
+  <a href="./m2_2_graficos_estadisticos_ggplot2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">La grámatica de los gráficos <code>ggplot2</code></span></span></a>
   </div>
 </li>
@@ -192,28 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#la-revolución-de-los-datos-espaciales" id="toc-la-revolución-de-los-datos-espaciales" class="nav-link active" data-scroll-target="#la-revolución-de-los-datos-espaciales"><span class="header-section-number">2.1</span> La revolución de los datos espaciales</a></li>
-  <li><a href="#software-libre" id="toc-software-libre" class="nav-link" data-scroll-target="#software-libre"><span class="header-section-number">2.2</span> Software libre</a></li>
-  <li><a href="#progreso-de-software-geoespacial" id="toc-progreso-de-software-geoespacial" class="nav-link" data-scroll-target="#progreso-de-software-geoespacial"><span class="header-section-number">2.3</span> Progreso de software geoespacial</a></li>
-  <li><a href="#enfoque-gui-vs-cli" id="toc-enfoque-gui-vs-cli" class="nav-link" data-scroll-target="#enfoque-gui-vs-cli"><span class="header-section-number">2.4</span> Enfoque GUI vs CLI</a></li>
-  <li><a href="#introduccion-a-r" id="toc-introduccion-a-r" class="nav-link" data-scroll-target="#introduccion-a-r"><span class="header-section-number">2.5</span> Introduccion a R</a></li>
-  <li><a href="#instalación-de-r-y-rstudio" id="toc-instalación-de-r-y-rstudio" class="nav-link" data-scroll-target="#instalación-de-r-y-rstudio"><span class="header-section-number">2.6</span> Instalación de R y RStudio</a>
-  <ul class="collapse">
-  <li><a href="#descargar-e-instalar-r" id="toc-descargar-e-instalar-r" class="nav-link" data-scroll-target="#descargar-e-instalar-r"><span class="header-section-number">2.6.1</span> Descargar e instalar R</a></li>
-  <li><a href="#descargar-e-instalar-rstudio" id="toc-descargar-e-instalar-rstudio" class="nav-link" data-scroll-target="#descargar-e-instalar-rstudio"><span class="header-section-number">2.6.2</span> Descargar e instalar RStudio</a></li>
-  </ul></li>
-  <li><a href="#rstudio" id="toc-rstudio" class="nav-link" data-scroll-target="#rstudio"><span class="header-section-number">2.7</span> RStudio</a>
-  <ul class="collapse">
-  <li><a href="#interfaz-de-rstudio" id="toc-interfaz-de-rstudio" class="nav-link" data-scroll-target="#interfaz-de-rstudio"><span class="header-section-number">2.7.1</span> Interfaz de RStudio</a></li>
-  <li><a href="#paquetes-en-r" id="toc-paquetes-en-r" class="nav-link" data-scroll-target="#paquetes-en-r"><span class="header-section-number">2.7.2</span> Paquetes en R</a></li>
-  </ul></li>
-  <li><a href="#buenas-practicas-en-r" id="toc-buenas-practicas-en-r" class="nav-link" data-scroll-target="#buenas-practicas-en-r"><span class="header-section-number">2.8</span> Buenas practicas en R</a></li>
-  <li><a href="#herramientas-básicas-de-r-para-la-manipulación-de-datos-espaciales" id="toc-herramientas-básicas-de-r-para-la-manipulación-de-datos-espaciales" class="nav-link" data-scroll-target="#herramientas-básicas-de-r-para-la-manipulación-de-datos-espaciales"><span class="header-section-number">3</span> 2. Herramientas básicas de R para la manipulación de datos espaciales</a>
-  <ul class="collapse">
-  <li><a href="#sf" id="toc-sf" class="nav-link" data-scroll-target="#sf"><span class="header-section-number">3.1</span> <code>sf</code></a></li>
-  <li><a href="#terra" id="toc-terra" class="nav-link" data-scroll-target="#terra"><span class="header-section-number">3.2</span> <code>terra</code></a></li>
-  <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link" data-scroll-target="#ggplot2"><span class="header-section-number">3.3</span> <code>ggplot2</code></a></li>
-  </ul></li>
+  <li><a href="#guía-de-estudiante-visualización-de-datos-espaciales-con-ggplot2-y-sf" id="toc-guía-de-estudiante-visualización-de-datos-espaciales-con-ggplot2-y-sf" class="nav-link active" data-scroll-target="#guía-de-estudiante-visualización-de-datos-espaciales-con-ggplot2-y-sf"><span class="header-section-number">6.0.1</span> Guía de Estudiante: Visualización de Datos Espaciales con ggplot2 y sf</a></li>
   </ul>
 </nav>
     </div>
@@ -222,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción al software R para análisis espacial</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">La grámatica de los gráficos <code>ggplot2</code></span></h1>
 </div>
 
 
@@ -239,131 +218,186 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="la-revolución-de-los-datos-espaciales" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="la-revolución-de-los-datos-espaciales"><span class="header-section-number">2.1</span> La revolución de los datos espaciales</h2>
-<p>Antes del cambio de siglo, había una aguda escasez de datos y herramientas para el análisis geográfico. Los primeros geógrafos utilizaron diversas herramientas, como barómetros, brújulas y sextantes, para avanzar en el conocimiento del mundo por ejemplo solo con la invención del cronómetro marino en 1761 fue posible calcular la longitud en el mar, lo que permitió a los barcos tomar rutas más directas.</p>
-<p>Hoy en día, los investigadores y profesionales no tienen esas limitaciones y en algunos casos se enfrentan al problema contrario: demasiados datos; demasiadas herramientas.</p>
-<p>La mayoría de los teléfonos disponen ya de un receptor de posicionamiento global (GPS). Sensores que van desde satélites y vehículos semiautónomos hasta científicos ciudadanos miden incesantemente cada rincón del mundo. El ritmo de producción de datos puede ser abrumador, con tecnologías emergentes como los vehículos autónomos que generan cientos o incluso miles de GB de datos al día. Esta revolución de los datos espaciales impulsa la demanda de hardware informático de alto rendimiento y software eficiente y escalable para manejar y extraer la señal del ruido.</p>
+<section id="guía-de-estudiante-visualización-de-datos-espaciales-con-ggplot2-y-sf" class="level3" data-number="6.0.1">
+<h3 data-number="6.0.1" class="anchored" data-anchor-id="guía-de-estudiante-visualización-de-datos-espaciales-con-ggplot2-y-sf"><span class="header-section-number">6.0.1</span> Guía de Estudiante: Visualización de Datos Espaciales con ggplot2 y sf</h3>
+<p>En la sección anterior, aprendimos cómo importar datos espaciales utilizando la librería sf en R. Sin embargo, solo tocamos superficialmente el uso de ggplot2 para la visualización de estos datos. ggplot2 es una librería poderosa en R que permite crear gráficos sofisticados y altamente personalizables basados en la gramática de los gráficos. Esta guía profundizará en las motivaciones, inspiraciones y elementos de ggplot2, culminando en una visualización profesional de datos espaciales utilizando la librería sf.</p>
+<section id="motivaciones-e-inspiraciones-de-ggplot2" class="level4" data-number="6.0.1.1">
+<h4 data-number="6.0.1.1" class="anchored" data-anchor-id="motivaciones-e-inspiraciones-de-ggplot2"><span class="header-section-number">6.0.1.1</span> Motivaciones e Inspiraciones de ggplot2</h4>
+<p>ggplot2 fue creado por Hadley Wickham y se basa en “The Grammar of Graphics” de Leland Wilkinson. La idea central detrás de ggplot2 es que un gráfico se puede construir combinando diferentes capas de datos y transformaciones de datos, lo que permite una gran flexibilidad y control sobre la visualización final.</p>
 </section>
-<section id="software-libre" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="software-libre"><span class="header-section-number">2.2</span> Software libre</h2>
-<p>Entre las opciones disponibles para gestionar este aluvión de datos, el software libre se presenta como una alternativa particularmente atractiva. A diferencia del software de pago, que suele ser costoso y con una distribución limitada y protegida, el software libre ofrece a los usuarios un conjunto de libertades esenciales: ejecutar, copiar, distribuir, estudiar, modificar y mejorar el software.</p>
-<p>Las ventajas que ofrece esta filosofía de apertura y colaboración inherente al software libre son las siguientes:</p>
-<ul>
-<li><strong>Ritmo de desarrollo y longevidad:</strong> Cientos de personas envían cada día informes de errores y sugieren nuevas funciones y mejoras de la documentación de los proyectos de código abierto, un ritmo de evolución que la mayoría de las soluciones propietarias simplemente no pueden seguir.</li>
-<li><strong>Interoperabilidad:</strong> Mientras que los productos patentados tienden a ser monopolios difíciles de mantener, el software de código abierto es más parecido a una federación de herramientas modulares que pueden combinarse de diferentes maneras.</li>
-<li><strong>Reproductibilidad:</strong> El software de código abierto elimina una importante barrera a la reproducibilidad al permitir que otros comprueben sus hallazgos o apliquen sus métodos en nuevos contextos utilizando las mismas herramientas. La combinación del uso de herramientas a las que cualquiera puede acceder gratuitamente con la posibilidad de compartir código y datos significa que los resultados de su trabajo pueden ser comprobados y desarrollados por otros.</li>
-<li><strong>Comunidad:</strong> La comunidad le permite obtener soporte mucho más rápido y, a menudo, de mayor calidad que con un equipo de soporte centralizado y de presupuesto limitado asociado al software propietario.</li>
-</ul>
+<section id="elementos-de-ggplot2" class="level4" data-number="6.0.1.2">
+<h4 data-number="6.0.1.2" class="anchored" data-anchor-id="elementos-de-ggplot2"><span class="header-section-number">6.0.1.2</span> Elementos de ggplot2</h4>
+<p>ggplot2 se compone de varios elementos básicos que se pueden combinar para crear gráficos complejos. Estos son:</p>
+<ol type="1">
+<li><strong>Datos (<code>data</code>)</strong>: El conjunto de datos que se utilizará en el gráfico.</li>
+<li><strong>Estética (<code>aes</code>)</strong>: Define el mapeo de variables a propiedades visuales, como ejes, colores y formas.</li>
+<li><strong>Geometrías (<code>geom</code>)</strong>: Tipos de gráficos como puntos, líneas y barras.</li>
+<li><strong>Facetas (<code>facet</code>)</strong>: Permite crear subgráficos basados en valores de una o más variables.</li>
+<li><strong>Estadísticas (<code>stat</code>)</strong>: Transformaciones estadísticas de los datos que se pueden aplicar antes de graficar.</li>
+<li><strong>Coordenadas (<code>coord</code>)</strong>: Sistemas de coordenadas para el gráfico, como cartesiano o polar.</li>
+<li><strong>Temas (<code>theme</code>)</strong>: Controla la apariencia general del gráfico, como los tipos de letra y colores de fondo.</li>
+</ol>
 </section>
-<section id="progreso-de-software-geoespacial" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="progreso-de-software-geoespacial"><span class="header-section-number">2.3</span> Progreso de software geoespacial</h2>
-<p>En las últimas décadas, el software libre y de código abierto para el análisis geoespacial (FOSS4G) ha experimentado un avance vertiginoso. Gracias a organizaciones como <a href="https://www.osgeo.org/">OSGeo</a>, las técnicas geográficas avanzadas ya no son un privilegio exclusivo de aquellos con acceso a hardware y software costosos. Ahora, cualquier persona puede descargar y ejecutar software de alto rendimiento para geocomputación, democratizando el acceso al conocimiento y las herramientas para analizar y comprender nuestro mundo.</p>
-</section>
-<section id="enfoque-gui-vs-cli" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="enfoque-gui-vs-cli"><span class="header-section-number">2.4</span> Enfoque GUI vs CLI</h2>
-<p>Los Sistemas de Información Geográfica (SIG) de código abierto, como <a href="https://www.qgis.org/es/site/">QGIS</a>, han democratizado el acceso al análisis geográfico a nivel mundial. Si bien estos productos de software ofrecen potentes funcionalidades, su énfasis en la interfaz gráfica de usuario (GUI) puede limitar la capacidad de los usuarios para documentar y compartir sus flujos de trabajo de manera precisa y replicable.</p>
-<p>Para superar esta limitación, es fundamental fomentar el uso de la CLI junto con la GUI en los SIG de código abierto. La CLI proporciona un entorno flexible y preciso para registrar y compartir los pasos de análisis, permitiendo a otros usuarios replicar los resultados y verificar su validez.</p>
-</section>
-<section id="introduccion-a-r" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="introduccion-a-r"><span class="header-section-number">2.5</span> Introduccion a R</h2>
-<p>R es un lenguaje y entorno multiplataforma de código abierto para el análisis estadístico, la visualización de datos y el aprendizaje automático. Con una amplia gama de paquetes, R también soporta la estadística geoespacial avanzada y modelización.</p>
-<p>En esencia, R se presenta como un lenguaje de programación funcional orientado a objetos ideal para el desarrollo de herramientas geoespaciales. Su capacidad para interactuar con diversos softwares, incluyendo una amplia gama de geolibrerías y funciones SIG, lo convierte en una herramienta versátil y potente.</p>
-<p>Además, su naturaleza extensible facilita la integración con otros lenguajes mediante paquetes como Rcpp y reticulate, posibilitando el acceso a código C++ y Python, por ejemplo.</p>
-</section>
-<section id="instalación-de-r-y-rstudio" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="instalación-de-r-y-rstudio"><span class="header-section-number">2.6</span> Instalación de R y RStudio</h2>
-<p>Para empezar a utilizar R, necesitaras adquirir tu propia copia. Esta sección te mostrará cómo <a href="https://cran.rstudio.com/">descargar R</a>, así como RStudio, una aplicación de software que facilita el uso de R.</p>
-<section id="descargar-e-instalar-r" class="level3" data-number="2.6.1">
-<h3 data-number="2.6.1" class="anchored" data-anchor-id="descargar-e-instalar-r"><span class="header-section-number">2.6.1</span> Descargar e instalar R</h3>
-<section id="windows" class="level4" data-number="2.6.1.1">
-<h4 data-number="2.6.1.1" class="anchored" data-anchor-id="windows"><span class="header-section-number">2.6.1.1</span> Windows</h4>
-<p>Para instalar R en Windows, haga clic en el enlace <a href="https://cran.rstudio.com/bin/windows/">Descargar R para Windows</a>. A continuación, haga clic en el enlace <a href="https://cran.rstudio.com/bin/windows/base/">base</a>. A continuación, haga clic en el primer enlace de la parte superior de la nueva página. Este enlace debería decir algo parecido a <a href="https://cran.rstudio.com/bin/windows/base/R-4.4.0-win.exe">Descargar R 4.4.0 para Windows</a>. El enlace descarga un programa instalador, que instala la versión más actualizada de R para Windows. Ejecute este programa y siga los pasos del asistente de instalación que aparece. El asistente instalará R en sus carpetas de archivos de programa y colocará un acceso directo en su menú Inicio. Tenga en cuenta que necesitará tener todos los privilegios de administración apropiados para instalar nuevo software en su máquina.</p>
-</section>
-<section id="mac" class="level4" data-number="2.6.1.2">
-<h4 data-number="2.6.1.2" class="anchored" data-anchor-id="mac"><span class="header-section-number">2.6.1.2</span> Mac</h4>
-<p>Para instalar R en un Mac, haga clic en el enlace <a href="https://cran.rstudio.com/bin/macosx/">Descargar R para Mac</a>. A continuación, haga clic en el <a href="https://cran.rstudio.com/bin/macosx/big-sur-arm64/base/R-4.4.0-arm64.pkg">enlace del paquete R-4.4.0</a> (o en el enlace del paquete de la versión más reciente de R). Se descargará un instalador que le guiará a través del proceso de instalación, que es muy sencillo. El instalador le permite personalizar su instalación, pero los valores predeterminados serán adecuados para la mayoría de los usuarios.</p>
-</section>
-</section>
-<section id="descargar-e-instalar-rstudio" class="level3" data-number="2.6.2">
-<h3 data-number="2.6.2" class="anchored" data-anchor-id="descargar-e-instalar-rstudio"><span class="header-section-number">2.6.2</span> Descargar e instalar RStudio</h3>
-<p>Puedes <a href="https://posit.co/download/rstudio-desktop/">descargar RStudio</a> de forma gratuita. Sólo tiene que hacer clic en el botón Descargar RStudio y seguir las sencillas instrucciones que aparecen a continuación. Una vez que haya instalado RStudio, puedes abrirlo como cualquier otro programa de su ordenador, normalmente haciendo clic en un icono del escritorio.</p>
-</section>
-</section>
-<section id="rstudio" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="rstudio"><span class="header-section-number">2.7</span> RStudio</h2>
-<p>RStudio es un entorno de desarrollo integrado (IDE) para R y Python. Incluye una consola, un editor que resalta la sintaxis y admite la ejecución directa del código, así como herramientas de trazado, historial, depuración y gestión del espacio de trabajo.</p>
-<section id="interfaz-de-rstudio" class="level3" data-number="2.7.1">
-<h3 data-number="2.7.1" class="anchored" data-anchor-id="interfaz-de-rstudio"><span class="header-section-number">2.7.1</span> Interfaz de RStudio</h3>
-</section>
-<section id="paquetes-en-r" class="level3" data-number="2.7.2">
-<h3 data-number="2.7.2" class="anchored" data-anchor-id="paquetes-en-r"><span class="header-section-number">2.7.2</span> Paquetes en R</h3>
-<p>Muchas de las funciones más útiles de R no vienen precargadas al iniciar R, sino que residen en paquetes que pueden instalarse sobre R. Un paquete de R agrupa funciones útiles, archivos de ayuda y conjuntos de datos. Puedes utilizar estas funciones dentro de tu propio código R una vez que cargues el paquete en el que se encuentran.</p>
-<section id="instalar-paquetes" class="level4" data-number="2.7.2.1">
-<h4 data-number="2.7.2.1" class="anchored" data-anchor-id="instalar-paquetes"><span class="header-section-number">2.7.2.1</span> Instalar paquetes</h4>
-<p>Para utilizar un paquete R, primero debes instalarlo en tu ordenador y luego cargarlo en tu sesión R actual. La forma más sencilla de instalar un paquete R es con la función <code>install.packages()</code>. Abre R y escribe lo siguiente en la línea de comandos:</p>
+<section id="crear-un-gráfico-básico" class="level4" data-number="6.0.1.3">
+<h4 data-number="6.0.1.3" class="anchored" data-anchor-id="crear-un-gráfico-básico"><span class="header-section-number">6.0.1.3</span> Crear un Gráfico Básico</h4>
+<p>Para comenzar, necesitamos cargar las librerías necesarias y los datos espaciales.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("nombre del paquete")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Esto buscará el paquete especificado en la colección de paquetes alojados en el sitio CRAN. Cuando R encuentre el paquete, lo descargará en una carpeta de bibliotecas de tu ordenador.</p>
-<p>Puedes instalar varios paquetes a la vez enlazando sus nombres con la función de concatenación de <code>c</code>. Por ejemplo, para instalar los paquetes <code>sf</code>, <code>terra</code> y <code>tidyverse</code>, ejecuta:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("sf", "terra", "tidyverse"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="cargar-paquetes" class="level4" data-number="2.7.2.2">
-<h4 data-number="2.7.2.2" class="anchored" data-anchor-id="cargar-paquetes"><span class="header-section-number">2.7.2.2</span> Cargar paquetes</h4>
-<p>Instalar un paquete no pone inmediatamente sus funciones a tu alcance. Sólo las coloca en tu ordenador. Para utilizar un paquete de R, a continuación tienes que cargarlo en tu sesión de R con el comando:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Linking to GEOS 3.11.2, GDAL 3.8.2, PROJ 9.3.1; sf_use_s2() is TRUE</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ lubridate 1.9.2     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.0</code></pre>
 </div>
-<p><code>library</code> pondrá a tu disposición todas las funciones, conjuntos de datos y archivos de ayuda del paquete hasta que cierre su sesión actual de R.</p>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Leer shapefiles</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>puntos <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../data/shp/cueva_cajas.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `cueva_cajas' from data source 
+  `C:\Users\alex_ergostats\Documents\geo_stats_2024_nb\data\shp\cueva_cajas.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 2 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -79.2689 ymin: -2.823224 xmax: -79.2689 ymax: -2.823224
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lineas <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../data/shp/vias_cajas.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `vias_cajas' from data source 
+  `C:\Users\alex_ergostats\Documents\geo_stats_2024_nb\data\shp\vias_cajas.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 191 features and 26 fields
+Geometry type: MULTILINESTRING
+Dimension:     XY
+Bounding box:  xmin: -79.33892 ymin: -2.896237 xmax: -79.20061 ymax: -2.769916
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>poligonos <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../data/shp/lagunas_cajas.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `lagunas_cajas' from data source 
+  `C:\Users\alex_ergostats\Documents\geo_stats_2024_nb\data\shp\lagunas_cajas.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 220 features and 8 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -79.32098 ymin: -2.874182 xmax: -79.23114 ymax: -2.798271
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+</div>
 </section>
+<section id="visualización-básica" class="level4" data-number="6.0.1.4">
+<h4 data-number="6.0.1.4" class="anchored" data-anchor-id="visualización-básica"><span class="header-section-number">6.0.1.4</span> Visualización Básica</h4>
+<p>Comenzamos con una visualización básica de los polígonos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficar polígonos</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> poligonos) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m2_2_graficos_estadisticos_ggplot2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
+<section id="agregar-colores-y-personalización" class="level4" data-number="6.0.1.5">
+<h4 data-number="6.0.1.5" class="anchored" data-anchor-id="agregar-colores-y-personalización"><span class="header-section-number">6.0.1.5</span> Agregar Colores y Personalización</h4>
+<p>Para hacer la visualización más atractiva y significativa, podemos agregar colores y personalizar otros aspectos del gráfico.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Agregar colores y personalización</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> poligonos, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> puntos, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lineas, <span class="fu">aes</span>(<span class="at">color =</span> highway)) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>() <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Visualización de Datos Espaciales"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Parque Nacional El Cajas"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Fuente: Datos Geoespaciales"</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Tipo de Vía"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in vp$just: encuentros parciales de 'just' to 'justification'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m2_2_graficos_estadisticos_ggplot2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="buenas-practicas-en-r" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="buenas-practicas-en-r"><span class="header-section-number">2.8</span> Buenas practicas en R</h2>
+<section id="explicación-detallada-de-los-elementos-utilizados" class="level4" data-number="6.0.1.6">
+<h4 data-number="6.0.1.6" class="anchored" data-anchor-id="explicación-detallada-de-los-elementos-utilizados"><span class="header-section-number">6.0.1.6</span> Explicación Detallada de los Elementos Utilizados</h4>
 <ul>
-<li>Comentarios</li>
-<li>Buscar ayuda</li>
-<li>Mensajes</li>
-<li>Errores</li>
-<li>Cancelar comando</li>
-<li>Limpiar consola</li>
+<li><strong>Datos (<code>data</code>)</strong>: Utilizamos los objetos <code>poligonos</code>, <code>puntos</code> y <code>lineas</code> que contienen nuestros datos espaciales.</li>
+<li><strong>Estética (<code>aes</code>)</strong>: En el caso de las líneas, usamos <code>aes(color = highway)</code> para mapear la variable <code>highway</code> a los colores.</li>
+<li><strong>Geometría (<code>geom_sf</code>)</strong>: Usamos <code>geom_sf()</code> para graficar los datos espaciales. <code>fill</code> y <code>color</code> en los polígonos, <code>color</code> y <code>size</code> en los puntos, y <code>color</code> en las líneas.</li>
+<li><strong>Coordenadas (<code>coord_sf</code>)</strong>: Usamos <code>coord_sf()</code> para establecer un sistema de coordenadas espaciales.</li>
+<li><strong>Tema (<code>theme_minimal</code>)</strong>: Aplicamos un tema minimalista para una apariencia limpia.</li>
+<li><strong>Etiquetas (<code>labs</code>)</strong>: Añadimos títulos, subtítulos y leyendas para proporcionar contexto y mejorar la legibilidad del gráfico.</li>
 </ul>
 </section>
-<section id="herramientas-básicas-de-r-para-la-manipulación-de-datos-espaciales" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 2. Herramientas básicas de R para la manipulación de datos espaciales</h1>
-<p>Para este curso, emplearemos principalmente los siguientes paquetes: <code>sf</code>, <code>terra</code>, <code>tidyverse</code> y <code>ggplot2</code>.</p>
-<section id="sf" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="sf"><span class="header-section-number">3.1</span> <code>sf</code></h2>
-<p><a href="https://en.wikipedia.org/wiki/Simple_Features">Simple features</a>es un modelo de datos jerárquico desarrollado y aprobado por el Open Geospatial Consortium (OGC) que representa una amplia gama de tipos de geometría.</p>
-<p>El paquete <a href="https://r-spatial.github.io/sf/">sf</a> puede representar todos los tipos comunes de geometría vectorial: puntos, líneas, polígonos y sus respectivas versiones multi (que agrupan características del mismo tipo en una única característica). <code>sf</code> también admite colecciones de geometría, que pueden contener múltiples tipos de geometría en un único objeto.</p>
-<p>![[Pasted image 20240604212339.png]]</p>
+<section id="visualización-profesional" class="level4" data-number="6.0.1.7">
+<h4 data-number="6.0.1.7" class="anchored" data-anchor-id="visualización-profesional"><span class="header-section-number">6.0.1.7</span> Visualización Profesional</h4>
+<p>Para lograr una visualización profesional, es importante prestar atención a los detalles y personalizar el gráfico para que sea informativo y estéticamente agradable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización profesional</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> poligonos, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> puntos, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lineas, <span class="fu">aes</span>(<span class="at">color =</span> highway), <span class="at">lwd =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>() <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Visualización de Datos Espaciales"</span>,</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Parque Nacional El Cajas"</span>,</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Fuente: Datos Geoespaciales"</span>,</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Tipo de Vía"</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in vp$just: encuentros parciales de 'just' to 'justification'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="m2_2_graficos_estadisticos_ggplot2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como puedes ver en esta función, se emplean múltiples elementos de ggplot2 para crear un gráfico profesional. La personalización del tema y la adición de etiquetas detalladas ayudan a que el gráfico sea más informativo y estéticamente agradable.</p>
 </section>
-<section id="terra" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="terra"><span class="header-section-number">3.2</span> <code>terra</code></h2>
-<p>El paquete <a href="https://rspatial.org/index.html">terra</a> soporta objetos raster en R. Proporciona un amplio conjunto de funciones para crear, leer, exportar, manipular y procesar conjuntos de datos raster. ## <code>tidyverse</code></p>
-<p>El paquete <a href="https://www.tidyverse.org/">tidyverse</a>&nbsp;es una colección de paquetes orientados a la manipulación, importación, exploración y visualización de datos y que se utiliza exhaustivamente en ciencia de datos.</p>
-<p>El uso de este paquete permite facilitar el trabajo estadístico y la generación de trabajos reproducibles. Está compuesto de los siguientes paquetes:</p>
-<ul>
-<li>readr</li>
-<li>dplyr</li>
-<li>ggplot2</li>
-<li>tibble</li>
-<li>tidyr</li>
-<li>purr</li>
-<li>stringr</li>
-<li>forcats</li>
-</ul>
-</section>
-<section id="ggplot2" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="ggplot2"><span class="header-section-number">3.3</span> <code>ggplot2</code></h2>
-<p>El paquete&nbsp;<a href="https://ggplot2.tidyverse.org/">ggplot2</a>&nbsp;des un sistema para crear gráficos de forma declarativa, basado en <a href="https://link.springer.com/book/10.1007/0-387-28695-0">La Gramática de los Gráficos</a>y forma parte del conjunto de librerías llamado&nbsp;<a href="https://www.tidyverse.org/">tidyverse</a></p>
-<p>La idea es simple: Tú proporciona los datos, le dices a ggplot2 cómo asignar variables a la estética, qué gráficos primitos vas a usar, y él se encarga de los detalles.</p>
+<section id="conclusión" class="level4" data-number="6.0.1.8">
+<h4 data-number="6.0.1.8" class="anchored" data-anchor-id="conclusión"><span class="header-section-number">6.0.1.8</span> Conclusión</h4>
+<p>En esta guía, hemos explorado en detalle cómo importar y visualizar datos espaciales utilizando ggplot2 y sf en R. Desde la lectura de shapefiles hasta la creación de visualizaciones profesionales, hemos cubierto los elementos clave de ggplot2 que te permitirán crear gráficos sofisticados y efectivos para tus análisis en estadística y econometría espacial.</p>
 
 
 </section>
@@ -781,13 +815,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Motivación del curso">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Motivación del curso</span></span>
+      <a href="./m2_1_importacion.html" class="pagination-link" aria-label="Importación de datos espaciales">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Importación de datos espaciales</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./m1_2_importancia_datos_esp.html" class="pagination-link" aria-label="Importancia de los Datos Espaciales en la Ciencia de Datos">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Importancia de los Datos Espaciales en la Ciencia de Datos</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./m2_3_operaciones_espaciales.html" class="pagination-link" aria-label="Operaciones con datos espaciales">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Operaciones con datos espaciales</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Importación de datos espaciales"
 format: html
 editor: visual
 ---
@@ -9,7 +9,6 @@ library(sf)
 library(ggplot2)
 ```
 
-# Importación y exportación de datos espaciales
 
 Los datos geoespaciales en formato vectorial suelen almacenarse en formato shapefile. Dado que la estructura de puntos, líneas y polígonos es diferente, cada shapefile individual sólo puede contener un tipo de vector (todos los puntos, todas las líneas o todos los polígonos). No encontrarás una mezcla de objetos de puntos, líneas y polígonos en un mismo shapefile.
 
@@ -22,9 +21,9 @@ Los shapefiles que vamos a importar son: - Puntos: Paraderos en vía Cuenca - Mo
 Para leer el archivo shapefile en R usaremos el comando `st_read()`.
 
 ```{r}
-puntos <- st_read("data/shp/paraderos_cajas.shp")
-lineas <- st_read("data/shp/vias_cajas.shp")
-poligonos <- st_read("data/shp/lagunas_cajas.shp")
+puntos <- st_read("../data/shp/paraderos_cajas.shp")
+lineas <- st_read("../data/shp/vias_cajas.shp")
+poligonos <- st_read("../data/shp/lagunas_cajas.shp")
 ```
 
 ### Metadatos y atributos del shapefile
@@ -139,7 +138,7 @@ Para leer el archivo raster en R usaremos el comando `rast()`.
 ```{r}
 library(terra)
 
-dem_chimborazo <- rast("data/raster/DEM_Chimborazo.tif") 
+dem_chimborazo <- rast("../data/raster/DEM_Chimborazo.tif") 
 ```
 
 ### Metadatos del raster
@@ -147,7 +146,7 @@ dem_chimborazo <- rast("data/raster/DEM_Chimborazo.tif")
 En esta sección trabajaremos con una serie de archivos GeoTIFF. El formato GeoTIFF contiene un conjunto de etiquetas incrustadas con metadatos sobre los datos ráster. Podemos utilizar la función `describe()` para obtener información acerca del *SRC*, *tamaño del raster*, *tamaño del pixel*, entre otros.
 
 ```{r}
-describe("data/raster/DEM_Chimborazo.tif")
+describe("../data/raster/DEM_Chimborazo.tif")
 ```
 
 Al igual que los metadatos del shapefile podemos obtener información del objeto raste simplemente llamando al objeto en la consola:
@@ -158,7 +157,7 @@ dem_chimborazo
 
 Nuestro objeto `dem_chimborazo` es un raster de la clase `SpatRaster`, en el sistema de coordenadas geográficas SRC WGS 84 con unas dimensiones de `dimensions  : 272, 294, 1  (nrow, ncol, nlyr)`. Donde `nlyr` se refiere al número de bandas que contiene el raster.
 
-La información anterior incluye un informe de valores mínimos y máximos, pero no otras estadísticas de rangos de datos. De forma similar a otras estructuras de datos de R, como vectores y data frames, las estadísticas descriptivas de los datos ráster pueden obtenerse de la siguiente forma:
+La información anterior incluye un informe de valores mínimos y máximos, pero no otras estadísticas de rangos de datos. De forma similar a otras estructuras de datos de R, como vectores y `dataframes`, las estadísticas descriptivas de los datos ráster pueden obtenerse de la siguiente forma:
 
 ```{r}
 summary(values(dem_chimborazo))
@@ -166,13 +165,13 @@ summary(values(dem_chimborazo))
 
 ## Graficar un raster
 
-Para visualizar estos datos en R utilizando `ggplot2`, necesitamos convertirlos en un dataframe. El paquete terra tiene una función integrada para la conversión a un dataframe ploteable.
+Para visualizar estos datos en R utilizando `ggplot2`, necesitamos convertirlos en un `data.frame`. El paquete terra tiene una función integrada para la conversión a un `data.frame` ploteable.
 
 ```{r}
 dem_chimborazo_df <- as.data.frame(dem_chimborazo, xy = TRUE)
 
 ggplot() +
-  geom_raster(data = dem_chim_df,
+  geom_raster(data = dem_chimborazo_df,
               aes(x = x, y = y, fill = DEM_Chimborazo)) +
   scale_fill_viridis_c() +
   coord_quickmap()

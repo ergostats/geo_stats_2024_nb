@@ -1,0 +1,75 @@
+---
+title: "fe"
+format: html
+editor: visual
+---
+
+Datos
+
+<https://geoportal.quito.gob.ec/visor/descargas.php>
+
+```{r}
+
+library(sf)
+library(tidyverse)
+library(readxl)
+
+sf_use_s2(FALSE)
+
+datos <- read_sf("data/shp/BC001_MERCADO_PLATAFORMA_A.shp")
+
+
+admin_zones <- read_excel("data/Administraciones_Zonales_Parroquias.xlsx")
+
+admin_zones <- admin_zones %>% 
+  mutate(col_in = str_split(Parroquia,pattern = ",")) %>% 
+  unnest(col_in) %>% 
+  select(-Parroquia) %>% 
+  mutate(across(everything(),str_to_upper))
+
+admin_zones <- admin_zones %>% 
+  mutate(col_in = chartr(old = "ÁÉÍÓÚ",new = "AEIOU",col_in),
+         col_in = str_trim(col_in,"both"))
+
+
+datos_limites <- datos_limites %>% 
+  full_join(admin_zones)
+
+puntos <- datos %>% 
+  # lwgeom_make_valid() %>% 
+  st_centroid()
+
+
+
+datos_limites <- read_sf("data/shp/PARROQUIAS_REF.shp")
+
+datos_limites %>% 
+  ggplot() +
+  geom_sf() +
+  geom_sf(data = puntos,fill = "blue")
+```
+
+```{r}
+
+
+
+zonas <- datos_limites %>% 
+  split(.$`Administracion Zonal`) %>% 
+  map(st_union) %>%
+  map(st_as_sf) %>%
+  reduce(bind_rows)
+
+
+zonas %>% 
+  ggplot() +
+  geom_sf()
+
+intersection <- zonas %>% 
+  st_intersects(y = puntos)
+
+zonas$conteo <- lengths(intersection)
+
+
+ggplot(zonas) + 
+  geom_sf(aes(fill = conteo))
+```
