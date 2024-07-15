@@ -25,6 +25,52 @@ background-size: 105%
 ## `r rmarkdown::metadata$title`
 #### `r rmarkdown::metadata$subtitle`
 
+
+---
+class: inverse center middle
+
+![](https://www.convert.com/wp-content/uploads/2022/06/Meme-about-Bayesian-vs-Frequentist-Statistics.jpg)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+La diferencia entre el análisis frecuentista y el análisis bayesiano en estadística radica en sus enfoques fundamentales para interpretar probabilidades y realizar inferencias. Aquí se describen las principales diferencias entre ambos enfoques:
+
+### 1. **Interpretación de la Probabilidad**
+
+- **Frecuentista**: La probabilidad se interpreta como la frecuencia relativa de ocurrencia de un evento en un número grande de repeticiones experimentales. Por ejemplo, la probabilidad de obtener un "cara" al lanzar una moneda es el límite de la frecuencia relativa de "caras" en un número infinito de lanzamientos.
+- **Bayesiano**: La probabilidad se interpreta como un grado de creencia o confianza en un evento, dado el conocimiento actual. Esta creencia se puede actualizar a medida que se obtiene nueva información. Por ejemplo, la probabilidad de que una hipótesis sea cierta puede cambiar al incorporar nuevos datos.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### 2. **Enfoque de Inferencia**
+
+- **Frecuentista**: Los parámetros de un modelo son considerados valores fijos pero desconocidos. Las inferencias se basan en la idea de repetición a largo plazo de los experimentos y utilizan conceptos como el intervalo de confianza y la prueba de hipótesis. Las conclusiones se extraen a partir de la muestra actual sin incorporar información previa.
+- **Bayesiano**: Los parámetros se consideran variables aleatorias con distribuciones de probabilidad. Las inferencias se realizan utilizando el teorema de Bayes para actualizar la distribución de probabilidad de los parámetros a medida que se obtienen nuevos datos. Las conclusiones se expresan en términos de distribuciones de probabilidad posteriores.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### 3. **Uso de Información Previa**
+
+- **Frecuentista**: No utiliza información previa de manera explícita. Los análisis se basan únicamente en los datos observados en el experimento o estudio actual.
+- **Bayesiano**: Incorpora información previa (prior) sobre los parámetros en el análisis. Esta información se combina con los datos observados para obtener una distribución posterior, que refleja tanto la información previa como la nueva.
+
+### 4. **Intervalos de Confianza vs. Intervalos de Credibilidad**
+
+- **Frecuentista**: Utiliza intervalos de confianza, que son rangos construidos a partir de datos muestrales que contienen el parámetro verdadero en un cierto porcentaje de las muestras en repetidos experimentos.
+- **Bayesiano**: Utiliza intervalos de credibilidad, que son rangos en los cuales la probabilidad del parámetro, dada la información previa y los datos observados, se encuentra dentro del intervalo con una cierta probabilidad.
+
 ---
 background-image: url(img/slide_nb.png)
 background-position: top left
@@ -65,24 +111,64 @@ background-size: 140%
 padding-top: 150px
 class: left, top
 
-## Función de Distribución
+### Función de Distribución
 
 - También conocida como **función de probabilidad**, asigna a *cada posible resultado* un *valor de probabilidad*. 
 - Para una variable aleatoria discreta $X$, la función de distribución de probabilidad $p(x)$ está definida como: 
 
+
+Esta fórmula expresa que la CDF $ F(x) $ en un punto $ x $ es igual al área bajo la curva de la PDF $ f(t) $ desde $-\infty$ hasta $ x $.
 $$p(x) = P(X = x)$$
+
+###  Función de Distribución Acumulada (FDA)
+
+- $F(x)$: es la **probabilidad** de que la *variable aleatoria* $X$ tome un *valor menor o igual* a $x$. 
+- Matemáticamente, se expresa como: 
+
+$$F(x) = P(X \leq x) = \int_{-\infty}^{x} f(t) \, dt$$
+
 
 ---
 background-image: url(img/slide_nb.png)
 background-position: top left
 background-size: 140%
 padding-top: 150px
-class: left, top
 
-## Función de Distribución Acumulada (FDA)
 
-- $F(x)$: es la **probabilidad** de que la *variable aleatoria* $X$ tome un *valor menor o igual* a $x$. 
-- Matemáticamente, se expresa como: $$F(x) = P(X \leq x)$$
+# El valor esperado
+La fórmula de la esperanza matemática (o valor esperado) de una variable aleatoria continua $X$, que se expresa como la integral de $x$ multiplicada por su función de densidad de probabilidad $f(x)$.
+
+$$
+E[X] = \int_{-\infty}^{\infty} x f(x) \, dx
+$$
+
+Donde:
+- $E[X]$ es el valor esperado (esperanza matemática) de la variable aleatoria $X$.
+- $f(x)$ es la función de densidad de probabilidad (PDF) de $X$.
+- $x$ es la variable de integración.
+
+Esta fórmula representa el promedio ponderado de todos los posibles valores de $X$, con los pesos dados por las probabilidades de esos valores (definidas por $f(x)$).
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Varianza de una Variable Aleatoria Continua
+
+Por supuesto, aquí tienes la fórmula de la varianza de una variable aleatoria continua $X$ en LaTeX, utilizando la integral de $x$ por la probabilidad de $x$:
+
+$$
+\text{Var}(X) = \int_{-\infty}^{\infty} (x - \mu)^2 f(x) \, dx
+$$
+
+Donde:
+- $\text{Var}(X)$ es la varianza de la variable aleatoria $X$.
+- $f(x)$ es la función de densidad de probabilidad (PDF) de $X$.
+- $\mu = E[X]$ es el valor esperado (media) de $X$.
+
+Esta fórmula expresa que la varianza es el promedio ponderado de los cuadrados de las desviaciones de $X$ respecto a su media, con los pesos dados por las probabilidades de esos valores.
 
 ---
 background-image: url(img/slide_nb.png)
@@ -219,7 +305,7 @@ padding-top: 150px
 
 $$P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$$
 
-- Esta es nuestra probabilidad posterior ($P(A|B)$), la probabilidad de que la temperatura hoy sea $A$ dado que la temperatura ayer fue $B$.
+- Esta es nuestra probabilidad posterior ( $P(A|B)$ ), la probabilidad de que la temperatura hoy sea $A$ dado que la temperatura ayer fue $B$.
 
 ---
 background-image: url(img/slide_nb.png)
@@ -261,4 +347,35 @@ $$P(B = 22) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(22 - 20)^2}{2 \cdot 5^2}
     
 **Probabilidad Posterior** $P(A = 21|B = 22)$
 $$P(A = 21|B = 22) = \frac{P(B = 22|A = 21) \cdot P(A = 21)}{P(B = 22)}$$
-    
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### Ejemplo en R
+
+
+```{r}
+# Definir los parámetros
+mu <- 20
+sigma <- 5
+A <- 21
+B <- 22
+
+# Probabilidad a priori
+prior_prob <- dnorm(A, mean = mu, sd = sigma)
+
+# Probabilidad condicional
+conditional_prob <- dnorm(B, mean = A, sd = sigma)
+
+# Probabilidad total
+total_prob <- dnorm(B, mean = mu, sd = sigma)
+
+# Probabilidad posterior
+posterior_prob <- (conditional_prob * prior_prob) / total_prob
+
+posterior_prob
+```
+

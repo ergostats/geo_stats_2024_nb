@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estadística y Econometría Espacial con R, Módulo I</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2024-07-15" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="tema_ergos.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide center middle
+background-image: url(img/portada_nb.png)
+background-size: 105%
+
+## Estadística y Econometría Espacial con R, Módulo I
+#### Clase 7: 
+
+
+---
+class: inverse center middle
+
+![](https://www.convert.com/wp-content/uploads/2022/06/Meme-about-Bayesian-vs-Frequentist-Statistics.jpg)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+La diferencia entre el análisis frecuentista y el análisis bayesiano en estadística radica en sus enfoques fundamentales para interpretar probabilidades y realizar inferencias. Aquí se describen las principales diferencias entre ambos enfoques:
+
+### 1. **Interpretación de la Probabilidad**
+
+- **Frecuentista**: La probabilidad se interpreta como la frecuencia relativa de ocurrencia de un evento en un número grande de repeticiones experimentales. Por ejemplo, la probabilidad de obtener un "cara" al lanzar una moneda es el límite de la frecuencia relativa de "caras" en un número infinito de lanzamientos.
+- **Bayesiano**: La probabilidad se interpreta como un grado de creencia o confianza en un evento, dado el conocimiento actual. Esta creencia se puede actualizar a medida que se obtiene nueva información. Por ejemplo, la probabilidad de que una hipótesis sea cierta puede cambiar al incorporar nuevos datos.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### 2. **Enfoque de Inferencia**
+
+- **Frecuentista**: Los parámetros de un modelo son considerados valores fijos pero desconocidos. Las inferencias se basan en la idea de repetición a largo plazo de los experimentos y utilizan conceptos como el intervalo de confianza y la prueba de hipótesis. Las conclusiones se extraen a partir de la muestra actual sin incorporar información previa.
+- **Bayesiano**: Los parámetros se consideran variables aleatorias con distribuciones de probabilidad. Las inferencias se realizan utilizando el teorema de Bayes para actualizar la distribución de probabilidad de los parámetros a medida que se obtienen nuevos datos. Las conclusiones se expresan en términos de distribuciones de probabilidad posteriores.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### 3. **Uso de Información Previa**
+
+- **Frecuentista**: No utiliza información previa de manera explícita. Los análisis se basan únicamente en los datos observados en el experimento o estudio actual.
+- **Bayesiano**: Incorpora información previa (prior) sobre los parámetros en el análisis. Esta información se combina con los datos observados para obtener una distribución posterior, que refleja tanto la información previa como la nueva.
+
+### 4. **Intervalos de Confianza vs. Intervalos de Credibilidad**
+
+- **Frecuentista**: Utiliza intervalos de confianza, que son rangos construidos a partir de datos muestrales que contienen el parámetro verdadero en un cierto porcentaje de las muestras en repetidos experimentos.
+- **Bayesiano**: Utiliza intervalos de credibilidad, que son rangos en los cuales la probabilidad del parámetro, dada la información previa y los datos observados, se encuentra dentro del intervalo con una cierta probabilidad.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## Definición de Probabilidad
+
+- **Probabilidad:** Medida de la certeza de que un evento ocurra. 
+- Se denota comúnmente por `\(P(A)\)`, donde `\(A\)` es el *evento de interés*. 
+- La **probabilidad de cualquier evento** se encuentra en el *intervalo* `\([0, 1]\)`, donde 0 indica la imposibilidad del evento y 1 indica certeza absoluta.
+
+.center[
+&lt;img src=https://curvebreakerstestprep.com/wp-content/uploads/2021/04/Probability-Line.png width="60%"&gt;
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: left, top
+
+## Dominio de la Función de Probabilidad 
+
+- Es el **conjunto** de todos los **posibles resultados** de un **experimento aleatorio**. 
+- Por ejemplo, si lanzamos una moneda, el dominio es `\(\{cara, cruz\}\)`.
+
+.center[
+&lt;img src=https://www.esan.edu.pe/images/blog/2016/10/10/probabilidades-principal.jpg width="80%"&gt;
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: left, top
+
+### Función de Distribución
+
+- También conocida como **función de probabilidad**, asigna a *cada posible resultado* un *valor de probabilidad*. 
+- Para una variable aleatoria discreta `\(X\)`, la función de distribución de probabilidad `\(p(x)\)` está definida como: 
+
+
+Esta fórmula expresa que la CDF $ F(x) $ en un punto $ x $ es igual al área bajo la curva de la PDF $ f(t) $ desde `\(-\infty\)` hasta $ x $.
+`$$p(x) = P(X = x)$$`
+
+###  Función de Distribución Acumulada (FDA)
+
+- `\(F(x)\)`: es la **probabilidad** de que la *variable aleatoria* `\(X\)` tome un *valor menor o igual* a `\(x\)`. 
+- Matemáticamente, se expresa como: 
+
+`$$F(x) = P(X \leq x) = \int_{-\infty}^{x} f(t) \, dt$$`
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+# El valor esperado
+La fórmula de la esperanza matemática (o valor esperado) de una variable aleatoria continua `\(X\)`, que se expresa como la integral de `\(x\)` multiplicada por su función de densidad de probabilidad `\(f(x)\)`.
+
+$$
+E[X] = \int_{-\infty}^{\infty} x f(x) \, dx
+$$
+
+Donde:
+- `\(E[X]\)` es el valor esperado (esperanza matemática) de la variable aleatoria `\(X\)`.
+- `\(f(x)\)` es la función de densidad de probabilidad (PDF) de `\(X\)`.
+- `\(x\)` es la variable de integración.
+
+Esta fórmula representa el promedio ponderado de todos los posibles valores de `\(X\)`, con los pesos dados por las probabilidades de esos valores (definidas por `\(f(x)\)`).
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Varianza de una Variable Aleatoria Continua
+
+Por supuesto, aquí tienes la fórmula de la varianza de una variable aleatoria continua `\(X\)` en LaTeX, utilizando la integral de `\(x\)` por la probabilidad de `\(x\)`:
+
+$$
+\text{Var}(X) = \int_{-\infty}^{\infty} (x - \mu)^2 f(x) \, dx
+$$
+
+Donde:
+- `\(\text{Var}(X)\)` es la varianza de la variable aleatoria `\(X\)`.
+- `\(f(x)\)` es la función de densidad de probabilidad (PDF) de `\(X\)`.
+- `\(\mu = E[X]\)` es el valor esperado (media) de `\(X\)`.
+
+Esta fórmula expresa que la varianza es el promedio ponderado de los cuadrados de las desviaciones de `\(X\)` respecto a su media, con los pesos dados por las probabilidades de esos valores.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Distribuciones más conocidas 
+
+| Nombre de la Distribución | Usos Comunes                                        | Fórmula de la Media | Fórmula de la Varianza |
+| ------------------------- | --------------------------------------------------- | ------------------- | ---------------------- |
+| Normal                    | Datos continuos, fenómenos naturales                | `\(\mu\)`               | `\(\sigma^2\)`             |
+| Poisson                   | Número de eventos en un intervalo de tiempo/espacio | `\(\lambda\)`           | `\(\lambda\)`              |
+| Uniforme                  | Eventos igualmente probables                        | `\(\frac{a + b}{2}\)`   | `\(\frac{(b - a)^2}{12}\)` |
+| Binomial                  | Número de éxitos en$n$ ensayos                      | `\(np\)`                | `\(np(1-p)\)`              |
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Distribuciones más conocidas
+
+| Nombre de la Distribución  |  Usos Comunes | Fórmula de la Media  |  Fórmula de la Varianza |
+|---|---|---|---|
+|Geométrica|Ensayos hasta el primer éxito| `\(\frac{1}{p}\)`| `\(\frac{1-p}{p^2}\)`|
+|Exponencial|Tiempo entre eventos| `\(\frac{1}{\lambda}\)`| `\(\frac{1}{\lambda^2}\)`|
+|Beta|Proporciones y probabilidades| `\(\frac{\alpha}{\alpha + \beta}\)`| `\(\frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}\)`|
+|Gamma|Tiempo hasta la ocurrencia de `\(k\)` eventos| `\(\alpha \beta\)`| `\(\alpha \beta^2\)`|
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Teorema de Bayes 
+
+- Permite actualizar las **probabilidades iniciales** (a priori) basadas en **nueva información** (evidencia).
+- El teorema se expresa como: `$$P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$$`
+- Donde `\(P(A|B)\)` es la probabilidad de que ocurra `\(A\)` dado que `\(B\)` ha ocurrido.
+- `\(P(B|A)\)` es la probabilidad de que ocurra `\(B\)` dado que `\(A\)` ha ocurrido.
+- `\(P(A)\)` es la probabilidad a priori de `\(A\)`.
+- `\(P(B)\)` es la probabilidad total de `\(B\)`.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Teorema de Bayes 
+- La probabilidad conjunta de dos eventos `\(A\)` y `\(B\)` está dada por:
+
+`$$P(A \cap B) = P(B|A) \cdot P(A)$$`
+
+- Para la suma de probabilidades de eventos mutuamente excluyentes `\(A_1, A_2, \ldots, A_n\)`, la fórmula es:
+
+`$$P(B) = \sum_{i=1}^{n} P(B|A_i) \cdot P(A_i)$$`
+
+Estas fórmulas son cruciales para realizar inferencias basadas en el teorema de Bayes, permitiendo **ajustar nuestras creencias** sobre la ocurrencia de eventos **a medida que se obtiene nueva información**.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Temperatura en Pichincha 
+
+Tenemos datos de temperatura en Pichincha, y queremos predecir la temperatura en un punto específico para hoy, basándonos en la temperatura en ese punto el día anterior. Supongamos que:
+
+- `\(A\)` es la temperatura en el punto específico hoy.
+- `\(B\)` es la temperatura en ese punto ayer.
+
+.center[
+&lt;img src=https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Pichincha_in_Ecuador_%28%2BGalapagos%29.svg/1200px-Pichincha_in_Ecuador_%28%2BGalapagos%29.svg.png width="30%"&gt;
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Paso 1: Probabilidad a Priori `\(P(A)\)`
+
+- Es nuestra mejor estimación de la temperatura de hoy sin considerar la información del día anterior. 
+- Esta probabilidad se basa en datos históricos. 
+- `\(P(A)\)` viene dado por:
+`$$P(A) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left(-\frac{(A - \mu)^2}{2\sigma^2}\right)$$`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: left, top
+
+## Paso 2: Probabilidad Condicional `\(P(B|A)\)`
+
+- Es la probabilidad de que la temperatura ayer `\((B)\)` sea lo que fue, dado que la temperatura hoy `\((A)\)` es lo que estamos tratando de predecir. 
+- Utilizamos una relación basada en datos históricos. 
+- Asumimos que si la temperatura de hoy es `\(A\)`, la temperatura de ayer también sigue una distribución normal con media `\(A\)` y la misma desviación estándar `\(\sigma\)`.
+
+`$$P(B|A) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left(-\frac{(B - A)^2}{2\sigma^2}\right)$$`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+center: middle
+
+## Paso 3: Probabilidad Total `\(P(B)\)`-
+
+- Es la probabilidad de que la temperatura de ayer sea `\(B\)` sin importar la temperatura de hoy. 
+- Esto también se basa en datos históricos y sigue la misma distribución normal con media histórica `\(\mu\)` y desviación estándar `\(\sigma\)`.
+
+`$$P(B) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left(-\frac{(B - \mu)^2}{2\sigma^2}\right)$$`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## Paso 4: Aplicación del Teorema de Bayes
+
+- Usamos el Teorema de Bayes para **actualizar nuestra probabilidad a priori** `\(P(A)\)` en **función de la información del día anterior** `\(B\)`:
+
+`$$P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$$`
+
+- Esta es nuestra probabilidad posterior ( `\(P(A|B)\)` ), la probabilidad de que la temperatura hoy sea `\(A\)` dado que la temperatura ayer fue `\(B\)`.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Ejemplo 
+
+Supongamos que:
+
+- `\(\mu = 20°C\)` 
+- `\(\sigma = 5°C\)`
+- `\(B = 22 °C\)` (Temperatura ayer)
+- Queremos calcular la probabilidad de que la temperatura hoy `\((A)\)` sea `\(21°C\)`.
+
+.center[
+&lt;img src=https://www.sunbirddcim.com/sites/default/files/AdobeStock_471023909.jpeg width="50%"&gt;
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### Ejemplo
+
+**Probabilidad a Priori**  `\(P(A = 21)\)`
+
+`$$P(A = 21) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(21 - 20)^2}{2 \cdot 5^2}\right)$$`
+    
+**Probabilidad Condicional** `\(P(B = 22|A = 21)\)`
+
+`$$P(B = 22|A = 21) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(22 - 21)^2}{2 \cdot 5^2}\right)$$`
+   
+**Probabilidad Total** `\(P(B = 22)\)`
+`$$P(B = 22) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(22 - 20)^2}{2 \cdot 5^2}\right)$$`
+    
+**Probabilidad Posterior** `\(P(A = 21|B = 22)\)`
+`$$P(A = 21|B = 22) = \frac{P(B = 22|A = 21) \cdot P(A = 21)}{P(B = 22)}$$`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### Ejemplo en R
+
+
+
+``` r
+# Definir los parámetros
+mu &lt;- 20
+sigma &lt;- 5
+A &lt;- 21
+B &lt;- 22
+
+# Probabilidad a priori
+prior_prob &lt;- dnorm(A, mean = mu, sd = sigma)
+
+# Probabilidad condicional
+conditional_prob &lt;- dnorm(B, mean = A, sd = sigma)
+
+# Probabilidad total
+total_prob &lt;- dnorm(B, mean = mu, sd = sigma)
+
+# Probabilidad posterior
+posterior_prob &lt;- (conditional_prob * prior_prob) / total_prob
+
+posterior_prob
+```
+
+```
+## [1] 0.08304468
+```
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"tokenTransform": {
+"functionCall": "class=\"function-call\""
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
