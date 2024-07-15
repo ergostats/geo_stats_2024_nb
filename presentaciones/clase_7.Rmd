@@ -1,0 +1,264 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 7: "  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light   
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+#### `r rmarkdown::metadata$subtitle`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## Definición de Probabilidad
+
+- **Probabilidad:** Medida de la certeza de que un evento ocurra. 
+- Se denota comúnmente por $P(A)$, donde $A$ es el *evento de interés*. 
+- La **probabilidad de cualquier evento** se encuentra en el *intervalo* $[0, 1]$, donde 0 indica la imposibilidad del evento y 1 indica certeza absoluta.
+
+.center[
+<img src=https://curvebreakerstestprep.com/wp-content/uploads/2021/04/Probability-Line.png width="60%">
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: left, top
+
+## Dominio de la Función de Probabilidad 
+
+- Es el **conjunto** de todos los **posibles resultados** de un **experimento aleatorio**. 
+- Por ejemplo, si lanzamos una moneda, el dominio es $\{cara, cruz\}$.
+
+.center[
+<img src=https://www.esan.edu.pe/images/blog/2016/10/10/probabilidades-principal.jpg width="80%">
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: left, top
+
+## Función de Distribución
+
+- También conocida como **función de probabilidad**, asigna a *cada posible resultado* un *valor de probabilidad*. 
+- Para una variable aleatoria discreta $X$, la función de distribución de probabilidad $p(x)$ está definida como: 
+
+$$p(x) = P(X = x)$$
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: left, top
+
+## Función de Distribución Acumulada (FDA)
+
+- $F(x)$: es la **probabilidad** de que la *variable aleatoria* $X$ tome un *valor menor o igual* a $x$. 
+- Matemáticamente, se expresa como: $$F(x) = P(X \leq x)$$
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Distribuciones más conocidas 
+
+| Nombre de la Distribución | Usos Comunes                                        | Fórmula de la Media | Fórmula de la Varianza |
+| ------------------------- | --------------------------------------------------- | ------------------- | ---------------------- |
+| Normal                    | Datos continuos, fenómenos naturales                | $\mu$               | $\sigma^2$             |
+| Poisson                   | Número de eventos en un intervalo de tiempo/espacio | $\lambda$           | $\lambda$              |
+| Uniforme                  | Eventos igualmente probables                        | $\frac{a + b}{2}$   | $\frac{(b - a)^2}{12}$ |
+| Binomial                  | Número de éxitos en$n$ ensayos                      | $np$                | $np(1-p)$              |
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Distribuciones más conocidas
+
+| Nombre de la Distribución  |  Usos Comunes | Fórmula de la Media  |  Fórmula de la Varianza |
+|---|---|---|---|
+|Geométrica|Ensayos hasta el primer éxito| $\frac{1}{p}$| $\frac{1-p}{p^2}$|
+|Exponencial|Tiempo entre eventos| $\frac{1}{\lambda}$| $\frac{1}{\lambda^2}$|
+|Beta|Proporciones y probabilidades| $\frac{\alpha}{\alpha + \beta}$| $\frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}$|
+|Gamma|Tiempo hasta la ocurrencia de $k$ eventos| $\alpha \beta$| $\alpha \beta^2$|
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Teorema de Bayes 
+
+- Permite actualizar las **probabilidades iniciales** (a priori) basadas en **nueva información** (evidencia).
+- El teorema se expresa como: $$P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$$
+- Donde $P(A|B)$ es la probabilidad de que ocurra $A$ dado que $B$ ha ocurrido.
+- $P(B|A)$ es la probabilidad de que ocurra $B$ dado que $A$ ha ocurrido.
+- $P(A)$ es la probabilidad a priori de $A$.
+- $P(B)$ es la probabilidad total de $B$.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Teorema de Bayes 
+- La probabilidad conjunta de dos eventos $A$ y $B$ está dada por:
+
+$$P(A \cap B) = P(B|A) \cdot P(A)$$
+
+- Para la suma de probabilidades de eventos mutuamente excluyentes $A_1, A_2, \ldots, A_n$, la fórmula es:
+
+$$P(B) = \sum_{i=1}^{n} P(B|A_i) \cdot P(A_i)$$
+
+Estas fórmulas son cruciales para realizar inferencias basadas en el teorema de Bayes, permitiendo **ajustar nuestras creencias** sobre la ocurrencia de eventos **a medida que se obtiene nueva información**.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Temperatura en Pichincha 
+
+Tenemos datos de temperatura en Pichincha, y queremos predecir la temperatura en un punto específico para hoy, basándonos en la temperatura en ese punto el día anterior. Supongamos que:
+
+- $A$ es la temperatura en el punto específico hoy.
+- $B$ es la temperatura en ese punto ayer.
+
+.center[
+<img src=https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Pichincha_in_Ecuador_%28%2BGalapagos%29.svg/1200px-Pichincha_in_Ecuador_%28%2BGalapagos%29.svg.png width="30%">
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Paso 1: Probabilidad a Priori $P(A)$
+
+- Es nuestra mejor estimación de la temperatura de hoy sin considerar la información del día anterior. 
+- Esta probabilidad se basa en datos históricos. 
+- $P(A)$ viene dado por:
+$$P(A) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left(-\frac{(A - \mu)^2}{2\sigma^2}\right)$$
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: left, top
+
+## Paso 2: Probabilidad Condicional $P(B|A)$
+
+- Es la probabilidad de que la temperatura ayer $(B)$ sea lo que fue, dado que la temperatura hoy $(A)$ es lo que estamos tratando de predecir. 
+- Utilizamos una relación basada en datos históricos. 
+- Asumimos que si la temperatura de hoy es $A$, la temperatura de ayer también sigue una distribución normal con media $A$ y la misma desviación estándar $\sigma$.
+
+$$P(B|A) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left(-\frac{(B - A)^2}{2\sigma^2}\right)$$
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+center: middle
+
+## Paso 3: Probabilidad Total $P(B)$-
+
+- Es la probabilidad de que la temperatura de ayer sea $B$ sin importar la temperatura de hoy. 
+- Esto también se basa en datos históricos y sigue la misma distribución normal con media histórica $\mu$ y desviación estándar $\sigma$.
+
+$$P(B) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left(-\frac{(B - \mu)^2}{2\sigma^2}\right)$$
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## Paso 4: Aplicación del Teorema de Bayes
+
+- Usamos el Teorema de Bayes para **actualizar nuestra probabilidad a priori** $P(A)$ en **función de la información del día anterior** $B$:
+
+$$P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$$
+
+- Esta es nuestra probabilidad posterior ($P(A|B)$), la probabilidad de que la temperatura hoy sea $A$ dado que la temperatura ayer fue $B$.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+## Ejemplo 
+
+Supongamos que:
+
+- $\mu = 20°C$ 
+- $\sigma = 5°C$
+- $B = 22 °C$ (Temperatura ayer)
+- Queremos calcular la probabilidad de que la temperatura hoy $(A)$ sea $21°C$.
+
+.center[
+<img src=https://www.sunbirddcim.com/sites/default/files/AdobeStock_471023909.jpeg width="50%">
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+### Ejemplo
+
+**Probabilidad a Priori**  $P(A = 21)$
+
+$$P(A = 21) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(21 - 20)^2}{2 \cdot 5^2}\right)$$
+    
+**Probabilidad Condicional** $P(B = 22|A = 21)$
+
+$$P(B = 22|A = 21) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(22 - 21)^2}{2 \cdot 5^2}\right)$$
+   
+**Probabilidad Total** $P(B = 22)$
+$$P(B = 22) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(22 - 20)^2}{2 \cdot 5^2}\right)$$
+    
+**Probabilidad Posterior** $P(A = 21|B = 22)$
+$$P(A = 21|B = 22) = \frac{P(B = 22|A = 21) \cdot P(A = 21)}{P(B = 22)}$$
+    
