@@ -1,6 +1,6 @@
 ---
 title: "Estadística y Econometría Espacial con R, Módulo I"
-subtitle: "Clase 7: "  
+subtitle: "Clase 7: Probabilidad y Teorema de Bayes"  
 date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:

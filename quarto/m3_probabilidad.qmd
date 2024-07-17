@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-### 1. Definiciones de Probabilidad  
+### 1. Definiciones de Probabilidad
 
 En la estadística, la probabilidad se define como una medida de la certeza de que un evento ocurra. Se denota comúnmente por$P(A)$, donde$A$ es el evento de interés. La probabilidad de cualquier evento se encuentra en el intervalo$[0, 1]$, donde 0 indica la imposibilidad del evento y 1 indica certeza absoluta.
 
@@ -13,32 +13,31 @@ En la estadística, la probabilidad se define como una medida de la certeza de q
 El dominio de una función de probabilidad es el conjunto de todos los posibles resultados de un experimento aleatorio. Por ejemplo, si lanzamos una moneda, el dominio es$\{cara, cruz\}$.
 
 #### Función de Distribución
-La función de distribución, también conocida como función de probabilidad, asigna a cada posible resultado un valor de probabilidad. Para una variable aleatoria discreta$X$, la función de distribución de probabilidad$p(x)$ está definida como:
-$$p(x) = P(X = x)$$
+
+La función de distribución, también conocida como función de probabilidad, asigna a cada posible resultado un valor de probabilidad. Para una variable aleatoria discreta$X$, la función de distribución de probabilidad$p(x)$ está definida como: $$p(x) = P(X = x)$$
 
 #### Distribución Acumulada
 
-La función de distribución acumulada (FDA), denotada como$F(x)$, es la probabilidad de que la variable aleatoria$X$ tome un valor menor o igual a$x$. Matemáticamente, se expresa como:
-$$F(x) = P(X \leq x)$$
+La función de distribución acumulada (FDA), denotada como$F(x)$, es la probabilidad de que la variable aleatoria$X$ tome un valor menor o igual a$x$. Matemáticamente, se expresa como: $$F(x) = P(X \leq x)$$
 
 ### 2. Distribuciones Más Conocidas
 
 A continuación, se presenta una tabla que resume algunas de las distribuciones más comunes en estadística, incluyendo sus usos, la fórmula de la media y la varianza.
 
-| Nombre de la Distribución | Usos Comunes                                      | Fórmula de la Media                          | Fórmula de la Varianza                       |
-|---------------------------|---------------------------------------------------|---------------------------------------------|---------------------------------------------|
-| Normal                    | Datos continuos, fenómenos naturales              |$\mu$                                     |$\sigma^2$                                |
-| Poisson                   | Número de eventos en un intervalo de tiempo/espacio|$\lambda$                                 |$\lambda$                                 |
-| Uniforme                  | Eventos igualmente probables                      |$\frac{a + b}{2}$                         |$\frac{(b - a)^2}{12}$                    |
-| Binomial                  | Número de éxitos en$n$ ensayos                 |$np$                                      |$np(1-p)$                                 |
-| Geométrica                | Ensayos hasta el primer éxito                     |$\frac{1}{p}$                             |$\frac{1-p}{p^2}$                         |
-| Exponencial               | Tiempo entre eventos                              |$\frac{1}{\lambda}$                       |$\frac{1}{\lambda^2}$                     |
-| Beta                      | Proporciones y probabilidades                     |$\frac{\alpha}{\alpha + \beta}$           |$\frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}$ |
-| Gamma                     | Tiempo hasta la ocurrencia de$k$ eventos       |$\alpha \beta$                            |$\alpha \beta^2$                          |
+| Nombre de la Distribución | Usos Comunes                                        | Fórmula de la Media             | Fórmula de la Varianza                                        |
+|---------------------------|-----------------------------------------------------|---------------------------------|---------------------------------------------------------------|
+| Normal                    | Datos continuos, fenómenos naturales                | $\mu$                           | $\sigma^2$                                                    |
+| Poisson                   | Número de eventos en un intervalo de tiempo/espacio | $\lambda$                       | $\lambda$                                                     |
+| Uniforme                  | Eventos igualmente probables                        | $\frac{a + b}{2}$               | $\frac{(b - a)^2}{12}$                                        |
+| Binomial                  | Número de éxitos en$n$ ensayos                      | $np$                            | $np(1-p)$                                                     |
+| Geométrica                | Ensayos hasta el primer éxito                       | $\frac{1}{p}$                   | $\frac{1-p}{p^2}$                                             |
+| Exponencial               | Tiempo entre eventos                                | $\frac{1}{\lambda}$             | $\frac{1}{\lambda^2}$                                         |
+| Beta                      | Proporciones y probabilidades                       | $\frac{\alpha}{\alpha + \beta}$ | $\frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}$ |
+| Gamma                     | Tiempo hasta la ocurrencia de$k$ eventos            | $\alpha \beta$                  | $\alpha \beta^2$                                              |
 
 ### 3. El Teorema de Bayes
 
-El Teorema de Bayes es una herramienta fundamental en la teoría de probabilidad, que permite actualizar las probabilidades iniciales (a priori) basadas en nueva información (evidencia). 
+El Teorema de Bayes es una herramienta fundamental en la teoría de probabilidad, que permite actualizar las probabilidades iniciales (a priori) basadas en nueva información (evidencia).
 
 Este teorema se expresa como:
 
@@ -62,8 +61,7 @@ Claro, vamos a desglosar el proceso de cálculo de la probabilidad posterior usa
 
 Tenemos datos de temperatura en Pichincha, y queremos predecir la temperatura en un punto específico para hoy, basándonos en la temperatura en ese punto el día anterior. Supongamos que:
 
--$A$ es la temperatura en el punto específico hoy.
--$B$ es la temperatura en ese punto ayer.
+\-$A$ es la temperatura en el punto específico hoy. -$B$ es la temperatura en ese punto ayer.
 
 ### Paso 1: Probabilidad a Priori ($P(A)$)
 
@@ -93,23 +91,15 @@ Esta es nuestra probabilidad posterior ($P(A|B)$), la probabilidad de que la tem
 
 ### Ejemplo Numérico
 
-Supongamos que:
-- La media histórica ($\mu$) es 20 grados.
-- La desviación estándar ($\sigma$) es 5 grados.
-- La temperatura ayer ($B$) fue 22 grados.
-- Queremos calcular la probabilidad de que la temperatura hoy ($A$) sea 21 grados.
+Supongamos que: - La media histórica ($\mu$) es 20 grados. - La desviación estándar ($\sigma$) es 5 grados. - La temperatura ayer ($B$) fue 22 grados. - Queremos calcular la probabilidad de que la temperatura hoy ($A$) sea 21 grados.
 
-1. **Probabilidad a Priori ($P(A = 21)$)**:
-$$P(A = 21) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(21 - 20)^2}{2 \cdot 5^2}\right)$$
+1.  **Probabilidad a Priori (**$P(A = 21)$): $$P(A = 21) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(21 - 20)^2}{2 \cdot 5^2}\right)$$
 
-2. **Probabilidad Condicional ($P(B = 22|A = 21)$)**:
-$$P(B = 22|A = 21) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(22 - 21)^2}{2 \cdot 5^2}\right)$$
+2.  **Probabilidad Condicional (**$P(B = 22|A = 21)$): $$P(B = 22|A = 21) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(22 - 21)^2}{2 \cdot 5^2}\right)$$
 
-3. **Probabilidad Total ($P(B = 22)$)**:
-$$P(B = 22) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(22 - 20)^2}{2 \cdot 5^2}\right)$$
+3.  **Probabilidad Total (**$P(B = 22)$): $$P(B = 22) = \frac{1}{5 \sqrt{2\pi}} \exp\left(-\frac{(22 - 20)^2}{2 \cdot 5^2}\right)$$
 
-4. **Probabilidad Posterior ($P(A = 21|B = 22)$)**:
-$$P(A = 21|B = 22) = \frac{P(B = 22|A = 21) \cdot P(A = 21)}{P(B = 22)}$$
+4.  **Probabilidad Posterior (**$P(A = 21|B = 22)$): $$P(A = 21|B = 22) = \frac{P(B = 22|A = 21) \cdot P(A = 21)}{P(B = 22)}$$
 
 Al calcular cada uno de estos valores usando las fórmulas de la distribución normal, puedes obtener la probabilidad posterior.
 
