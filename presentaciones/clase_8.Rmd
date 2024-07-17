@@ -36,13 +36,17 @@ class: top left
 
 - Son bloques de **código reutilizables** que realizan una tarea específica. 
 - Se componen de: 
-1.  Nombre de la función
+1. Nombre de la función
 2. Argumentos 
-3. Cuerpo 
+3. Cuerpo (`body`)
+4. Return
 
 ```{r}
 mi_funcion <- function(arg_1, arg_2, ...){
-Cuerpo 
+  
+  # Cuerpo con operaciones que general objeto `resultado`
+  
+  return(resultados)
 }
 ```
 
@@ -59,19 +63,88 @@ class: top left
 
 ```{r}
 # Obligatorios
-suma <- function(a, b){
+suma <- function(a, b){ #<<
   operacion <- a + b
   return(operacion)
 }
 suma(3,4)
 
 # Opcionales 
-suma <- function(a, b = 4){
+suma <- function(a, b = 4){ #<<
   operacion <- a + b
   return(operacion)
 }
 suma(3)
 ```
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+# Propiedades de los environments
+
+Cada función es un `environment` que es un subconjunto del `Gloabl Environment`
+
+```{r}
+
+# Objeto en el global environment:
+
+c <- 10
+
+suma <- function(a, b, c = 7){ #<<
+  
+  if(c == 10){
+    operacion <- a + b  
+  }else{
+    operacion <- a / b
+  }
+  
+  return(operacion)
+}
+
+suma(3,4)
+
+
+```
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+# Propiedades de los environments
+
+Cada función es un `environment` que es un subconjunto del `Gloabl Environment`
+
+```{r, error}
+
+# eliminar objetos del environment:
+rm(c)
+
+c <- NULL
+
+# Objeto en el global environment:
+
+
+suma <- function(a, b){ #<<
+  
+  c <<- 10 #<<
+  
+  operacion <- a + b + c  
+  
+  return(operacion)
+}
+
+suma(3,4)  + c
+
+
+```
+
 
 ---
 background-image: url(img/slide_nb.png)
