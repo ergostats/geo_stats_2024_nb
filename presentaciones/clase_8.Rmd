@@ -1,0 +1,159 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 8: Relación entre variables a traves del modelo de regresión lineal"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light   
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+#### `r rmarkdown::metadata$subtitle`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Funciones en R 
+
+- Son bloques de **código reutilizables** que realizan una tarea específica. 
+- Se componen de: 
+1.  Nombre de la función
+2. Argumentos 
+3. Cuerpo 
+
+```{r}
+mi_funcion <- function(arg_1, arg_2, ...){
+Cuerpo 
+}
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Argumentos de la función 
+- **Obligatorios:** Se requieren para que la función funcione correctamente.
+- **Opcionales:** Tienen un valor predeterminado si no se especifican
+
+```{r}
+# Obligatorios
+suma <- function(a, b){
+  operacion <- a + b
+  return(operacion)
+}
+suma(3,4)
+
+# Opcionales 
+suma <- function(a, b = 4){
+  operacion <- a + b
+  return(operacion)
+}
+suma(3)
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## ¿Qué es una regresión lineal?
+
+- La regresión lineal es una técnica estadística muy potente que permite **predecir** o **describir** la **relación** entre dos **variables numéricas**, suponiendo que exista una **relación lineal** entre ellas.
+- Esta relación se representa de la siguiente forma: 
+
+$$y = b_0 + b_{1}x +e$$
+
+- $b_0$ y $b_1$ representan el intercepto y la pendiente del modelo respectivamente.
+- $e$ es el error aleatorio, representa la variabilidad no explicada por el modelo.
+
+>Si los **datos observados** son una **muestra aleatoria** de una población objetivo sobre la que estamos interesados en hacer inferencias, estos valores se consideran **estimaciones puntuales** de los **parámetros de población** $\beta_0$  y $\beta_1$.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Supuestos de la Regresión Lineal
+
+Para que la Regresión Lineal sea válida, se deben cumplir ciertos supuestos:
+
+- **Linealidad:** La relación entre y y X debe ser lineal.
+- **Independencia:** Las variables independientes deben ser independientes entre sí.
+- **Normalidad:** Los residuos (diferencias entre los valores observados de y y los valores predichos por el modelo) deben seguir una distribución normal.
+- **Homocedasticidad:** La varianza de los residuos debe ser constante en todos los niveles de las variables independientes.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Residuos (o Errores)
+- Son la **diferencia** entre los **valores observados** y los **valores que predice el modelo**.
+$$e_i = y_i - y_i$$
+
+.center[
+![](https://www.reneshbedre.com/assets/posts/reg/reg_front.svg)
+]
+
+- Los residuos son útiles para evaluar hasta qué punto un modelo lineal se ajusta a un conjunto de datos.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Regresión por mínimos cuadrados
+- Al realizar una regresión lineal queremos sea cual sea la recta que ajustemos, los residuos sean pequeños (es decir, que los puntos estén cerca de la recta). 
+- Por lo que elegimos la línea que minimiza la suma de los residuos al cuadrado:
+
+$$e^2_1 + e^2_2 +...+ e^2_n$$
+- Elegimos este método porque: 
+1. Es el método más utilizado.
+2. El cálculo de la recta de mínimos cuadrados está ampliamente soportado en el software estadístico.
+3. En muchas aplicaciones, un residuo el doble de grande que otro residuo es más del doble de malo. Por ejemplo, una desviación de 4 suele ser más del doble de mala que una desviación de 2. Elevar al cuadrado los residuos tiene en cuenta esta discrepancia.
+4. Los análisis que relacionan el modelo con la inferencia sobre una población son más sencillos cuando la recta se ajusta por mínimos cuadrados.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Describiendo la fuerza de un ajuste
+- Una vez estimado un modelo, es crucial evaluarlo para determinar su bondad de ajuste y su capacidad para explicar la variabilidad de la variable dependiente.
+- Es más común explicar la fuerza de un ajuste lineal utilizando el coeficiente de determinación $R^2$.
+- El $R^2$ indica la cantidad proporcional de variación en la variable de respuesta y, explicada según las variables independientes X en el modelo de regresión lineal.
+
