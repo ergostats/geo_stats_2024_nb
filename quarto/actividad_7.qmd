@@ -1,0 +1,139 @@
+---
+title: "Guía de Práctica para Clase 7: Análisis de Regresión con Variables Categóricas usando `evals` de `moderndive`"
+author: "Centro de Investigación Estadística ERGOSTATS"
+format: html
+editor: visual
+---
+
+
+Esta guía cubre el uso de regresión lineal con variables categóricas utilizando el conjunto de datos `evals` del paquete `moderndive`. A lo largo de esta práctica, exploraremos cómo manejar factores en R, realizar análisis de regresión con variables categóricas, y visualizar los resultados utilizando `ggplot2`.
+
+#### Cargar Librerías y Datos
+
+Primero, cargaremos las librerías necesarias y los datos.
+
+```{r}
+# Cargar librerías
+library(tidyverse)
+library(moderndive)
+
+# Cargar datos
+data(evals)
+```
+
+#### Entender los Factores
+
+En R, una variable categórica se denomina factor. Los factores son útiles cuando se desea incluir variables categóricas en modelos estadísticos.
+
+```{r}
+class(evals$ethnicity)
+attributes(evals$ethnicity)
+
+evals$ethnicity
+
+# Un factor son enteros ordenados para los cuales cada valor tiene una etiqueta
+as.numeric(evals$ethnicity)
+```
+
+#### Manipulación de Factores
+
+Podemos manipular niveles de factores usando funciones como `fct_collapse` del paquete `forcats`.
+
+```{r}
+library(forcats)
+
+evals <- evals %>% 
+  mutate(ethnicity = fct_collapse(-----)
+
+levels(-----)
+```
+
+#### Regresión Lineal con una Variable Categórica
+
+Realizaremos una regresión lineal donde `score` es la variable dependiente y `ethnicity` es la variable independiente.
+
+```{r}
+# Regresión lineal con una variable categórica
+modelo <- lm(formula = score ~ ethnicity, data = evals)
+
+# Resumen del modelo
+summary(modelo)
+```
+
+> Diferencia en medias:
+
+#### Visualización de Resultados
+
+Visualizamos la relación entre `score` y `ethnicity` utilizando `ggplot2`.
+
+```{r}
+# Gráfico de puntos
+evals %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = ethnicity, y = score))
+
+# Promedio de puntuaciones por tipo de clase
+evals %>% 
+  group_by(ethnicity) %>% 
+  summarise(mean_score = mean(score))
+```
+
+#### Regresión Lineal con Variables Adicionales
+
+Añadimos más variables independientes al modelo de regresión.
+
+```{r}
+# Regresión lineal con variables adicionales
+modelo <- lm(formula = score ~ bty_avg + age + ethnicity, data = evals)
+
+# Resumen del modelo
+summary(modelo)
+```
+## Rectas paralelas
+
+
+```{r}
+ggplot(evals, aes(x = age, y = score, color = ethnicity)) +
+  geom_point() +
+  geom_parallel_slopes(se = FALSE) +
+  labs(x = "Age", y = "Teaching score", color = "Ethnicity")
+```
+
+#### Visualización de Modelos Complejos
+
+Visualizamos los resultados de modelos de regresión más complejos.
+
+```{r}
+# Gráfico con regresión lineal
+evals %>% 
+  ggplot(aes(x = bty_avg, y = score, color = ethnicity)) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+
+# Modelos separados por tipo de clase
+modelos_por_tipo <- evals %>% 
+  split(.$ethnicity) %>%  
+  map(~lm(formula = score ~ bty_avg, data = .x))
+
+# Resumen de los modelos por tipo de clase
+modelos_por_tipo
+```
+
+#### Modelo con Interacciones
+
+Creamos un modelo que incluye interacciones entre las variables independientes y la variable categórica.
+
+```{r}
+# Modelo con interacciones
+modelo_interacciones <- lm(formula = score ~ bty_avg * ethnicity + age * ethnicity, data = evals)
+
+# Resumen del modelo con interacciones
+summary(modelo_interacciones)
+```
+## Extraccion de R cuadrado con map
+
+```{r}
+
+```
+
+

@@ -1,0 +1,123 @@
+---
+title: "Simulando con R"
+format: html
+editor: visual
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(broom)
+set.seed(123)  # Para reproducibilidad
+```
+
+## Simulación de Datos
+
+Primero, simulamos los datos de ingresos y gastos del hogar.
+
+```{r}
+# Simulación de ingresos (distribución normal)
+ingresos <- rnorm(--- mean = 400, sd = 50)
+
+# Simulación de gastos del hogar (correlacionados con los ingresos)
+gastos <- 0.5 * ingresos + rnorm(---- mean = 0, sd = 30)
+
+# Crear el data frame
+datos <- tibble(ingresos, gastos)
+```
+
+Revisamos los primeros registros del data frame.
+
+```{r}
+head(datos)
+```
+
+## Análisis Descriptivo
+
+### Estadísticas Descriptivas
+
+```{r}
+summary(---)
+```
+
+### Visualización Inicial
+
+```{r}
+# Gráfico de dispersión
+ggplot(datos, aes(x = ingresos, y = gastos,-----)) +
+  geom_point() +
+  labs(title = "Relación entre Ingresos y Gastos del Hogar",
+       x = "Ingresos ($)",
+       y = "Gastos del Hogar ($)")
+```
+
+## Regresión Lineal
+
+Ajustamos un modelo de regresión lineal para predecir los gastos del hogar a partir de los ingresos.
+
+```{r}
+# Ajustar el modelo
+modelo <- lm(-----, data = datos)
+
+# Resumen del modelo
+summary(modelo)
+```
+
+## Resultados del Modelo
+
+Extraemos los coeficientes del modelo y otros resultados relevantes usando `broom`.
+
+```{r}
+# Coeficientes del modelo
+----(modelo)
+
+# Estadísticas del modelo
+----(modelo)
+```
+
+## Análisis de Residuos
+
+### Gráfico de Residuos
+
+```{r}
+# Residuos del modelo
+residuos <- ----(modelo)
+
+# Gráfico de residuos
+ggplot(residuos, aes(-----)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Gráfico de Residuos",
+       x = "Valores Ajustados",
+       y = "Residuos")
+```
+
+### Gráfico del Ajuste
+
+```{r}
+# Gráfico de la línea de regresión
+ggplot(datos, aes(x = ingresos, y = gastos)) +
+  geom_point() +
+  geom_-----(-----, col = "blue") +
+  labs(title = "Ajuste de Regresión Lineal",
+       x = "Ingresos ($)",
+       y = "Gastos del Hogar ($)")
+```
+
+## Análisis de Covarianza y Varianza
+
+### Covarianza
+
+```{r}
+cov(datos$ingresos, datos$gastos)
+```
+
+### Varianza
+
+```{r}
+var(datos$ingresos)
+var(datos$gastos)
+```
+
+# Comprueba el OLS
+
+# Distribución del parametro

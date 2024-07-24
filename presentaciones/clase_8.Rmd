@@ -25,6 +25,78 @@ background-size: 105%
 ## `r rmarkdown::metadata$title`
 #### `r rmarkdown::metadata$subtitle`
 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle left
+
+
+## Significancia Estadística y p-valor
+
+#### p-valor
+- Medida de significancia en pruebas estadísticas.
+- Representa la probabilidad de observar un resultado al menos tan extremo como el obtenido, bajo $H_0$.
+
+$$
+p = P(\text{observación} \geq \text{valor observado} \mid H_0)
+$$
+
+Interpretación del p-valor
+
+- $p < 0.05$: Rechaza $H_0$, resultados significativos.
+- $p \geq 0.05$: No rechaza $H_0$, resultados no significativos.
+
+#### Errores
+- **Error Tipo I**: Rechazar $H_0$ cuando es verdadera.
+- **Error Tipo II**: No rechazar $H_0$ cuando es falsa.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle left
+
+### Críticas al p-valor
+
+1. **Dependencia en el tamaño de muestra**.
+2. **No mide el tamaño del efecto**.
+3. **Dicotomía de la decisión**.
+
+### Alternativas al p-valor
+
+#### Intervalos de Confianza
+
+$$
+\text{IC} = \hat{\theta} \pm z_{\alpha/2} \cdot \text{SE}(\hat{\theta})
+$$
+
+#### Bayesianismo
+
+$$
+P(\theta \mid \text{data}) = \frac{P(\text{data} \mid \theta) P(\theta)}{P(\text{data})}
+$$
+
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle left
+
+### Implicaciones de Cambiar el Paradigma
+
+- **Mejor comprensión de resultados**.
+- **Reducción de la dependencia en umbrales arbitrarios**.
+- **Aumento en la reproducibilidad**.
+
+
 ---
 background-image: url(img/slide_nb.png)
 background-position: top left
@@ -145,6 +217,29 @@ suma(3,4)  + c
 
 ```
 
+---
+class:inverse, center, middle
+
+# Regresión lineal
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Conceptos Clave
+
+- **Regresión Lineal**: Técnica estadística que estudia la relación entre dos variables continuas.
+- **Esperanza Condicional**: Valor medio esperado de $Y$ dado un valor específico de $X$.
+
+
+$$E[Y|X=x] = \int y \cdot f_{Y|X}(y|x) \, dy $$
+
+Donde:
+- $E[Y|X=x]$: Esperanza condicional de $Y$ dado $X=x$.
+- $f_{Y|X}(y|x)$: Función de densidad de probabilidad condicional de $Y$ dado $X=x$.
+- La integral se calcula sobre el rango de posibles valores de $y$.
 
 ---
 background-image: url(img/slide_nb.png)
@@ -153,17 +248,44 @@ background-size: 140%
 padding-top: 150px
 class: top left
 
-## ¿Qué es una regresión lineal?
+### Ecuación de la Regresión Lineal
 
-- La regresión lineal es una técnica estadística muy potente que permite **predecir** o **describir** la **relación** entre dos **variables numéricas**, suponiendo que exista una **relación lineal** entre ellas.
-- Esta relación se representa de la siguiente forma: 
+$$y = \alpha + \beta x + \epsilon $$
 
-$$y = b_0 + b_{1}x +e$$
+Donde:
+- $y$: Ingreso.
+- $x$: Años de educación.
+- $\alpha$: Intersección con el eje Y (valor base de ingreso sin educación).
+- $\beta$: Pendiente de la línea (cambio en $y$ por cada año adicional de $x$).
+- $\epsilon$: Error residual.
 
-- $b_0$ y $b_1$ representan el intercepto y la pendiente del modelo respectivamente.
-- $e$ es el error aleatorio, representa la variabilidad no explicada por el modelo.
+> **Ojo:** La relación entre las variables son en parte supuestos y en parte dan cuenta de un fenómeno, usualmente en el análisis del ingreso y los años de educación se suele utilizar el termino `edad^2`
 
->Si los **datos observados** son una **muestra aleatoria** de una población objetivo sobre la que estamos interesados en hacer inferencias, estos valores se consideran **estimaciones puntuales** de los **parámetros de población** $\beta_0$  y $\beta_1$.
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Método de Mínimos Cuadrados
+
+Por consecuencia de minimizar los errores $(\epsilon)$:
+
+$$\beta = \frac{\sum_{i=1}^{n}(x_i - \overline{x})(y_i - \overline{y})}{\sum_{i=1}^{n} (x_i - \overline{x})^2}$$
+
+
+
+
+
+$$\alpha = \overline{y} - \beta\overline{x}$$
+
+Donde:
+- $x_i$ y $y_i$: Valores individuales de $x$ y $y$.
+- $\overline{x}$ y $\overline{y}$: Promedios de $x$ y $y$.
+- $n$: Número de observaciones.
+- La regresión lineal estima $E[y|x]$, es decir, el mejor pronóstico en promedio de $y$ para un valor dado de $x$.
+- Nos dice qué valor esperar para $y$ basado en $x$, considerando la relación lineal.
 
 
 ---
@@ -172,6 +294,27 @@ background-position: top left
 background-size: 140%
 padding-top: 150px
 class: top left
+
+### Relación entre Covarianza y Varianza
+
+La pendiente $\beta$ de la regresión lineal puede expresarse en términos de la covarianza $\text{Cov}(x, y)$ y la varianza de $x$ ($\text{Var}(x)$):
+
+$$
+\beta = \frac{\text{Cov}(x, y)}{\text{Var}(x)}
+$$
+
+Donde:
+- $\text{Cov}(x, y)$: Covarianza entre $x$ y $y$.
+- $\text{Var}(x)$: Varianza de $x$.
+
+Esta relación muestra cómo la pendiente $\beta$ está influenciada por la relación lineal entre las variables $x$ y $y$ y la variabilidad de $x$.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle left
 
 ## Supuestos de la Regresión Lineal
 
@@ -199,34 +342,17 @@ $$e_i = y_i - y_i$$
 
 - Los residuos son útiles para evaluar hasta qué punto un modelo lineal se ajusta a un conjunto de datos.
 
-
 ---
 background-image: url(img/slide_nb.png)
 background-position: top left
 background-size: 140%
 padding-top: 150px
-class: top left
+class: middle left
 
-## Regresión por mínimos cuadrados
-- Al realizar una regresión lineal queremos sea cual sea la recta que ajustemos, los residuos sean pequeños (es decir, que los puntos estén cerca de la recta). 
-- Por lo que elegimos la línea que minimiza la suma de los residuos al cuadrado:
-
-$$e^2_1 + e^2_2 +...+ e^2_n$$
-- Elegimos este método porque: 
-1. Es el método más utilizado.
-2. El cálculo de la recta de mínimos cuadrados está ampliamente soportado en el software estadístico.
-3. En muchas aplicaciones, un residuo el doble de grande que otro residuo es más del doble de malo. Por ejemplo, una desviación de 4 suele ser más del doble de mala que una desviación de 2. Elevar al cuadrado los residuos tiene en cuenta esta discrepancia.
-4. Los análisis que relacionan el modelo con la inferencia sobre una población son más sencillos cuando la recta se ajusta por mínimos cuadrados.
-
----
-background-image: url(img/slide_nb.png)
-background-position: top left
-background-size: 140%
-padding-top: 150px
-class: top left
 
 ## Describiendo la fuerza de un ajuste
 - Una vez estimado un modelo, es crucial evaluarlo para determinar su bondad de ajuste y su capacidad para explicar la variabilidad de la variable dependiente.
 - Es más común explicar la fuerza de un ajuste lineal utilizando el coeficiente de determinación $R^2$.
 - El $R^2$ indica la cantidad proporcional de variación en la variable de respuesta y, explicada según las variables independientes X en el modelo de regresión lineal.
+
 

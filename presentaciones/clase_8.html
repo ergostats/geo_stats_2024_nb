@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estadística y Econometría Espacial con R, Módulo I</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2024-07-17" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="tema_ergos.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide center middle
+background-image: url(img/portada_nb.png)
+background-size: 105%
+
+## Estadística y Econometría Espacial con R, Módulo I
+#### Clase 8: Relación entre variables a traves del modelo de regresión lineal
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle left
+
+
+## Significancia Estadística y p-valor
+
+#### p-valor
+- Medida de significancia en pruebas estadísticas.
+- Representa la probabilidad de observar un resultado al menos tan extremo como el obtenido, bajo `\(H_0\)`.
+
+$$
+p = P(\text{observación} \geq \text{valor observado} \mid H_0)
+$$
+
+Interpretación del p-valor
+
+- `\(p &lt; 0.05\)`: Rechaza `\(H_0\)`, resultados significativos.
+- `\(p \geq 0.05\)`: No rechaza `\(H_0\)`, resultados no significativos.
+
+#### Errores
+- **Error Tipo I**: Rechazar `\(H_0\)` cuando es verdadera.
+- **Error Tipo II**: No rechazar `\(H_0\)` cuando es falsa.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle left
+
+### Críticas al p-valor
+
+1. **Dependencia en el tamaño de muestra**.
+2. **No mide el tamaño del efecto**.
+3. **Dicotomía de la decisión**.
+
+### Alternativas al p-valor
+
+#### Intervalos de Confianza
+
+$$
+\text{IC} = \hat{\theta} \pm z_{\alpha/2} \cdot \text{SE}(\hat{\theta})
+$$
+
+#### Bayesianismo
+
+$$
+P(\theta \mid \text{data}) = \frac{P(\text{data} \mid \theta) P(\theta)}{P(\text{data})}
+$$
+
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle left
+
+### Implicaciones de Cambiar el Paradigma
+
+- **Mejor comprensión de resultados**.
+- **Reducción de la dependencia en umbrales arbitrarios**.
+- **Aumento en la reproducibilidad**.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Funciones en R 
+
+- Son bloques de **código reutilizables** que realizan una tarea específica. 
+- Se componen de: 
+1. Nombre de la función
+2. Argumentos 
+3. Cuerpo (`body`)
+4. Return
+
+
+``` r
+mi_funcion &lt;- function(arg_1, arg_2, ...){
+  
+  # Cuerpo con operaciones que general objeto `resultado`
+  
+  return(resultados)
+}
+```
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Argumentos de la función 
+- **Obligatorios:** Se requieren para que la función funcione correctamente.
+- **Opcionales:** Tienen un valor predeterminado si no se especifican
+
+
+``` r
+# Obligatorios
+*suma &lt;- function(a, b){
+  operacion &lt;- a + b
+  return(operacion)
+}
+suma(3,4)
+```
+
+```
+## [1] 7
+```
+
+``` r
+# Opcionales 
+*suma &lt;- function(a, b = 4){
+  operacion &lt;- a + b
+  return(operacion)
+}
+suma(3)
+```
+
+```
+## [1] 7
+```
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+# Propiedades de los environments
+
+Cada función es un `environment` que es un subconjunto del `Gloabl Environment`
+
+
+``` r
+# Objeto en el global environment:
+
+c &lt;- 10
+
+*suma &lt;- function(a, b, c = 7){
+  
+  if(c == 10){
+    operacion &lt;- a + b  
+  }else{
+    operacion &lt;- a / b
+  }
+  
+  return(operacion)
+}
+
+suma(3,4)
+```
+
+```
+## [1] 0.75
+```
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+# Propiedades de los environments
+
+Cada función es un `environment` que es un subconjunto del `Gloabl Environment`
+
+
+``` r
+# eliminar objetos del environment:
+rm(c)
+
+c &lt;- NULL
+
+# Objeto en el global environment:
+
+
+*suma &lt;- function(a, b){
+  
+* c &lt;&lt;- 10
+  
+  operacion &lt;- a + b + c  
+  
+  return(operacion)
+}
+
+suma(3,4)  + c
+```
+
+```
+## [1] 27
+```
+
+---
+class:inverse, center, middle
+
+# Regresión lineal
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Conceptos Clave
+
+- **Regresión Lineal**: Técnica estadística que estudia la relación entre dos variables continuas.
+- **Esperanza Condicional**: Valor medio esperado de `\(Y\)` dado un valor específico de `\(X\)`.
+
+
+$$E[Y|X=x] = \int y \cdot f_{Y|X}(y|x) \, dy $$
+
+Donde:
+- `\(E[Y|X=x]\)`: Esperanza condicional de `\(Y\)` dado `\(X=x\)`.
+- `\(f_{Y|X}(y|x)\)`: Función de densidad de probabilidad condicional de `\(Y\)` dado `\(X=x\)`.
+- La integral se calcula sobre el rango de posibles valores de `\(y\)`.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Ecuación de la Regresión Lineal
+
+$$y = \alpha + \beta x + \epsilon $$
+
+Donde:
+- `\(y\)`: Ingreso.
+- `\(x\)`: Años de educación.
+- `\(\alpha\)`: Intersección con el eje Y (valor base de ingreso sin educación).
+- `\(\beta\)`: Pendiente de la línea (cambio en `\(y\)` por cada año adicional de `\(x\)`).
+- `\(\epsilon\)`: Error residual.
+
+&gt; **Ojo:** La relación entre las variables son en parte supuestos y en parte dan cuenta de un fenómeno, usualmente en el análisis del ingreso y los años de educación se suele utilizar el termino `edad^2`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Método de Mínimos Cuadrados
+
+Por consecuencia de minimizar los errores `\((\epsilon)\)`:
+
+`$$\beta = \frac{\sum_{i=1}^{n}(x_i - \overline{x})(y_i - \overline{y})}{\sum_{i=1}^{n} (x_i - \overline{x})^2}$$`
+
+
+
+
+
+`$$\alpha = \overline{y} - \beta\overline{x}$$`
+
+Donde:
+- `\(x_i\)` y `\(y_i\)`: Valores individuales de `\(x\)` y `\(y\)`.
+- `\(\overline{x}\)` y `\(\overline{y}\)`: Promedios de `\(x\)` y `\(y\)`.
+- `\(n\)`: Número de observaciones.
+- La regresión lineal estima `\(E[y|x]\)`, es decir, el mejor pronóstico en promedio de `\(y\)` para un valor dado de `\(x\)`.
+- Nos dice qué valor esperar para `\(y\)` basado en `\(x\)`, considerando la relación lineal.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Relación entre Covarianza y Varianza
+
+La pendiente `\(\beta\)` de la regresión lineal puede expresarse en términos de la covarianza `\(\text{Cov}(x, y)\)` y la varianza de `\(x\)` ($\text{Var}(x)$):
+
+$$
+\beta = \frac{\text{Cov}(x, y)}{\text{Var}(x)}
+$$
+
+Donde:
+- `\(\text{Cov}(x, y)\)`: Covarianza entre `\(x\)` y `\(y\)`.
+- `\(\text{Var}(x)\)`: Varianza de `\(x\)`.
+
+Esta relación muestra cómo la pendiente `\(\beta\)` está influenciada por la relación lineal entre las variables `\(x\)` y `\(y\)` y la variabilidad de `\(x\)`.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle left
+
+## Supuestos de la Regresión Lineal
+
+Para que la Regresión Lineal sea válida, se deben cumplir ciertos supuestos:
+
+- **Linealidad:** La relación entre y y X debe ser lineal.
+- **Independencia:** Las variables independientes deben ser independientes entre sí.
+- **Normalidad:** Los residuos (diferencias entre los valores observados de y y los valores predichos por el modelo) deben seguir una distribución normal.
+- **Homocedasticidad:** La varianza de los residuos debe ser constante en todos los niveles de las variables independientes.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Residuos (o Errores)
+- Son la **diferencia** entre los **valores observados** y los **valores que predice el modelo**.
+`$$e_i = y_i - y_i$$`
+
+.center[
+![](https://www.reneshbedre.com/assets/posts/reg/reg_front.svg)
+]
+
+- Los residuos son útiles para evaluar hasta qué punto un modelo lineal se ajusta a un conjunto de datos.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle left
+
+
+## Describiendo la fuerza de un ajuste
+- Una vez estimado un modelo, es crucial evaluarlo para determinar su bondad de ajuste y su capacidad para explicar la variabilidad de la variable dependiente.
+- Es más común explicar la fuerza de un ajuste lineal utilizando el coeficiente de determinación `\(R^2\)`.
+- El `\(R^2\)` indica la cantidad proporcional de variación en la variable de respuesta y, explicada según las variables independientes X en el modelo de regresión lineal.
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"tokenTransform": {
+"functionCall": "class=\"function-call\""
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
