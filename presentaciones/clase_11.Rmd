@@ -1,0 +1,80 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 11: Operaciones básicas de Datos Raster"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light   
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+#### `r rmarkdown::metadata$subtitle`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Obtener datos vectoriales: Paquete `osmdata`
+
+-   El paquete `osmdata` permite descargar e importar información de OpenStreetMap (OSM).
+-   `osmdata` extrae los datos de OSM através de la API **Overpass**.
+
+.center[
+<img src = https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Openstreetmap_logo.svg/1200px-Openstreetmap_logo.svg.png width = "40%">
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Extraer datos de OSM
+
+Para realizar consultas específicas en los datos de OSM utilizando `osmdata` necesitamos:
+
+1.  Obtener las coordenadas de nuestra área de interés con la función `getbb()`.
+2.  Crear una consulta vacía con la función `opq()`.
+3.  Detallar las características que necesitamos del lugar con la función `add_osm_feature()`.
+
+
+```{r, eval = FALSE}
+bbox <- getbb()
+consulta <- opq() %>% 
+  add_osm_feature(key = "",
+                  value = "") %>% 
+  osmdata_sf()
+
+```
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Extraer datos de OSM
+
+-   Por ejemplo, todos los hospitales se designan en OSM con `key = amenity`, de modo que una consulta de todas los hospitales en Quito se puede construir de la siguiente manera:
