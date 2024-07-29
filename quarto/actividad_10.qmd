@@ -1,0 +1,291 @@
+Claro, aquí tienes una versión más detallada de la guía paso a paso:
+
+------------------------------------------------------------------------
+
+## Clase: Análisis Espacial con Buffers en Quito
+
+### Introducción
+
+En esta clase, vamos a aprender cómo usar buffers para realizar análisis espaciales. Un buffer es una zona de influencia que se genera alrededor de una geometría dada (punto, línea, o polígono) a una distancia específica. Utilizaremos este concepto para identificar zonas que tienen tanto restaurantes como hospitales a menos de 1 km de distancia.
+
+### 1. Crear un Buffer alrededor del Polígono de la Politécnica
+
+Primero, vamos a crear un buffer alrededor de un polígono de interés, en este caso, la Politécnica. Esto nos ayudará a entender cómo funciona un buffer.
+
+#### Explicación
+
+Un buffer es una zona de influencia que rodea una geometría espacial (punto, línea, o polígono) a una distancia específica. Es útil para identificar áreas que están dentro de una cierta proximidad a una característica geográfica.
+
+#### Código
+
+```{r}
+# Instalar y cargar los paquetes necesarios
+install.packages(c("sf", "ggplot2", "dplyr"))
+library(sf)
+library(ggplot2)
+library(dplyr)
+
+# Cargar y preparar los datos
+zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/", layer = "zon_a")
+dmq_zonas <- zonas %>% filter(str_detect(zon, "^170150"))
+
+# Crear un objeto de ejemplo para la Politécnica
+zoom_to <- "170150192"
+poli <- dmq_zonas %>% filter(zon == zoom_to)
+
+# Crear un buffer de 1 km alrededor del polígono de la Politécnica
+buffer <- st_buffer(poli, dist = 1000)
+
+# Definir los límites del mapa para el zoom
+lon_bounds <- c(-78.505, -78.475)  # Ajustar según sea necesario
+lat_bounds <- c(-0.225, -0.195)
+
+# Transformar las coordenadas de las zonas para la visualización
+dmq_4326 <- st_transform(dmq_zonas, crs = 4326)
+
+# Mostrar el buffer en un mapa
+ggplot() +
+  geom_sf(data = dmq_4326, color = "blue", size = 1) +
+  geom_sf(data = buffer, fill = "grey", alpha = 0.5) +
+  theme_minimal() +
+  ggtitle("Buffer de 1 km alrededor del Polígono de la Politécnica") +
+  coord_sf(xlim = lon_bounds, ylim = lat_bounds)
+```
+
+### 2. Aplicar el Buffer al Centroide del Polígono
+
+Ahora, aplicaremos el buffer al centroide del polígono en lugar de al polígono completo. Esto puede ser útil en algunos casos donde el análisis se basa en puntos centrales.
+
+#### Explicación
+
+El centroide de un polígono es el centro geométrico del mismo. Crear un buffer alrededor del centroide puede simplificar el análisis cuando queremos considerar la influencia desde el punto central del área.
+
+#### Código
+
+```{r}
+# Calcular el centroide del polígono de la Politécnica
+centroid <- st_centroid(poli)
+
+# Crear un buffer de 1 km alrededor del centroide
+buffer_centroid <- st_buffer(centroid, dist = 1000)
+
+# Mostrar el buffer del centroide en un mapa
+ggplot() +
+  geom_sf(data = dmq_4326, color = "blue", size = 1) +
+  geom_sf(data = buffer_centroid, fill = "grey", alpha = 0.5) +
+  theme_minimal() +
+  ggtitle("Buffer de 1 km alrededor del Centroide de la Politécnica") +
+  coord_sf(xlim = lon_bounds, ylim = lat_bounds)
+```
+
+### 3. Buscar Restaurantes y Hospitales dentro de los Buffers
+
+Ahora vamos a identificar las zonas que contienen tanto restaurantes como hospitales dentro de los buffers de 1 km.
+
+#### Explicación
+
+Usamos `st_join` para realizar una unión espacial entre los puntos de interés (restaurantes y hospitales) y los buffers creados alrededor de las zonas censales. Esto nos permite identificar qué puntos caen dentro de cada buffer.
+
+#### Código
+
+```{r}
+# Transformar las coordenadas de los puntos al mismo CRS que `dmq_zonas`
+restaurants_points <- st_transform(restaurants_points, crs = st_crs(dmq_zonas))
+hospitals_points <- st_transform(hospitals_points, crs = st_crs(dmq_zonas))
+
+# Crear buffers de 1 km alrededor de cada zona censal
+dmq_zonas_buffers <- st_buffer(dmq_zonas, dist = 1000)
+
+# Identificar zonas con restaurantes en el buffer
+zones_with_restaurants <- st_join(restaurants_points, dmq_zonas_buffers, join = st_within)
+
+# Identificar zonas con hospitales en el buffer
+zones_with_hospitals <- st_join(hospitals_points, dmq_zonas_buffers, join = st_within)
+```
+
+### 4. Crear Listas de IDs que Tienen Ambas Amenidades
+
+Creamos listas que identifican las zonas que tienen tanto un restaurante como un hospital dentro del buffer.
+
+#### Explicación
+
+Usamos operaciones de combinación (`inner_join`) y manipulación de datos (`distinct`, `select`) para crear listas que contienen las zonas con ambas amenidades.
+
+#### Código
+
+```{r}
+amenidades <- list(restaurantes = zones_with_restaurants, hospitales = zones_with_hospitals) %>%
+  map(~.x %>%
+        as_tibble() %>%
+        select(zon) %>%
+        distinct())
+
+ambos <- amenidades %>%
+  reduce(inner_join, by = "zon")
+
+amenidades <- append(amenidades, list(ambos = ambos))
+```
+
+### 5. Mostrar el Mapa Completo con Amenidades
+
+Ahora, mostramos un mapa completo que indica las zonas que tienen restaurantes, hospitales, ambos o ninguna amenidad.
+
+#### Explicación
+
+Utilizamos `ggplot2` para visualizar las diferentes categorías de amenidades en las zonas censales. Esto nos permite identificar visualmente las áreas que cumplen con los criterios establecidos.
+
+#### Código
+
+```{r}
+dmq_zonas <- dmq_zonas %>%
+  mutate(
+    amenidad = case_when(
+      zon %in% amenidades$ambos$zon ~ "ambos",
+      zon %in% amenidades$restaurantes$zon ~ "restaurantes",
+      zon %in% amenidades$hospitales$zon ~ "hospitales",
+      TRUE ~ "ninguna"
+    )
+  )
+
+dmq_zonas %>% 
+ggplot() +
+  geom_sf(aes(fill = amenidad)) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  labs(title = "Zonas censales con restaurantes y hospitales", fill = "Amenidad")
+```
+
+### 6. Zoom sobre la Politécnica y sus Amenidades
+
+Finalmente, hacemos zoom sobre el polígono de la Politécnica para mostrar cómo se ven las amenidades en esta zona específica.
+
+#### Explicación
+
+Usamos `coord_sf` para ajustar los límites del mapa y hacer zoom en la zona de interés. Esto nos permite enfocarnos en un área específica y ver los detalles con mayor claridad.
+
+#### Código
+
+```{r}
+# Definir los límites del mapa para el zoom
+lon_bounds <- c(-78.505, -78.475)  # Ajustar según sea necesario
+lat_bounds <- c(-0.225, -0.195)
+
+# Transformar las coordenadas de las zonas para la visualización
+dmq <- st_transform(dmq_zonas, crs = 4326)
+
+# Mostrar el mapa con zoom sobre la Politécnica
+ggplot() +
+  geom_sf(aes(fill = amenidad)) +
+  geom_sf(data = buffer, fill = "grey", alpha = 0.5) +
+  coord_sf(xlim = lon_bounds, ylim = lat_bounds) +
+  theme_minimal() +
+  ggtitle("Zoom sobre la Politécnica y sus Amenidades")
+```
+
+# Matrices de vecindad
+
+### Matriz de Vecindad Espacial
+
+Una matriz de vecindad espacial, denotada como $W$, define una estructura de vecindad sobre toda la región de estudio, y sus elementos pueden ser vistos como pesos. El elemento $(i, j)$ de $W$, denotado como $w_{ij}$, conecta espacialmente las áreas $i$ y $j$ de alguna manera. Se asocia más peso con las áreas más cercanas a $i$ que con las que están más lejos de $i$.
+
+#### Matriz Binaria de Vecindad Espacial Basada en Contigüidad
+
+Si los vecinos están basados en la contigüidad, podemos construir una matriz espacial binaria con $w_{ij} = 1$ si las regiones $i$ y $j$ comparten una frontera común, y $w_{ij} = 0$ en caso contrario. Habitualmente, $w_{ii}$ se establece en 0 para $i = 1, \ldots, n$. Esta elección de medida de proximidad resulta en una matriz espacial simétrica.
+
+#### Otras Definiciones de Pesos Espaciales
+
+Otras definiciones de pesos espaciales pueden incluir: - $w_{ij} = 1$ para todos $i$ y $j$ dentro de una distancia especificada. - $w_{ij} = 1$ si $j$ es uno de los $k$ vecinos más cercanos de $i$. - $w_{ij}$ puede definirse como la distancia inversa entre áreas.
+
+Además, puede ser necesario ajustar el número total de vecinos en cada área y usar una matriz estandarizada con entradas $w_{std, ij} = \frac{w_{ij}}{\sum_{j=1}^{n} w_{ij}}$. En la mayoría de las situaciones, esta matriz no es simétrica cuando las áreas tienen formas irregulares.
+
+### Matriz de Pesos Espaciales Basada en una Lista de Vecinos Binaria
+
+La función `nb2listw()` del paquete `spdep` se puede utilizar para construir una matriz de vecindad espacial que contenga los pesos espaciales correspondientes a una lista de vecinos. Los vecinos pueden ser binarios o basados en valores de distancia inversa. Para calcular una matriz de pesos espaciales basada en una lista de vecinos binaria, usamos la función `nb2listw()` con los siguientes argumentos:
+
+-   **nb**: lista de vecinos.
+-   **style**: indica el esquema de codificación elegido. Por ejemplo, `style = "B"` es la codificación binaria básica, y `style = "W"` es estandarizada por fila (1/número de vecinos).
+-   **zero.policy**: se usa para tener en cuenta las regiones con 0 vecinos. Específicamente, `zero.policy = TRUE` permite que la lista de pesos contenga vectores de pesos de longitud cero, y `zero.policy = FALSE` detiene la función con un error si hay conjuntos de vecinos vacíos.
+
+### Ejemplo de Construcción de Matriz de Vecindad
+
+A continuación, se muestra un ejemplo de cómo construir una matriz de vecindad espacial basada en contigüidad para tus zonas `dmq_zonas`.
+
+#### Paso 1: Crear una Lista de Vecinos Basada en Contigüidad
+
+```{r}
+# Crear lista de vecinos basada en contigüidad
+nb <- poly2nb(dmq_zonas, queen = TRUE)
+
+# Verificar los primeros elementos de la lista de vecinos
+print(nb[1:3])
+```
+
+#### Paso 2: Crear una Matriz de Pesos Espaciales Basada en Contigüidad
+
+```{r}
+# Crear una matriz de pesos espaciales basada en contigüidad y estandarizada por fila
+nbw <- nb2listw(nb, style = "W", zero.policy = TRUE)
+
+# Verificar los pesos de los primeros vecinos
+print(nbw$weights[1:3])
+```
+
+#### Paso 3: Visualizar la Matriz de Pesos Espaciales
+
+```{r}
+# Convertir la lista de pesos espaciales en una matriz
+m1 <- listw2mat(nbw)
+
+# Visualizar la matriz de pesos espaciales
+levelplot(t(m1),
+          scales = list(y = list(at = seq(10, nrow(m1), by = 10),
+                                 labels = seq(10, nrow(m1), by = 10))),
+          main = "Matriz de Pesos Espaciales Basada en Contigüidad")
+```
+
+### Matriz de Pesos Espaciales Basada en Valores de Distancia Inversa
+
+Dada una lista de vecinos, podemos usar `nbdists()` para calcular las distancias a lo largo de los enlaces. Luego, podemos construir la lista con pesos espaciales basados en valores de distancia inversa usando `nb2listw()` donde el argumento `glist` es igual a una lista de pesos generales correspondientes a los vecinos.
+
+#### Paso 1: Calcular los Centroides y las Distancias
+
+```{r}
+# Calcular los centroides de las zonas
+centroids <- st_centroid(dmq_zonas)
+
+# Calcular la lista de vecinos basada en contigüidad
+nb <- poly2nb(dmq_zonas, queen = TRUE)
+
+# Calcular las distancias entre los centroides de las zonas vecinas
+dists <- nbdists(nb, as.matrix(st_coordinates(centroids)))
+
+# Calcular los pesos inversos de las distancias
+ids <- map(dists, function(x) 1 / x)
+```
+
+#### Paso 2: Crear una Matriz de Pesos Espaciales Basada en Distancia Inversa
+
+```{r}
+# Crear una matriz de pesos espaciales basada en distancia inversa
+nbw_inv <- nb2listw(nb, glist = ids, style = "B", zero.policy = TRUE)
+
+# Verificar los pesos de los primeros vecinos
+print(nbw_inv$weights[1:3])
+```
+
+#### Paso 3: Visualizar la Matriz de Pesos Espaciales Basada en Distancia Inversa
+
+```{r}
+# Convertir la lista de pesos espaciales en una matriz
+m2 <- listw2mat(nbw_inv)
+
+# Visualizar la matriz de pesos espaciales basada en distancia inversa
+levelplot(t(m2),
+          scales = list(y = list(at = seq(10, nrow(m2), by = 10),
+                                 labels = seq(10, nrow(m2), by = 10))),
+          main = "Matriz de Pesos Espaciales Basada en Distancia Inversa")
+```
+
+### Conclusión
+
+En esta guía, aprendimos cómo crear matrices de pesos espaciales basadas en contigüidad y en distancia inversa utilizando el paquete `spdep`. Estas matrices de pesos nos permiten definir una estructura de vecindad y asignar pesos a las áreas vecinas, facilitando el análisis espacial de tus zonas censales en Quito. Visualizamos las matrices de pesos espaciales para entender mejor las relaciones espaciales entre las áreas estudiadas.

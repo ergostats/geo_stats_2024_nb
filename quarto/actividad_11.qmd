@@ -1,0 +1,108 @@
+---
+title: "Moran I"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(haven)
+library(sf)
+library(spdep)
+library(lattice)
+
+censo_hogar <- read_sav("../data/BDD_CPV_2022_NACIONAL_SPSS/CPV_Población_2022_Nacional.sav")
+
+censo_hogar <- censo_hogar %>% 
+  filter(P01 == 3) %>% 
+  count(I01,I02,I03,I04,I05,I10,INH,P03,name = "n_hijos")
+
+
+write_tsv(censo_hogar, "../data/censo_hogar.csv")
+```
+
+Distribución de la cantidad de hijos menores de 3 años por hogar
+```{r}
+
+censo_hogar_b <- censo_hogar %>% 
+  filter(P03 <= 5)
+
+
+censo_hogar_s <- censo_hogar_b %>% 
+  group_by(I01,I02,I03,I04) %>%
+  summarise(n_hijos = mean(n_hijos, na.rm = T),
+            n_hijos = sum(n_hijos, na.rm = T)) 
+
+```
+
+```{r}
+
+# El grafico de la distribucion de la media de hijos:
+frec_plot <- censo_hogar %>% 
+  ggplot(aes(n_hijos))+
+  geom_histogram()+
+  labs(title = "Distribución de la cantidad promedio de hijos menores de 3 años por hogar",
+       x = "Cantidad promedio de hijos menores de 3 años",
+       y = "Cantidad de hogares")
+
+frec_plot
+```
+Vamos a crear la variable `zon` que es el concatenado de las variables de agrupación de zona censal
+```{r}
+censo_hogar_s <- censo_hogar_s %>% 
+  mutate(zon = str_c(I01,I02,I03,I04))
+
+zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/", layer = "zon_a")
+
+dmq_zonas <- zonas %>% filter(str_detect(zon, "^170150"))
+
+```
+
+
+Unimos el censo hogar al shapefile de zonas
+
+```{r}
+dmq_zonas <- left_join(dmq_zonas,censo_hogar_s, by = c("zon" = "zon"))
+
+
+```
+
+Con ggplot hacemos un mapa de calor con el numero promedio de hijos menores de 3 años por hogar
+
+```{r}
+ggplot()+
+  geom_sf(data = dmq_zonas, aes(fill = n_hijos))+
+  scale_fill_viridis_c()+
+  theme_minimal()
+```
+Armamos la matriz de vecindad por contiguidad
+```{r}
+vecinos <- poly2nb(dmq_zonas, queen = TRUE)
+```
+
+Ahora la matriz de pesos
+
+```{r}
+vecinos_pesos <- nb2listw(vecinos, style = "W")
+
+matriz <- listw2mat(vecinos_pesos)
+```
+
+Mostremos la matriz de pesos con lattices de los primeros 50 elementos
+```{r}
+levelplot(t(matriz[50:100,50:100]),
+          scales = list(y = list(at = seq(10, nrow(matriz), by = 10),
+                                 labels = seq(10, nrow(matriz), by = 10))),
+          main = "Matriz de Pesos Espaciales Basada en Contigüidad")
+```
+
+Ahora is primero calculamos el Moran's I
+
+```{r}
+
+
+moran <- moran.test(dmq_zonas$n_hijos, listw = vecinos_pesos)
+
+moran
+```
+
