@@ -20,24 +20,23 @@ Emplearemos las bibliotecas `osmdata`, `sf`, y `tidyverse` en R para acceder y m
 
 A lo largo de esta clase, exploramos varios ejemplos, de los cuales vale la pena recordar que el análisis de datos espaciales tiene aplicaciones en diversas áreas, como la geografía, la economía, la salud, y la planificación urbana. A continuación, presentamos los ejemplos que abordaremos en esta clase:
 
-1. **Análisis básico de ubicación - situación en ubicaciones individuales:** Identificaremos el sector censal al que pertenece la Escuela Politécnica Nacional y determinaremos sus vecinos utilizando el modelo queen.
-2. **Interacciones espaciales como comunicación, información, migración, rol de la distancia:** Aplicaremos el mismo análisis para la Plataforma Gubernamental Financiera, observando cómo las ubicaciones vecinas pueden influir en la comunicación y el flujo de personas.
-3. **Patrones puntuales espaciales (agrupamiento de observaciones puntuales, relaciones entre ellas, importancia de la dirección):** Evaluaremos el caso de una persona que busca mudarse a una nueva casa y quiere estar cerca de un hospital, analizando cómo los patrones de ubicación de los hospitales pueden influir en su decisión.
-4. **Efectos de escala:** Discutiremos cómo las diferentes escalas de análisis espacial pueden cambiar nuestra comprensión de la vecindad y la interacción entre ubicaciones.
-5. **Difusión de procesos económicos, innovación y cultura:** Exploraremos cómo la proximidad a ciertos puntos de interés, como hospitales y centros educativos, puede afectar la difusión de procesos económicos y culturales.
-6. **Autocorrelación espacial - la relación cuantitativa entre ubicaciones:** Analizaremos la autocorrelación espacial para comprender cómo las características de una ubicación pueden influir en las ubicaciones vecinas.
+1.  **Análisis básico de ubicación - situación en ubicaciones individuales:** Identificaremos el sector censal al que pertenece la Escuela Politécnica Nacional y determinaremos sus vecinos utilizando el modelo queen.
+2.  **Interacciones espaciales como comunicación, información, migración, rol de la distancia:** Aplicaremos el mismo análisis para la Plataforma Gubernamental Financiera, observando cómo las ubicaciones vecinas pueden influir en la comunicación y el flujo de personas.
+3.  **Patrones puntuales espaciales (agrupamiento de observaciones puntuales, relaciones entre ellas, importancia de la dirección):** Evaluaremos el caso de una persona que busca mudarse a una nueva casa y quiere estar cerca de un hospital, analizando cómo los patrones de ubicación de los hospitales pueden influir en su decisión.
+4.  **Efectos de escala:** Discutiremos cómo las diferentes escalas de análisis espacial pueden cambiar nuestra comprensión de la vecindad y la interacción entre ubicaciones.
+5.  **Difusión de procesos económicos, innovación y cultura:** Exploraremos cómo la proximidad a ciertos puntos de interés, como hospitales y centros educativos, puede afectar la difusión de procesos económicos y culturales.
+6.  **Autocorrelación espacial - la relación cuantitativa entre ubicaciones:** Analizaremos la autocorrelación espacial para comprender cómo las características de una ubicación pueden influir en las ubicaciones vecinas.
 
 Estos ejemplos nos permitirán aplicar y comprender mejor los conceptos de vecindad en el análisis estadístico espacial, utilizando datos reales y herramientas de R para extraer, analizar y visualizar la información geoespacial.
-
 
 # La Matriz de Vecindad en base a la "contigüidad"
 
 La matriz de vecindad es una representación matemática que describe la relación espacial entre diferentes polígonos en un conjunto de datos geoespaciales. Los dos modelos principales de vecindad son el modelo **rook** y el modelo **queen**.
 
-- **Modelo Rook**: Define vecinos como aquellos polígonos que comparten un borde común.
-- **Modelo Queen**: Define vecinos como aquellos polígonos que comparten un borde o un vértice común.
+-   **Modelo Rook**: Define vecinos como aquellos polígonos que comparten un borde común.
+-   **Modelo Queen**: Define vecinos como aquellos polígonos que comparten un borde o un vértice común.
 
-[](https://www.paulamoraga.com/book-spatial/book-spatial_files/figure-html/arealdata-neighborscontiguity-1.png)
+[ ](https://www.paulamoraga.com/book-spatial/book-spatial_files/figure-html/arealdata-neighborscontiguity-1.png)
 
 # Cargando y Preparando los Datos
 
@@ -216,6 +215,7 @@ mapa_zoom <- dmq %>%
 mapa_zoom
 
 ```
+
 Opcion B:
 
 ```{r}
@@ -257,7 +257,6 @@ ggplot(dmq) +
 
 ```
 
-
 ```{r setup, include=FALSE}
 # Instalar y cargar las bibliotecas necesarias
 # install.packages("osmdata")
@@ -274,6 +273,9 @@ En esta sección, aprenderemos a extraer las coordenadas de los hospitales en Qu
 Primero, definimos el área de interés (Quito, Ecuador) y realizamos una consulta para obtener los hospitales en esta área.
 
 ```{r}
+
+library(osmdata)
+
 # Definir el área de interés (Quito, Ecuador)
 bbox <- getbb("Quito, Ecuador")
 
@@ -342,7 +344,120 @@ ggsave(filename = "hospitales_dmq.png",plot = plot_hospitales,dpi = 300)
 
 Con esto, hemos completado la extracción de los hospitales desde OpenStreetMap, su visualización en un mapa junto con los polígonos de `dmq`, y la identificación de la vecindad de estos hospitales.
 
-### Contar cuantos restaurantes hay en cada sector censal y armar un mapa de calor
 
+### Conteo de restaurantes de en las zonas censales de Quito
 
+En este ejercicio, vamos a cargar y filtrar los datos de sectores censales en Quito, obtener datos de restaurantes de OpenStreetMap (OSM), contar el número de restaurantes en cada sector censal y crear un mapa de calor. Además, analizaremos la vecindad de los sectores censales usando la función `dnearneigh` y realizaremos uniones espaciales. 
 
+### Cargar y Filtrar los Datos de Sectores Censales
+
+Primero, necesitamos cargar las capas disponibles en la geodatabase y seleccionar la capa de zonas censales. Luego, filtramos estos datos para seleccionar solo los sectores censales de Quito que nos interesan. Usamos las funciones `st_layers` para listar las capas y `st_read` para leer la capa específica.
+
+```{r}
+
+# Ver las capas disponibles en la geodatabase
+st_layers("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/")
+
+# Cargar la capa "zon_a" que contiene los sectores censales
+zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/",
+                 layer = "zon_a")
+
+# Filtrar por la parroquia de interés (parroquias de Quito que comienzan con "170150")
+dmq_zonas <- zonas %>% 
+  filter(str_detect(zon, "^170150"))
+
+# Verificar la estructura de los datos
+print(head(dmq_zonas))
+```
+
+Utilizamos `st_layers` para listar las capas dentro de la geodatabase y `st_read` para cargar la capa de zonas censales ("zon_a"). Luego, filtramos los datos para obtener solo los sectores censales de Quito usando `filter` y `str_detect`.
+
+### Obtener los Datos de Restaurantes de OSM
+
+Para obtener los datos de restaurantes, utilizamos `osmdata`. Definimos la zona de interés (Quito) y especificamos que queremos obtener puntos de interés con la etiqueta "amenity=restaurant". Los datos se descargan y se almacenan como un objeto `sf`.
+
+```{r}
+# Definir la zona de interés: Quito, Ecuador
+bbox <- getbb("Quito, Ecuador")
+
+# Obtener datos de restaurantes en Quito desde OSM
+osm_restaurants <- opq(bbox = bbox) %>%
+  add_osm_feature(key = "amenity", value = "restaurant") %>%
+  osmdata_sf()
+
+# Extraer puntos de restaurantes
+restaurants_points <- osm_restaurants$osm_points
+
+# Verificar la estructura de los datos
+print(head(restaurants_points))
+```
+
+recordemos que, `getbb` se utiliza para obtener las coordenadas de la caja delimitadora de Quito. Luego, `opq` inicia una consulta sobre esta área, y `add_osm_feature` especifica que queremos obtener restaurantes. Finalmente, `osmdata_sf` descarga los datos en formato `sf` y extraemos los puntos de interés (restaurantes).
+
+### Contar el Número de Restaurantes en Cada Sector Censal
+
+Transformamos las coordenadas de los puntos de restaurantes para que coincidan con el sistema de referencia de las zonas censales. Luego, realizamos una unión espacial usando `st_join` para contar los restaurantes dentro de cada sector censal y agregamos esta información a los datos de sectores censales.
+
+```{r}
+# Transformar las coordenadas de los restaurantes al mismo CRS que `dmq_zonas`
+restaurants_points <- st_transform(restaurants_points, crs = st_crs(dmq_zonas))
+
+# Realizar una unión espacial para contar los restaurantes dentro de cada sector censal
+con_restaurantes <- st_join(restaurants_points, dmq_zonas, join = st_within)
+
+# Contar el número de restaurantes en cada sector censal
+con_restaurantes <- con_restaurantes %>% 
+  as_tibble() %>% 
+  group_by(zon) %>%
+  summarise(n_restaurants = n())
+
+# Unir los datos de conteo de restaurantes con los datos de sectores censales
+dmq_zonas <- left_join(dmq_zonas, con_restaurantes, by = "zon")
+
+# Verificar la estructura de los datos
+print(head(dmq_zonas))
+```
+
+Usamos `st_transform` para asegurar que los puntos de restaurantes y las zonas censales estén en el mismo sistema de referencia. `st_join` realiza una unión espacial para contar los restaurantes dentro de cada sector censal, y `group_by` y `summarise` se usan para contar el número de restaurantes en cada sector. Finalmente, `left_join` agrega esta información a los datos de sectores censales.
+
+### Crear un Mapa de Calor de Restaurantes
+
+Usamos `ggplot2` para crear un mapa de calor que muestra la distribución de restaurantes en los sectores censales de Quito. La función `geom_sf` se utiliza para visualizar los polígonos y colorearlos según el número de restaurantes.
+
+```{r}
+# Crear un mapa de calor de restaurantes
+mapa_calor_restaurantes <- dmq_zonas %>% 
+  ggplot() +
+  geom_sf(aes(fill = n_restaurants), color = NA) +
+  scale_fill_viridis_c(option = "C") +
+  theme_minimal() +
+  ggtitle("Mapa de Calor de Restaurantes en Quito")
+
+# Mostrar el mapa de calor
+print(mapa_calor_restaurantes)
+```
+
+El buen `ggplot2` se usa para crear el mapa de calor. `geom_sf` visualiza los polígonos de los sectores censales, y `aes(fill = n_restaurants)` colorea los polígonos según el número de restaurantes. `scale_fill_viridis_c` se utiliza para aplicar una escala de color adecuada.
+
+# Análisis de Vecindad con `dnearneigh` empleando un radio
+
+Analizamos la vecindad de los sectores censales utilizando `dnearneigh` del paquete `spdep`, que crea una lista de vecindad basada en la distancia entre los centroides de los sectores censales.
+
+```{r}
+# Crear una lista de vecindad basada en la distancia (1 km) entre los centroides de los sectores censales
+nb <- dnearneigh(x = st_centroid(dmq_zonas), d1 = 0, d2 = 1000)
+
+# Seleccionar una zona para un análisis detallado (zoom)
+zoom <- dmq_zonas[nb[[1]],]
+
+# Crear una lista de vecindad basada en la distancia (0 km) para las zonas seleccionadas (zoom)
+nb_zoom <- dnearneigh(x = st_centroid(zoom), d1 = 0, d2 = 0)
+
+# Plotear las zonas seleccionadas y su vecindad
+plot(st_geometry(zoom), border = "lightgray")
+plot.nb(nb_zoom, st_geometry(zoom), add = TRUE)
+```
+
+La funcion `dnearneigh` se utiliza para crear una lista de vecindad basada en la distancia (1 km) entre los centroides de los sectores censales. Seleccionamos una zona específica para un análisis más detallado y creamos otra lista de vecindad para estas zonas seleccionadas. Finalmente, `plot` se utiliza para visualizar las zonas seleccionadas y su vecindad.
+
+Este enfoque proporciona una manera completa de analizar y visualizar la distribución de restaurantes en Quito, incluyendo un análisis de vecindad para entender mejor la conectividad espacial de las zonas.
