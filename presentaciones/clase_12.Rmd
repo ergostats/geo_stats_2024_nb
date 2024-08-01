@@ -1,0 +1,125 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 13: Matrices de vecindad y pesos"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light   
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+#### `r rmarkdown::metadata$subtitle`
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Matriz de vecindad basada en continuidad
+
+.pull-left[
+- $Wn×n$ muestra la relación entre las $n$ localidades analizadas.
+- Indica si dos localidades están cerca una de la otra o comparten una frontera.
+- Es **simétrica (en la mayoría de casos)** y **binaria**.
+- Los valores de la matriz vienen dado por: $w_{ij}=1$ si las localidades $i$ y $j$ son vecinas y $w_{ij}=0$ si no lo son.
+- Además, $w_{ii}=0$ puesto que una localidad no puede ser vecina de sí misma.
+]
+
+.pull-right[
+<img src=https://revistas.unal.edu.co/index.php/rcg/article/download/76919/version/61369/html/422727/v28n1a1f5.png width="80%">
+]
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Matriz de pesos espaciales basada en continuidad
+
+- Las matrices de vecindad se usan para **modelar el efecto del vecindario** entre **diferentes unidades geográficas**. 
+- Estandarización a partir de **medias ponderadas** basadas en la **cercanía de las unidades espaciales**.
+$$w_{std, ij} = \frac{w_{ij}}{\sum_{j=1}^{n} w_{ij}}$$
+- Esto asegura: **a)** Cada elemento de la matriz $𝑊_{std}$ se encuentre entre 0 y 1; **b)** que la suma de cada una de sus filas sea siempre 1.
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Matriz de pesos espaciales basada en distancias
+Podemos construir una matriz de pesos espaciales basada en distancias de las siguientes maneras: 
+
+- **Distancia Especificada**
+- **Vecinos Más Cercanos**
+- **Inversa de la Distancia**
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+
+## Pesos Espaciales por Distancia Especificada
+- $w_{ij} = 1$ para todos $i$ y $j$ dentro de una distancia especificada.
+
+.center[
+```{r, echo=FALSE, out.width="45%"}
+knitr::include_graphics("img/d1.png")
+```
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Pesos Espaciales por Vecinos Más Cercanos
+- $w_{ij} = 1$ si $j$ es uno de los $k$ vecinos más cercanos de $i$.
+
+.center[
+```{r, echo=FALSE, out.width="45%"}
+knitr::include_graphics("img/d2.png")
+```
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Pesos Espaciales como Inversa de la Distancia
+- $w_{ij}$ puede definirse como $w_{ij} = \frac{1}{d_{ij}}$. Donde $d_{ij}$ es la distancia entre las unidades geográficas $i$ y $j$.
+- Ejemplo: Si dos localidades están a 5 km de distancia, el peso sería $w_{ij} = \frac{1}{5} = 0.2$. Si otra pareja de localidades está a 2 km, el peso sería $w_{ij} = \frac{1}{2} = 0.5$
+
+.center[
+```{r, echo=FALSE, out.width="30%"}
+knitr::include_graphics("img/d3.png")
+```
+]

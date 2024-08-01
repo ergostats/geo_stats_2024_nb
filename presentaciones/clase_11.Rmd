@@ -1,6 +1,6 @@
 ---
 title: "Estadística y Econometría Espacial con R, Módulo I"
-subtitle: "Clase 11: Operaciones básicas de Datos Raster"  
+subtitle: "Clase 11: El concepto de vecindad Parte 2"  
 date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:
@@ -56,6 +56,10 @@ Para realizar consultas específicas en los datos de OSM utilizando `osmdata` ne
 1.  Obtener las coordenadas de nuestra área de interés con la función `getbb()`.
 2.  Crear una consulta vacía con la función `opq()`.
 3.  Detallar las características que necesitamos del lugar con la función `add_osm_feature()`.
+4. Detallar cual será el formato de salida con la función `omsdata_sf()`.
+
+En la [wiki de OSM](https://wiki.openstreetmap.org/wiki/Map_features) se ofrece una descripción detallada de todas las características.
+
 
 
 ```{r, eval = FALSE}

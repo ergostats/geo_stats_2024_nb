@@ -1,0 +1,93 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 9: Regresión Lineal"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light   
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+#### `r rmarkdown::metadata$subtitle`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Describir la fuerza de un ajuste
+
+- El mundo es **diferente**.
+- Cuando observamos alrededor nos damos cuenta que existe **variabilidad**.
+
+.center[
+<img src=https://www.reddearboles.org/imagenes//nw_drive/1/blog-arbol4_11zon.webp width="70%">
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Describir la fuerza de un ajuste
+
+Imaginen lo siguiente: 
+- Granjero en Japón cultivando **mangos**.
+
+.center[
+<img src=https://m.media-amazon.com/images/S/aplus-media-library-service-media/520a97a6-6408-4400-ae77-f1da69d5d718.__CR1,0,1919,1187_PT0_SX970_V1___.jpg width="70%">
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Describir la fuerza de un ajuste
+- Ajustar una línea.
+
+.center[
+<img src=https://upload.wikimedia.org/wikipedia/commons/3/3a/Linear_regression.svg width="70%">
+]
+
+> **¿Cuál línea?** 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+## Coeficiente de determinación 
+
+- Queremos predecir la **la pigmentación de los mangos** $y$ a partir de la **cantidad de luz que reciben** $x$.
+- $R^2$: Describe la cantidad de variación de $y$ que es explicada por el modelo lineal con el predictor $x$.
+$$R^2 = 1-\frac{SSE}{SST}$$
+Donde:
+- $SST$ (Suma total de los cuadrados)
+$$SST = (y_1-\bar{y})^2 + (y_2-\bar{y})^2 + ... + (y_n-\bar{y})^2$$
+- $SSE$ (Suma de errores al cuadrado)
+$$SSE  = (y_1 - \hat{y})^2 + (y_2 - \hat{y})^2 + ... + (y_n - \hat{y})^2$$
+$$SSE  = e_1^2 + e_2^2 + ... + e_n^2$$
