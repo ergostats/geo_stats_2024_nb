@@ -1,0 +1,379 @@
+---
+title: "Resumen Clases"
+format: html
+editor: visual
+---
+
+# Clase 1: Introducción al análisis espacial con R
+
+Fuente
+
+-   clase_1.pdf `OneDrive/slides`
+
+Contenido
+
+-   Expectativas del curso
+
+-   Ventajas del Software Libre
+
+-   R y RStudio
+
+-   Interfáz de RStudio
+
+-   Mejores prácticas
+
+# Clase 2: Herramientas básicas de R para la manipulación de datos espaciales
+
+Fuente
+
+-   clase_2.pdf `OneDrive/slides`
+
+-   actividad_1.qmd `OneDrive/scripts`
+
+Data
+
+-   `library(gapminder)`
+
+Contenido
+
+-   Modelos para almanecamiento de datos geoespaciales: Vector y Raster
+
+-   Principales paquetes del curso
+
+-   Descripción del uso de la *pipe* `%>%`
+
+-   Intervalos de confianza para la media
+
+-   Distribución con media truncada y winsorize
+
+# Clase 3: Tipos de datos vectoriales
+
+Fuente
+
+-   clase_3.pdf `OneDrive/slides`
+
+-   actividad_2.qmd `Computadora Alex`, no concuerda con la que está subida en la carpeta del curso. Hay dos versiones en los videos 1) Clase 3 y 2) Clase 4
+
+Data
+
+-   Censo de población y vivienda 2022 INEC - `OneDrive/data/01_2022_CPV_Estructura_poblacional.xlsx`
+
+-   Cantones del Ecuador - `OneDrive/data/shp/nxcantones.shp`
+
+Contenido
+
+-   Formatos comunes para trabajar con datos geoespaciales
+
+-   Atributos de los datos geoespaciales
+
+-   Metadatos de los datos geoespaciales
+
+-   Sistema de referencia de coordenadas
+
+-   Códigos EPSG
+
+-   Unión de tablas
+
+-   Primeros pasos con `ggplot2`
+
+# Clase 4: Importar datos espaciales
+
+Fuente
+
+-   Clase_4.qmd `/240322 Curso Econometria ERGOSTATS/quarto`
+
+Data
+
+-   Censo de población y vivienda 2022 INEC `OneDrive/data/01_2022_CPV_Estructura_poblacional.xlsx`
+
+-   Cantones del Ecuador `OneDrive/data/shp/nxcantones.shp`
+
+-   Cueva de la mujer `OneDrive/data/shp/cueva_cajas.shp`
+
+-   Vía a Molleturo y senderos hacia lagunas en el parque nacional El Caja `OneDrive/data/shp/vias_cajas.shp`
+
+-   Lagunas del Parque Nacional El Cajas `OneDrive/data/shp/lagunas_cajas.shp`
+
+Contenido
+
+-   Unión de tablas (Continuación)
+
+-   Personalización de los gráficos con `ggplot2`
+
+-   Leer un shapefile
+
+-   Gráficar shapefiles
+
+-   Leer un raster
+
+-   Gráficar un raster
+
+# Clase 5: Operaciones básicas con objetos espaciales
+
+Fuente
+
+-   Clase_5.qmd `240322 Curso Econometria ERGOSTATS/quarto`
+
+-   actividad_3.qmd `OneDrive/scripts`
+
+Data
+
+-   Datos del numero de usuarios en el Metro de Quito `OneDrive/data/Metro_quito_usuarios_enero_2024.xlsx`
+
+-   Límites provinciales del Ecuador `OneDrive/data/shp/LIMITE_PROVINCIAL_CONALI_CNE_2022.shp`
+
+-   Parroquias del distrito metropolitano de Quito `OneDrive/data/Administraciones_Zonales_Parroquias.xlsx`
+
+-   Mercados del distrito metropolitano de Quito `OneDrive/data/shp/BC001_MERCADO_PLATAFORMA_A.shp`
+
+Contenido
+
+-   Convertir datos tabulares a objetos `sf`
+
+-   Asignar un sistema de coordenadas
+
+-   Transformar el sistema de coordenadas
+
+-   Operaciones con polígonos:
+
+    -   Disolver
+
+    -   Simplificar
+
+    -   Obtener centroides
+
+    -   Calcular área
+
+    -   Intersección de zonas administrativas y puntos de mercados de Quito
+
+# Clase 6: Operaciones básicas de datos raster
+
+Fuente
+
+-   clase_6.Rmd `OneDrive/slides`
+
+-   Clase_6.qmd `240322 Curso Econometria ERGOSTATS/quarto`
+
+Data
+
+-   Datos climaticos de temperatura para Ecuador entre 1981 y 2014 `library(geodata)`
+
+-   Límites provinciales del Ecuador `OneDrive/data/shp/LIMITE_PROVINCIAL_CONALI_CNE_2022.shp`
+
+Contenido
+
+-   Reducción
+
+-   Cortar por extensión
+
+-   Cortar por capa máscara
+
+-   Extracción de valores
+
+-   Conteo de mercados (Continuación)
+
+# Clase 7: Probabilidad y Teorema de Bayes
+
+Fuente
+
+-   clase_7.pdf `OneDrive/slides`
+
+-   temperaturas_pichincha.R `OneDrive/scripts`
+
+Data
+
+-   Temperatura en cada estación metereológica del Ecuador en Diciembre 2019 `geo_stats_2024_nb/data/inamhi-temperaturamedia-2019diciembre.csv`
+
+-   Límites provinciales del Ecuador `OneDrive/data/shp/LIMITE_PROVINCIAL_CONALI_CNE_2022.shp`
+
+Contenido
+
+-   Analisis frecuentista y bayesiano
+
+-   Definición de probabilidad
+
+-   Función de distribución
+
+-   Valor esperado
+
+-   Varianza de una variable aleatoria
+
+-   Teorema de Bayes
+
+# Clase 8: Relación entre variables a traves del modelo de regresión lineal
+
+Fuente
+
+-   clase_8.pdf `OneDrive/slides`
+
+-   actividad_6_estudiante.qmd `OneDrive/scripts`
+
+Data
+
+-   Datos simulados dentro del archivo actividad_6_estudiante.qmd
+
+Contenido
+
+-   Significancia estadística y p-valor
+
+-   Alternativas al p-valor
+
+-   Funciones en R
+
+-   Introducción: Regresión lineal
+
+-   Supuestos de la regresión lineal
+
+-   Análisis de covarianza y varianza
+
+-   Método de mínimos cuadrados
+
+-   Residuos
+
+# Clase 9: Regresión lineal con variables categóricas
+
+Fuente
+
+-   clase_9.rmd `geo_stats_2024_nb/presentaciones`
+
+-   actividad_7.qmd `OneDrive/scripts`
+
+Data
+
+-   Evaluación docente en UT Austin `library(moderndive)`
+
+Contenido
+
+-   Fuerza del ajuste
+
+-   Coeficiente de determinación
+
+-   Manipulación de factores
+
+-   Regresión lineal con una variable categórica
+
+-   Regresión lineal con variables adicionales
+
+-   Modelos complejos
+
+-   Extracción de r cuadrado
+
+# Clase 10: Visualización de vecindad con polígonos
+
+Fuente
+
+-   actividad_8.qmd `OneDrive/scripts`
+
+Data
+
+-   `GEODATABASE_NACIONAL_2021.gdb`
+
+Contenido
+
+-   Matriz de vecindad en base a la contigüidad
+
+-   Obtención de los sectores censales del Distrito Metropolitano de Quito (DMQ), vecinos a la Politécnica y la Plataforma
+
+-   Visualización de la vecindad de la Politécnica y la Plataforma
+
+# Clase 11: Extración y visualización de vecindad en hosptiales y distribución de restaurantes en zonas censales
+
+Fuente
+
+-   clase_11.Rmd `geo_stats_2024_nb/presentaciones`
+
+-   actividad_8.qmd `OneDrive/scripts`
+
+-   actividad_9_estudiante.qmd `OndeDrive/scripts`
+
+Data
+
+-   `GEODATABASE_NACIONAL_2021.gdb`
+
+Contenido
+
+-   Obtención de datos vectoriales en línea (`osmdata`)
+
+-   Extracción de datos de Open Street Maps (OSM)
+
+-   Extracción y visualización de Hospitales en sectores censales del DMQ (Continuación)
+
+-   Distribución de los restaurantes en los sectores censales del DMQ
+
+# Clase 12:
+
+Fuente
+
+-   actividad_10_estudiante.qmd `OneDrive/scripts`
+
+Data
+
+-   `GEODATABASE_NACIONAL_2021.gdb`
+
+Contenido
+
+-   Creación de un buffer alrededor de un polígono
+
+-   Creación de un buffer alrededor de un punto
+
+-   Obtención de restaurantes y hospitales dentro de los buffers
+
+# Clase 13:
+
+Fuente
+
+-   clase_13.Rmd `geo_stats_2024_nb/presentaciones`
+
+-   actividad_13_estudiante.qmd `240322 Curso Econometria ERGOSTATS/quarto`
+
+-   clase_13.Rmd `Computadora Alex`
+
+-   actividad_11_estudiante.qmd `OneDrive/scripts`
+
+Data
+
+-   `GEODATABASE_NACIONAL_2021.gdb`
+
+-   `censo_hogad.csv`: Ubicación desconocida
+
+-   `CPV_Población_2022_Nacional.sav`: Ubicación desconocida
+
+Contenido
+
+-   Definición de matriz de vencidad basada en continuidad
+
+-   Matriz de pesos espaciales basada en continuidad
+
+-   Matriz de pesos espaciales basada en distancias
+
+-   Matriz de pesos espaciales por distancia especificada
+
+-   Matriz de pesos espaciales por vecinos más cercanos
+
+-   Matriz de pesos espaciales como inversa de la distancia
+
+-   Autocorrelación espacial - Índice global de Moran $I$
+
+-   Mapa de calor del número promedio de hijos
+
+# Clase 14:
+
+Fuente
+
+-   actividad_12_estudiante.qmd `OneDrive/scripts` (no se encuentra completo el que está subido en la carpeta compartidda)
+
+Data
+
+-   `censo_hogad.csv`: Ubicación desconocida
+
+Contenido
+
+-   Índice de Moran Local $I$
+
+-   Identificación de clústeres
+
+-   Índice C de Geary
+
+-   Comparación entre Moran $I$ y Geary $C$
+
+-   Cálculo del Estadístico Global de Geary
