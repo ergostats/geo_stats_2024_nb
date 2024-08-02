@@ -50,11 +50,11 @@ Filtramos los datos para hogares con niños menores de 5 años y calculamos el p
 
 ```{r}
 censo_hogar_b <- censo_hogar %>% 
-  filter(P03 <= 5)
+  filter(----)
 
 censo_hogar_s <- censo_hogar_b %>% 
-  group_by(I01,I02,I03,I04) %>%
-  summarise(n_hijos = mean(n_hijos, na.rm = TRUE)) 
+  group_by(-----) %>%
+  summarise(n_hijos = mean(n_hijos, ----)) 
 ```
 
 Aquí, hemos filtrado los datos para hogares con hasta 5 hijos menores de 3 años y calculado el promedio de hijos por zona censal, agrupando por las variables de identificación de zona.
@@ -66,10 +66,9 @@ Visualizamos la distribución de la cantidad promedio de hijos menores de 5 año
 ```{r}
 frec_plot <- censo_hogar %>% 
   ggplot(aes(n_hijos)) +
-  geom_histogram() +
-  labs(title = "Distribución de la cantidad promedio de hijos menores de 5 años por hogar",
-       x = "Cantidad promedio de hijos menores de 3 años",
-       y = "Cantidad de hogares")
+  geom_bar() +
+  geom_label() +
+  labs(----)
 
 frec_plot
 ```
@@ -82,13 +81,14 @@ Creamos la variable `zon` que concatena las variables de agrupación de zona cen
 
 ```{r}
 censo_hogar_s <- censo_hogar_s %>% 
-  mutate(zon = str_c(I01, I02, I03, I04))
+  mutate(zon = str_c(------))
 
-zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/", layer = "zon_a")
+zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/",
+                 layer = "zon_a")
 
 dmq_zonas <- zonas %>% filter(str_detect(zon, "^170150"))
 
-dmq_zonas <- left_join(dmq_zonas, censo_hogar_s, by = c("zon" = "zon"))
+dmq_zonas <- ----(dmq_zonas, censo_hogar_s, by = c("zon" = "zon"))
 ```
 
 En este paso, hemos creado una nueva variable `zon` que concatena las variables de identificación de zona censal. Luego, cargamos el shapefile de las zonas censales y filtramos las zonas que corresponden a Quito. Finalmente, unimos los datos del censo hogar con el shapefile de zonas.
@@ -99,8 +99,8 @@ Usamos `ggplot2` para crear un mapa de calor que muestra el número promedio de 
 
 ```{r}
 ggplot() +
-  geom_sf(data = dmq_zonas, aes(fill = n_hijos)) +
-  scale_fill_viridis_c() +
+  geom_sf(data = dmq_zonas, -----) +
+  scale_------() +
   theme_minimal() +
   labs(title = "Número Promedio de Hijos Menores de 5 Años por Hogar en Quito")
 ```
@@ -112,9 +112,9 @@ Este mapa de calor nos permite visualizar espacialmente la distribución del nú
 Creamos una matriz de vecindad basada en la contigüidad y luego una matriz de pesos espaciales estandarizada por fila.
 
 ```{r}
-vecinos <- poly2nb(dmq_zonas, queen = TRUE)
-vecinos_pesos <- nb2listw(vecinos, style = "W")
-matriz <- listw2mat(vecinos_pesos)
+vecinos <- poly2nb(dmq_zonas, ----)
+vecinos_pesos <- nb2listw(vecinos,-----)
+matriz <- -----(vecinos_pesos)
 ```
 
 En este paso, usamos la función `poly2nb` para crear una lista de vecinos basada en la contigüidad de las zonas censales. Luego, creamos una matriz de pesos espaciales utilizando `nb2listw`, estandarizada por fila (cada fila suma a 1).
@@ -126,7 +126,7 @@ Visualizamos la matriz de pesos espaciales con `lattice`.
 ```{r}
 
 
-levelplot(t(matriz[1:50, 1:50]),
+levelplot(t(------),
           scales = list(y = list(at = seq(10, 50, by = 10),
                                  labels = seq(10, 50, by = 10))),
           main = "Matriz de Pesos Espaciales Basada en Contigüidad")
@@ -139,7 +139,7 @@ Este gráfico muestra una porción de la matriz de pesos espaciales, visualizand
 Calculamos el índice de Moran $I$ para evaluar la autocorrelación espacial.
 
 ```{r}
-moran <- moran.test(dmq_zonas$n_hijos, listw = vecinos_pesos)
+moran <- ------(dmq_zonas$n_hijos, ----- = vecinos_pesos)
 
 moran
 ```
@@ -165,15 +165,15 @@ En esta sección, analizaremos cómo cambia el índice de Moran $I$ al aplicar u
 
 ```{r}
 # Calcular los centroides de las zonas
-centroids <- st_centroid(dmq_zonas)
+centroids <- ------(dmq_zonas)
 
 
 
 # Calcular las distancias entre los centroides de las zonas vecinas
-dists <- nbdists(vecinos, as.matrix(st_coordinates(centroids)))
+dists <- -------(vecinos, as.matrix(------(centroids)))
 
 # Calcular los pesos inversos de las distancias
-ids <- map(dists, function(x) 1 / x)
+ids <- map(dists, ------)
 ```
 
 En este paso, hemos calculado los centroides de las zonas censales y las distancias entre ellos utilizando `nbdists()`. Luego, hemos calculado los pesos inversos de estas distancias.
@@ -182,7 +182,7 @@ En este paso, hemos calculado los centroides de las zonas censales y las distanc
 
 ```{r}
 # Crear una matriz de pesos espaciales basada en distancia inversa
-nbw_inv <- nb2listw(vecinos, glist = ids, style = "B", zero.policy = TRUE)
+nbw_inv <- nb2listw(vecinos, -------)
 
 ```
 
@@ -192,7 +192,7 @@ Calculamos el índice de Moran $I$ utilizando la nueva matriz de pesos basada en
 
 ```{r}
 # Calcular el índice de Moran con la nueva matriz de pesos
-moran_inversos <- moran.test(dmq_zonas$n_hijos, listw = nbw_inv)
+moran_inversos <- -----(dmq_zonas$n_hijos, listw = nbw_inv)
 
 moran_inversos
 ```

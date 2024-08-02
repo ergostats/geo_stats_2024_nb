@@ -1,0 +1,149 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 13: Relación de los datos y el espacio"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light   
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+#### `r rmarkdown::metadata$subtitle`
+
+
+
+---
+class: inverse center middle
+
+# Autocorrelación Espacial
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Índice Global de Moran  $I$
+
+El Índice Global de Moran $I$ (Moran 1950) se calcula mediante la fórmula
+
+$$I = \frac{n \sum_i \sum_j w_{ij} (Y_i - \bar{Y}) (Y_j - \bar{Y})}{\left( \sum_{i \neq j} w_{ij} \right) \sum_i (Y_i - \bar{Y})^2}$$
+
+Donde $n$ es el número total de regiones, $Y_i$ representa el valor observado de la variable de interés en la región $i$, y $\bar{Y}$ es la media de todos los valores. Los pesos espaciales $w_{ij}$ indican la proximidad espacial entre las regiones $i$ y $j$, con $w_{ii} = 0$ y $i, j = 1, \ldots, n$. La definición de los pesos espaciales varía según la variable estudiada y el contexto específico.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Distribución
+
+$I$ de Moran, ** mide la similitud entre cada región y sus vecinas**. Bajo la hipótesis nula de no autocorrelación espacial, las observaciones $Y_i$ son independientes y están distribuidas de manera idéntica.
+
+$$
+E[I] = -\frac{1}{n-1}
+$$
+
+
+
+$$
+\text{Var}[I] = \frac{n^2 (n-1) S_1 - n (n-1) S_2 + 2 S_0^2}{(n+1)(n-1)^2 S_0^2},
+$$
+
+donde
+.pull-left[
+$$S_0 = \sum_{i \neq j} w_{ij}$$
+]
+
+.pull-right[
+$$S_1 = \frac{1}{2} \sum_{i \neq j} (w_{ij} + w_{ji})^2$$
+]
+
+
+$$S_2 = \sum_k \left( \sum_j w_{kj} + \sum_i w_{ik} \right)^2$$
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Prueba de hipótesis:
+
+- Los valores del índice de Moran $I$ suelen oscilar entre -1 y 1. Valores de $I$ significativamente superiores a $E[I] = -\frac{1}{n-1}$ indican autocorrelación espacial positiva o agrupamiento, lo que sugiere que las regiones vecinas tienden a tener valores similares.
+- Por otro lado, valores de $I$ significativamente inferiores a $E[I]$ indican autocorrelación espacial negativa o dispersión, lo que implica que las regiones cercanas tienden a tener valores diferentes. Finalmente, valores de $I$ cercanos a $E[I]$ indican aleatoriedad, es decir, la ausencia de un patrón espacial.
+- Cuando el número de regiones es suficientemente grande, $I$ sigue una distribución normal, permitiendo evaluar si un patrón observado se desvía significativamente de un patrón aleatorio mediante la comparación del puntaje $z$ con la distribución normal estándar.
+
+$$
+z = \frac{I - E(I)}{\sqrt{\text{Var}(I)}}
+$$
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Prueba de hipótesis:
+
+Podemos probar la autocorrelación espacial siguiendo estos pasos:
+
+1. Plantear las hipótesis nula y alternativa:
+    - $H_0: I = E[I]$ (no hay autocorrelación espacial),
+    - $H_1: I \neq E[I]$ (hay autocorrelación espacial).
+
+2. Elegir el nivel de significancia $\alpha$, que es el máximo valor permitido para la probabilidad de rechazar incorrectamente la hipótesis nula cuando es verdadera (usualmente $\alpha = 0.05$).
+
+3. Calcular la estadística de prueba:
+    - $z = \frac{I - E(I)}{\sqrt{\text{Var}(I)}}$.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Prueba de hipótesis:
+
+4. Encontrar el valor p para los datos observados comparando el puntaje z con la distribución normal estándar o mediante aleatorización Monte Carlo. El valor p es la probabilidad de obtener una estadística de prueba tan extrema o más extrema que la observada en la dirección de la hipótesis alternativa, asumiendo que la hipótesis nula es verdadera.
+
+5. Tomar una de estas dos decisiones y formular una conclusión:
+    - Si $\text{p-valor} < \alpha$, rechazamos la hipótesis nula. Concluimos que los datos proporcionan evidencia para la hipótesis alternativa.
+    - Si $\text{p-valor} \geq \alpha$, no rechazamos la hipótesis nula. Los datos no proporcionan evidencia suficiente para la hipótesis alternativa.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Prueba de hipótesis:
+### La función `moran.test()`
+
+La función `moran.test()` del paquete `spdep` permite evaluar la autocorrelación espacial utilizando el índice $I$ de Moran. Los argumentos de `moran.test()` incluyen un vector numérico con los datos, una lista con los pesos espaciales y el tipo de hipótesis. El argumento que indica la hipótesis se llama `alternative` y puede configurarse como `greater` (por defecto), `less` o `two.sided` para representar diferentes hipótesis alternativas. En este ejemplo, planteamos las hipótesis nula y alternativa de la siguiente manera:
+
+- $H_0: I \leq E[I]$ (autocorrelación espacial negativa o no autocorrelación espacial),
+- $H_1: I > E[I]$ (autocorrelación espacial positiva).
+
+Utilizamos `moran.test()` para probar esta hipótesis configurando `alternative = "greater"`. La lista con los pesos espaciales se obtiene primero identificando los vecinos de cada área con la función `poly2nb()`, y luego creando una lista que contiene los vecinos con la función `nb2listw()` de `spdep`.

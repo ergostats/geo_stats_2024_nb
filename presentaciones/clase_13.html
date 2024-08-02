@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estadística y Econometría Espacial con R, Módulo I</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2024-07-29" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="tema_ergos.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide center middle
+background-image: url(img/portada_nb.png)
+background-size: 105%
+
+## Estadística y Econometría Espacial con R, Módulo I
+#### Clase 13: Relación de los datos y el espacio
+
+
+
+---
+class: inverse center middle
+
+# Autocorrelación Espacial
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Índice Global de Moran  `\(I\)`
+
+El Índice Global de Moran `\(I\)` (Moran 1950) se calcula mediante la fórmula
+
+`$$I = \frac{n \sum_i \sum_j w_{ij} (Y_i - \bar{Y}) (Y_j - \bar{Y})}{\left( \sum_{i \neq j} w_{ij} \right) \sum_i (Y_i - \bar{Y})^2}$$`
+
+Donde `\(n\)` es el número total de regiones, `\(Y_i\)` representa el valor observado de la variable de interés en la región `\(i\)`, y `\(\bar{Y}\)` es la media de todos los valores. Los pesos espaciales `\(w_{ij}\)` indican la proximidad espacial entre las regiones `\(i\)` y `\(j\)`, con `\(w_{ii} = 0\)` y `\(i, j = 1, \ldots, n\)`. La definición de los pesos espaciales varía según la variable estudiada y el contexto específico.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Distribución
+
+`\(I\)` de Moran, ** mide la similitud entre cada región y sus vecinas**. Bajo la hipótesis nula de no autocorrelación espacial, las observaciones `\(Y_i\)` son independientes y están distribuidas de manera idéntica.
+
+$$
+E[I] = -\frac{1}{n-1}
+$$
+
+
+
+$$
+\text{Var}[I] = \frac{n^2 (n-1) S_1 - n (n-1) S_2 + 2 S_0^2}{(n+1)(n-1)^2 S_0^2},
+$$
+
+donde
+.pull-left[
+`$$S_0 = \sum_{i \neq j} w_{ij}$$`
+]
+
+.pull-right[
+`$$S_1 = \frac{1}{2} \sum_{i \neq j} (w_{ij} + w_{ji})^2$$`
+]
+
+
+`$$S_2 = \sum_k \left( \sum_j w_{kj} + \sum_i w_{ik} \right)^2$$`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Prueba de hipótesis:
+
+- Los valores del índice de Moran `\(I\)` suelen oscilar entre -1 y 1. Valores de `\(I\)` significativamente superiores a `\(E[I] = -\frac{1}{n-1}\)` indican autocorrelación espacial positiva o agrupamiento, lo que sugiere que las regiones vecinas tienden a tener valores similares.
+- Por otro lado, valores de `\(I\)` significativamente inferiores a `\(E[I]\)` indican autocorrelación espacial negativa o dispersión, lo que implica que las regiones cercanas tienden a tener valores diferentes. Finalmente, valores de `\(I\)` cercanos a `\(E[I]\)` indican aleatoriedad, es decir, la ausencia de un patrón espacial.
+- Cuando el número de regiones es suficientemente grande, `\(I\)` sigue una distribución normal, permitiendo evaluar si un patrón observado se desvía significativamente de un patrón aleatorio mediante la comparación del puntaje `\(z\)` con la distribución normal estándar.
+
+$$
+z = \frac{I - E(I)}{\sqrt{\text{Var}(I)}}
+$$
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Prueba de hipótesis:
+
+Podemos probar la autocorrelación espacial siguiendo estos pasos:
+
+1. Plantear las hipótesis nula y alternativa:
+    - `\(H_0: I = E[I]\)` (no hay autocorrelación espacial),
+    - `\(H_1: I \neq E[I]\)` (hay autocorrelación espacial).
+
+2. Elegir el nivel de significancia `\(\alpha\)`, que es el máximo valor permitido para la probabilidad de rechazar incorrectamente la hipótesis nula cuando es verdadera (usualmente `\(\alpha = 0.05\)`).
+
+3. Calcular la estadística de prueba:
+    - `\(z = \frac{I - E(I)}{\sqrt{\text{Var}(I)}}\)`.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Prueba de hipótesis:
+
+4. Encontrar el valor p para los datos observados comparando el puntaje z con la distribución normal estándar o mediante aleatorización Monte Carlo. El valor p es la probabilidad de obtener una estadística de prueba tan extrema o más extrema que la observada en la dirección de la hipótesis alternativa, asumiendo que la hipótesis nula es verdadera.
+
+5. Tomar una de estas dos decisiones y formular una conclusión:
+    - Si `\(\text{p-valor} &lt; \alpha\)`, rechazamos la hipótesis nula. Concluimos que los datos proporcionan evidencia para la hipótesis alternativa.
+    - Si `\(\text{p-valor} \geq \alpha\)`, no rechazamos la hipótesis nula. Los datos no proporcionan evidencia suficiente para la hipótesis alternativa.
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+## Prueba de hipótesis:
+### La función `moran.test()`
+
+La función `moran.test()` del paquete `spdep` permite evaluar la autocorrelación espacial utilizando el índice `\(I\)` de Moran. Los argumentos de `moran.test()` incluyen un vector numérico con los datos, una lista con los pesos espaciales y el tipo de hipótesis. El argumento que indica la hipótesis se llama `alternative` y puede configurarse como `greater` (por defecto), `less` o `two.sided` para representar diferentes hipótesis alternativas. En este ejemplo, planteamos las hipótesis nula y alternativa de la siguiente manera:
+
+- `\(H_0: I \leq E[I]\)` (autocorrelación espacial negativa o no autocorrelación espacial),
+- `\(H_1: I &gt; E[I]\)` (autocorrelación espacial positiva).
+
+Utilizamos `moran.test()` para probar esta hipótesis configurando `alternative = "greater"`. La lista con los pesos espaciales se obtiene primero identificando los vecinos de cada área con la función `poly2nb()`, y luego creando una lista que contiene los vecinos con la función `nb2listw()` de `spdep`.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "solarized-light",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"tokenTransform": {
+"functionCall": "class=\"function-call\""
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
