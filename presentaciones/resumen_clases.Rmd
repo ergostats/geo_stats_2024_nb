@@ -1,0 +1,379 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 15: Recapitulación"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light   
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+#### `r rmarkdown::metadata$subtitle`
+---
+### Clase 1: Introducción al análisis espacial con R 
+**Fuente**
+- clase_1.pdf  `slides`
+
+**Contenido**
+- Expectativas del curso
+- Ventajas del Software Libre 
+- R y RStudio 
+- Interfáz de RStudio
+- Mejores prácticas 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 2: Herramientas básicas de R para la manipulación de datos espaciales 
+**Fuente** 
+- clase_2.pdf `slides`
+- actividad_1.qmd `scripts`
+
+**Data** 
+- `library(gapminder)`
+
+**Contenido** 
+- Modelos para almanecamiento de datos geoespaciales: Vector y Raster
+- Principales paquetes del curso
+- Descripción del uso de la *pipe* `%>%`
+- Intervalos de confianza para la media
+- Distribución con media truncada y winsorize
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 3: Tipos de datos vectoriales 
+**Fuente**
+- clase_3.pdf `slides`
+- actividad_2_1.qmd `scripts`
+
+**Data**
+- Censo de población y vivienda 2022 INEC  `data/01_2022_CPV_Estructura_poblacional.xlsx` 
+- Cantones del Ecuador `data/shp/nxcantones.shp` 
+
+**Contenido**
+- Formatos comunes para trabajar con datos geoespaciales
+- Atributos de los datos geoespaciales
+- Metadatos de los datos geoespaciales
+- Sistema de referencia de coordenadas 
+- Códigos EPSG 
+- Unión de tablas 
+- Primeros pasos con `ggplot2`
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 4: Importar datos espaciales 
+**Fuente** 
+- clase_4.qmd `slides`
+- actividad_2_2.qmd `scripts`
+
+**Data** 
+- Censo de población y vivienda 2022 INEC `data/01_2022_CPV_Estructura_poblacional.xlsx` 
+- Cantones del Ecuador `data/shp/nxcantones.shp`
+- Cueva de la mujer `data/shp/cueva_cajas.shp` 
+- Vía a Molleturo y senderos hacia lagunas en el parque nacional El Caja `data/shp/vias_cajas.shp`
+- Lagunas del Parque Nacional El Cajas `data/shp/lagunas_cajas.shp`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 4: Importar datos espaciales 
+
+**Contenido**
+- Unión de tablas (Continuación)
+- Personalización de los gráficos con `ggplot2`
+- Leer un shapefile 
+- Gráficar shapefiles 
+- Leer un raster 
+- Gráficar un raster 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 5: Operaciones básicas con objetos espaciales 
+
+**Fuente** 
+- clase_5.qmd `slides`
+- actividad_3.qmd `scripts`
+
+**Data**
+- Datos del numero de usuarios en el Metro de Quito `data/Metro_quito_usuarios_enero_2024.xlsx`
+- Límites provinciales del Ecuador `data/shp/LIMITE_PROVINCIAL_CONALI_CNE_2022.shp`
+- Parroquias del distrito metropolitano de Quito `data/Administraciones_Zonales_Parroquias.xlsx`
+- Mercados del distrito metropolitano de Quito `data/shp/BC001_MERCADO_PLATAFORMA_A.shp`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 5: Operaciones básicas con objetos espaciales 
+
+**Contenido** 
+- Convertir datos tabulares a objetos `sf`
+- Asignar un sistema de coordenadas 
+- Transformar el sistema de coordenadas 
+- Operaciones con polígonos:
+- Disolver
+- Simplificar
+- Obtener centroides
+- Calcular área
+- Intersección de zonas administrativas y puntos de mercados de Quito 
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 6: Operaciones básicas de datos raster
+
+**Fuente**
+- clase_6.Rmd `slides`
+- Clase_6.qmd `script`
+
+**Data**
+- Datos climaticos de temperatura para Ecuador entre 1981 y 2014 `library(geodata)`
+- Límites provinciales del Ecuador `data/shp/LIMITE_PROVINCIAL_CONALI_CNE_2022.shp`
+
+**Contenido** 
+- Reducción 
+- Cortar por extensión 
+- Cortar por capa máscara 
+- Extracción de valores 
+- Conteo de mercados (Continuación)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 7: Probabilidad y Teorema de Bayes 
+**Fuente** 
+-  clase_7.pdf `slides`
+- temperaturas_pichincha.R `scripts`
+
+**Data**
+- Temperatura en cada estación metereológica del Ecuador en Diciembre 2019 `data/inamhi-temperaturamedia-2019diciembre.csv`
+- Límites provinciales del Ecuador `data/shp/LIMITE_PROVINCIAL_CONALI_CNE_2022.shp`
+
+**Contenido** 
+- Analisis frecuentista y bayesiano 
+- Definición de probabilidad 
+- Función de distribución 
+- Valor esperado
+- Varianza de una variable aleatoria
+- Teorema de Bayes 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 8: Relación entre variables a traves del modelo de regresión lineal
+**Fuente** 
+- clase_8.pdf `slides`
+- actividad_6_estudiante.qmd `scripts`
+
+**Data**
+- Datos simulados dentro del archivo actividad_6_estudiante.qmd
+
+**Contenido**
+- Significancia estadística y p-valor 
+- Alternativas al p-valor 
+- Funciones en R 
+- Introducción: Regresión lineal
+- Supuestos de la regresión lineal 
+- Análisis de covarianza y varianza 
+- Método de mínimos cuadrados 
+- Residuos 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 9: Regresión lineal con variables categóricas
+**Fuente** 
+- clase_9.rmd `slides`
+- actividad_7.qmd `scripts`
+
+**Data**
+- Evaluación docente en UT Austin `library(moderndive)`
+
+**Contenido**
+- Fuerza del ajuste
+- Coeficiente de determinación 
+- Manipulación de factores 
+- Regresión lineal con una variable categórica 
+- Regresión lineal con variables adicionales 
+- Modelos complejos 
+- Extracción de r cuadrado 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 10: Visualización de vecindad con polígonos
+**Fuente**
+- actividad_8.qmd `scripts`
+
+**Data**
+- `GEODATABASE_NACIONAL_2021.gdb`
+
+**Contenido** 
+- Matriz de vecindad en base a la contigüidad 
+- Obtención de los sectores censales del Distrito Metropolitano de Quito (DMQ), vecinos a la Politécnica y la Plataforma
+- Visualización de la vecindad de la Politécnica y la Plataforma 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 11: Extración y visualización de vecindad en hosptiales y distribución de restaurantes en zonas censales 
+**Fuente** 
+- clase_11.Rmd `slides`
+- actividad_8.qmd `scripts`
+- actividad_9_estudiante.qmd `scripts`
+
+**Data**
+- `GEODATABASE_NACIONAL_2021.gdb`
+
+**Contenido**
+- Obtención de datos vectoriales en línea (`osmdata`)
+- Extracción de datos de Open Street Maps (OSM)
+- Extracción y visualización de Hospitales en sectores censales del  DMQ (Continuación)
+- Distribución de los restaurantes en los sectores censales del DMQ
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 12: Análisis de vecindad empleando distancias con buffers
+**Fuente** 
+- actividad_10_estudiante.qmd `scripts`
+
+**Data**
+- `GEODATABASE_NACIONAL_2021.gdb`
+
+**Contenido** 
+- Creación de un buffer alrededor de un polígono 
+- Creación de un buffer alrededor de un punto
+- Obtención de restaurantes y hospitales dentro de los buffers 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 13: Matrices de pesos espaciales y autocorrelación
+**Fuente**
+- clase_13.Rmd `slides`
+- actividad_13_estudiante.qmd `scripts`
+- clase_13.Rmd `Computadora Alex`
+- actividad_11_estudiante.qmd `scripts`
+
+**Data**
+- `GEODATABASE_NACIONAL_2021.gdb`
+- `censo_hogad.csv`: Ubicación desconocida
+- `CPV_Población_2022_Nacional.sav`: Ubicación desconocida
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 13: Matrices de pesos espaciales y autocorrelación
+
+**Contenido**
+- Definición de matriz de vencidad basada en continuidad 
+- Matriz de pesos espaciales basada en continuidad
+- Matriz de pesos espaciales basada en distancias
+- Matriz de pesos espaciales por distancia especificada
+- Matriz de pesos espaciales por vecinos más cercanos
+- Matriz de pesos espaciales como inversa de la distancia
+- Autocorrelación espacial 
+- Índice global de Moran $I$
+- Mapa de calor del número promedio de hijos 
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: top left
+
+### Clase 14: Indices de autocorrelación espacial local
+**Fuente** 
+- actividad_12_estudiante.qmd `scripts` (no se encuentra completo el que está subido en la carpeta compartidda)
+
+**Data**
+- `censo_hogad.csv`: Ubicación desconocida
+
+**Contenido** 
+- Índice de Moran Local $I$
+- Identificación de clústeres
+- Índice C de Geary 
+- Comparación entre Moran $I$ y Geary $C$
+- Cálculo del Estadístico Global de Geary

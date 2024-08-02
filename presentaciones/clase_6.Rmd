@@ -1,0 +1,103 @@
+---
+title: "Estadística y Econometría Espacial con R, Módulo I"
+subtitle: "Clase 6: Operaciones básicas de Datos Raster"  
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: tema_ergos.css
+    nature:
+      highlightStyle: solarized-light   
+      highlightLines: true
+      countIncrementalSlides: false
+      tokenTransform:
+        'functionCall': 'class="function-call"'
+params: 
+    background_img: "img/portada_nb.png"
+    highlightStyle: solarized-light
+---
+
+class: title-slide center middle
+background-image: url(`r params$background_img`)
+background-size: 105%
+
+## `r rmarkdown::metadata$title`
+#### `r rmarkdown::metadata$subtitle`
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+
+
+## Operaciones con Rasters
+
+- Integración de datos procedentes de muchas **fuentes diferentes**, como **imágenes de teledetección** (rásters) y **límites administrativos** (vectores). 
+- A menudo, la **extensión** de los conjuntos de datos ráster de entrada es mayor que el área de interés. 
+- Unificar la extensión espacial de los datos de entrada. 
+- Recorte por **extensión** y por **capa máscara**.
+
+![](https://miro.medium.com/v2/resize:fit:1358/1*_0DArJZyIfkpPDXgat4-pw.jpeg)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+## Reducir
+
+.pull-left[
+- Crear una imagen que representa el promedio de todas las imagenes.
+]
+
+.pull-right[
+<img src = https://www.researchgate.net/publication/349430332/figure/fig3/AS:11431281212512320@1702646609856/The-reducer-operation-provided-by-Google-Earth-Engine-GEE-17.tif width = "70%">
+]
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+## Recorte por extensión (Cropping)
+- Limitar la extensión del ráster a nuestra área de interés.
+- `terra::crop()`
+
+![](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-vector/spatial_extent.png)
+
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+## Recorte por capa máscara (Masking)
+- Reemplazar todos los valores fuera del área de interés por `NA`.
+- `terra::mask()`
+
+![](https://snorfalorpagus.net/blog/images/lake_district_mask.png)
+
+---
+background-image: url(img/slide_nb.png)
+background-position: top left
+background-size: 140%
+padding-top: 150px
+class: middle
+
+## Extracción de valores ráster en puntos
+- Obtener los valores asociados a un raster en objetos específicos. 
+- `terra::extract()`
+
+.center[
+<img src = https://www.paulamoraga.com/book-spatial/book-spatial_files/figure-html/terracentroid-1.png width = "70%">
+]
+
+
