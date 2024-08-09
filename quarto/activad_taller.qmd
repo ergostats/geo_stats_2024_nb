@@ -1,0 +1,173 @@
+---
+title: "Ejercicio del taller para presentación de la activdad"
+subtitle: "Ejercicio con los colegas que se unieron al taller"
+author: "Alex Bajaña"
+date: "Agosto 2024"
+format: docx
+editor: visual
+---
+
+# Consulta al OpenStreetMaps
+
+Para nosotros haccer la consulta nos debemos acordar de las *Boundary Box:*
+
+```{r, message = FALSE}
+
+library(osmdata)
+library(sf)
+library(tidyverse)
+library(readxl)
+
+bbox <- getbb("Guaranda, Ecuador")
+
+query <- opq(bbox) %>% 
+  add_osm_feature( key = "amenity",value = "hospital" ) %>% 
+  osmdata_sf()
+
+puntos <- query$osm_points
+
+
+
+```
+
+Poner en un mapa los puntos:
+
+```{r, message = FALSE}
+
+st_layers("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/")
+
+zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/",layer = "zon_a")
+
+zonas <- zonas %>% 
+  filter(str_detect(zon,"^02"))
+
+```
+
+Para graficar empleamos el código del gráfico `ggplot2` y jugamos con las opciones de Quarto chunks:
+
+```{r, echo = FALSE, fig.height= 6, fig.dpi=300}
+
+ggplot() +
+  geom_sf(data = zonas) +
+  geom_sf(data = puntos) +
+  labs(
+    title = "Figura 1. Distribución de hospitales en la provincia de Bolivar",
+    subtitle = "Fuente: OpenStreetMaps"
+  ) +
+  theme_minimal()
+
+```
+
+Vamos a leer el archivo con la población del Ecuador por parroquias:
+
+```{r}
+
+excel_sheets("../data/01_2022_CPV_Estructura_poblacional.xlsx")
+
+poblacion <- read_excel("../data/01_2022_CPV_Estructura_poblacional.xlsx",
+                        sheet = "1.2",
+                        range = "B10:G1299")
+
+names(poblacion) <- c("provincia","canton", "parroquia","total_nacional","hombres", "mujeres")
+
+```
+
+Limpiamos los resultados del censo:
+
+```{r}
+
+poblacion <- poblacion %>% 
+  filter(!is.na(provincia),
+         str_detect(parroquia,"^Total|Nacional",negate = TRUE))
+
+poblacion <- poblacion %>% 
+  mutate(across(c(provincia, canton, parroquia), str_to_upper))
+
+
+```
+
+Ahora leemos la codificación DPA del INEC:
+
+```{r}
+
+dpa <- read_excel("../data/CODIFICACIÓN_2022.xlsx",sheet = "CODIGOS")
+```
+
+Vamos a acordarnos de las funciones `join`:
+
+```{r}
+poblacion <- poblacion %>% 
+  left_join(dpa, by = c("provincia" = "DPA_DESPRO",
+                        "canton" = "DPA_DESCAN",
+                        "parroquia" = "DPA_DESPAR"))
+```
+
+Nos queda unir los poligonos a nivel de parroquia por que estan a nivel de zona censal:
+
+```{r}
+
+zonas <- zonas %>% 
+  mutate(DPA_PARROQ = str_sub(zon, 1, 6))
+
+parroquias <- zonas %>% 
+  group_by(DPA_PARROQ) %>% 
+  summarise(Shape = st_union(Shape))
+
+```
+
+Unimos los datos de poblacion:
+
+```{r}
+
+parroquias <- parroquias %>% 
+  left_join(poblacion)
+```
+
+Mapas de calor:
+
+```{r, echo = FALSE, fig.height= 6, fig.dpi=300}
+parroquias %>% 
+  ggplot() +
+  geom_sf(aes(fill = log(total_nacional))) +
+  geom_sf(data = puntos) +
+  scale_fill_gradient(low = "#FFC300",high = "#900C3F") +
+  labs(title = "Figura 2. Densidad Poblacional de la provincia de Bolivar",
+       caption = "Fuente: INEC")
+```
+
+Vamos el indicador de amenidades por cada mil habitantes:
+
+```{r}
+
+puntos <- st_transform(x = puntos, crs = st_crs(parroquias))
+
+parroquias_puntos <- st_join(x = puntos, y = parroquias,join = st_within)
+
+parroquias_puntos <- parroquias_puntos %>% 
+  count(DPA_PARROQ,name = "hospitales") %>% 
+  as_tibble()
+
+
+parroquias <- parroquias %>% 
+  left_join(parroquias_puntos) 
+
+parroquias <- parroquias %>% 
+  mutate(hospitales = replace_na(hospitales, 0))
+
+```
+
+Calculamos el indicador:
+
+```{r, echo = FALSE, fig.height= 6, fig.dpi=300}
+
+parroquias <- parroquias %>% 
+  mutate(indicador = (hospitales/total_nacional)*1000)
+
+parroquias %>% 
+  ggplot() +
+  geom_sf(aes(fill = indicador)) +
+  scale_fill_gradient(low = "#FFC300",high = "#900C3F") +
+  labs(title = "Figura 3. indicador de amenidades de salud por cada 100 habitantes",
+       caption = "Fuente: INEC")
+
+```

@@ -1,0 +1,255 @@
+---
+title: "Vecindad por distancia y matrices de vecindad"
+author: "Alex Bajaña"
+date: "2024-07-22"
+output: html_document
+---
+
+
+
+
+## Aplicación: Todo lo que hemos aprendido juntos
+
+No olviden siempre dejar comenando sus `install.packages` eso evitará que se reinstalen paquetes en el entorno de trabajo.
+
+```{r}
+# Instalar y cargar los paquetes necesarios
+# install.packages(c("sf", "ggplot2", "dplyr"))
+library(sf)
+library(tidyverse)
+library(osmdata)
+library(spdep)
+library(cowplot)
+
+```
+
+Una de nuestras clases fue sobre **funciones**. Deciamos que una función se compone de tres partes: **nombre**, **argumentos**, **cuerpo**. Vamos a crear una función que nos permita obtener los datos de OpenStreetMaps del Distrito Metropolitano de Quito.
+
+```{r}
+# Vamos a crear una función que haga nuestra consulta recurrente a OpenStreetMaps
+obtener_osm_data <- function(value, feature) {
+  
+  bbox <- getbb("Quito, Ecuador") # Parte fija
+  
+  osm_query <- opq(bbox) %>%
+    add_osm_feature(value = value, key = feature) %>% 
+    osmdata_sf()
+  
+  osm_points <- osm_query$osm_points
+  
+  return(osm_points)
+}
+
+```
+
+Recuerden que OpenStreetMaps tiene una serie de etiquetas que nos permiten obtener información específica. Por ejemplo, si queremos obtener información sobre los hospitales, usamos la etiqueta `amenity` con el valor `hospital`. Vamos a obtener los datos de los hospitales en Quito. El objeto `osm_query` contiene: `osm_points`, `osm_lines`, `osm_polygons`. 
+
+Con la función `map` podemos obtener los datos de las diferentes amenidades que nos interesan para explicar en cierta medida el promedio de hijos menores a 5 años por zona censal de Quito.
+
+```{r}
+
+amenidades <- c("hospital", "clinic", "school","kindergarten") %>% 
+  map(~obtener_osm_data(.x, "amenity") %>% 
+        mutate(amenidad = .x))
+
+# Consolidamos en un solo data.frame:
+
+amenidades <- amenidades %>% reduce(bind_rows)
+
+```
+
+Grafiquemos las amenidades en un mapa para visualizar su distribución en Quito. Primero vamos a cargar los datos de las zonas censales de Quito.
+
+```{r}
+# Cargar y preparar los datos
+zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/", layer = "zon_a")
+
+dmq_zonas <- zonas %>% filter(str_detect(zon, "^170150"))
+
+```
+
+Nos quedamos solo con las amenidades que están dentro de los polígonos de Quito.
+
+```{r}
+amenidades <- amenidades %>% 
+  st_transform(crs = st_crs(dmq_zonas)) %>% 
+  st_intersection(dmq_zonas)
+```
+Ahora graficamos todo junto con `ggplot2` pero antes vamos a corregir las etiquetas de la amenidad con `forcats`:
+
+```{r}
+amenidades <- amenidades %>% 
+  mutate(amenidad = fct_recode(amenidad,
+                                "Hospital" = "hospital",
+                                "Clinica" = "clinic",
+                                "Escuelas" = "school",
+                                "Kinders" = "kindergarten"))
+```
+
+
+```{r}
+
+ggplot() +
+  geom_sf(data = dmq_zonas, color = "darkgrey", size = 0.5) +
+  geom_sf(data = amenidades, aes(color = amenidad), size = 1, alpha = 0.6) +
+  scale_color_brewer(palette = "Spectral") +
+  theme_minimal() +
+  labs(title = "Amenidades en Quito",
+       subtitle = "Considerando salud y educación para niños menores a 5 años",
+       caption = "Fuente: OpenStreetMaps",
+       color = "Amenidad:") 
+```
+
+Vamos a usar `st_union` para contar cuántas amenidades hay en cada zona censal. Pero antes vamos a crear en amenidades una variable categorica que tenga las categorías `educacion` y `salud` con `forcats` y la función `fct_collapse`.
+
+```{r}
+amenidades <- amenidades %>% 
+  mutate(categoria = fct_collapse(amenidad,
+                                  educacion = c("Escuelas", "Kinders"),
+                                  salud = c("Hospital", "Clinica")))
+```
+
+Ahora contamos cuántas amenidades hay en cada zona censal.
+
+```{r}
+
+contar_amenidades <- amenidades %>% 
+  select(-any_of(names(dmq_zonas))) %>%
+  st_join(dmq_zonas,join = st_within) 
+
+contar_amenidades <- contar_amenidades %>% 
+  as_tibble() %>% 
+  group_by(zon,categoria) %>%
+  summarise(n_amen = n())
+```
+
+Como hay zonas que no tienen ninguna de las amenidades que estamos considerando, vamos a rellenar con ceros. Mostremos dos mapas de calor que tengan una paleta de gradiente de blanco a verde para educación y de balnco a purpura para salud.
+Luego mostramos los dos mapas de calor con `cowplot`:
+
+```{r}
+
+mapa_calor_salud <- contar_amenidades %>%
+  filter(categoria == "salud")
+
+mapa_calor_salud <- dmq_zonas %>% 
+  left_join(mapa_calor_salud, by = "zon") %>%
+  mutate(n_amen = replace_na(n_amen, 0)) %>% 
+  ggplot() +
+  geom_sf(aes(fill = n_amen), color = NA) +
+  scale_fill_viridis_c(option = "D") +
+  theme_minimal() +
+  labs(title = "a) Amenidades de Salud",
+       fill = "Amenidades") 
+
+mapa_calor_educacion <- contar_amenidades %>%
+  filter(categoria == "educacion")
+
+mapa_calor_educacion <- dmq_zonas %>%
+  left_join(mapa_calor_educacion, by = "zon") %>%
+  mutate(n_amen = replace_na(n_amen, 0)) %>% 
+  ggplot() +
+  geom_sf(aes(fill = n_amen), color = NA) +
+  scale_fill_viridis_c(option = "E") +
+  theme_minimal() +
+  labs(title = "b) Amenidades de Educación",
+       fill = "Amenidades") 
+
+plot_grid(mapa_calor_salud, mapa_calor_educacion, ncol = 2)
+```
+
+Ahora del censo agrupado con el que trabajamos el indice de Moran vamos a traer la variable `n_hijos` y vamos a unir con los datos de las amenidades. Vamos a hacer un mapa de calor de los niños menores a 5 años por hogar en Quito.
+
+```{r}
+censo_hogar <- read_tsv("../data/censo_hogar.csv")
+
+censo_hogar <- censo_hogar %>% 
+  filter(P03 <= 5)
+
+censo_hogar_s <- censo_hogar %>% 
+  mutate(zon = str_c(I01, I02, I03, I04)) %>% 
+  group_by(zon) %>%
+  summarise(n_hijos = sum(n_hijos, na.rm = TRUE)) 
+```
+
+A la tabla de amenidades le damos un formato ancho en función de la variable `categoria`
+
+```{r}
+data_modelo <- contar_amenidades %>% 
+  pivot_wider(names_from = categoria, values_from = n_amen)
+```
+
+Unimos las tablas de amenidades y censo
+
+```{r}
+data_modelo <- data_modelo %>% 
+  right_join(censo_hogar_s, by = "zon")
+```
+
+
+```{r}
+# Rellenamos los valores faltantes con ceros
+data_modelo <- data_modelo %>% mutate(across(educacion:n_hijos, ~replace_na(.x, 0)))
+```
+
+
+Hacemos la regresión lineal de los niños menores a 5 años por hogar en función de las amenidades de salud y educación.
+
+```{r}
+modelo <- lm(n_hijos ~ salud + educacion, data = data_modelo)
+
+summary(modelo)
+```
+Ahora calculamos la matriz de vecinddad binaria.
+
+```{r}
+vecinos <- poly2nb(dmq_zonas, queen = TRUE)
+```
+
+Y armamos la matriz de pesos:
+
+```{r}
+vecinos_pesos <- nb2listw(vecinos, style = "W",zero.policy = TRUE)
+```
+
+Calculamos el indice de Moran:
+
+```{r}
+
+dmq_zonas <- left_join(dmq_zonas, data_modelo, by = "zon") %>% mutate(n_hijos = replace_na(n_hijos, 0))
+
+moran <- moran.test(dmq_zonas$n_hijos, vecinos_pesos, alternative = "greater")
+
+moran
+```
+
+Sabemos que hay presencia de autocorrelación espacial positiva en la variable `n_hijos` por hogar en Quito. Sin embargo para poder determinar la presencia de autocorrelación de los residuos del modelo de regresión lineal, vamos a hacer un mapa de los residuos del modelo.
+
+```{r}
+lm_moran_test <- lm.morantest(modelo, vecinos_pesos)
+
+lm_moran_test
+
+lm.LMtests(modelo, vecinos_pesos, test=c("LMerr", "LMlag", "RLMerr", "RLMlag", "SARMA"))
+
+```
+
+La función `lm.LMtests` en el paquete `spdep` se utiliza para realizar una serie de pruebas de especificación Lagrange Multiplier (LM) sobre los residuos de un modelo de regresión lineal para detectar la presencia de autocorrelación espacial y errores espaciales. Las pruebas que has especificado incluyen:
+
+1. **LMerr (Lagrange Multiplier test for spatial error model)**:
+   - Esta prueba evalúa si hay autocorrelación espacial en los errores del modelo de regresión.
+   
+2. **LMlag (Lagrange Multiplier test for spatial lag model)**:
+   - Esta prueba evalúa si existe una relación espacial en la variable dependiente del modelo, es decir, si el valor de la variable dependiente en una ubicación está influenciado por los valores de la variable dependiente en las ubicaciones vecinas.
+
+3. **RLMerr (Robust Lagrange Multiplier test for spatial error model)**:
+   - Es una versión robusta de la prueba LMerr, que controla la influencia de la especificación del modelo espacial.
+
+4. **RLMlag (Robust Lagrange Multiplier test for spatial lag model)**:
+   - Es una versión robusta de la prueba LMlag, que controla la influencia de la especificación del modelo espacial.
+
+5. **SARMA (Lagrange Multiplier test for SARMA model)**:
+   - Esta prueba evalúa una combinación de autocorrelación espacial en los errores y en la variable dependiente.
+
+El propósito de estas pruebas es determinar si hay autocorrelación espacial en los residuos del modelo de regresión y si el modelo necesita ser ajustado para incorporar componentes espaciales. Revisando cada una de las pruebas proporcionará información sobre la necesidad de ajustar tu modelo, ya sea utilizando un modelo de error espacial (Spatial Error Model), un modelo de retardo espacial (Spatial Lag Model) o un modelo combinado SARMA (Spatial AutoRegressive Moving Average).
+
+![]()
