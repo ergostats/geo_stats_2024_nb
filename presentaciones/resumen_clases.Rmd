@@ -328,13 +328,13 @@ class: top left
 **Fuente**
 - clase_13.Rmd `slides`
 - actividad_13_estudiante.qmd `scripts`
-- clase_13.Rmd `Computadora Alex`
+- clase_13.Rmd `slides`
 - actividad_11_estudiante.qmd `scripts`
 
 **Data**
 - `GEODATABASE_NACIONAL_2021.gdb`
-- `censo_hogad.csv`: Ubicación desconocida
-- `CPV_Población_2022_Nacional.sav`: Ubicación desconocida
+- `data/censo_hogar.csv`
+- `CPV_Población_2022_Nacional.sav`
 
 
 ---
@@ -366,10 +366,10 @@ class: top left
 
 ### Clase 14: Indices de autocorrelación espacial local
 **Fuente** 
-- actividad_12_estudiante.qmd `scripts` (no se encuentra completo el que está subido en la carpeta compartidda)
+- actividad_12_estudiante.qmd `scripts`
 
 **Data**
-- `censo_hogad.csv`: Ubicación desconocida
+- `data/censo_hogar.csv`
 
 **Contenido** 
 - Índice de Moran Local $I$
