@@ -1,0 +1,232 @@
+---
+title: "Regresión lineal con variables categóricas"
+format: html
+editor: visual
+---
+
+# Regresión lineal con variables categóricas
+
+La regresión lineal con variables categóricas, también conocida como regresión lineal con variables independientes categóricas, es una extensión de la regresión lineal que permite incluir variables que no son numéricas, sino categóricas (o cualitativas). Estas variables categóricas pueden ser factores como género, grupo de tratamiento, ubicación geográfica, etc. Para incorporar estas variables en un modelo de regresión lineal, se utilizan variables ficticias (o dummies).
+
+### Variables Ficticias (Dummies)
+
+Las variables categóricas se convierten en variables ficticias para que puedan ser usadas en el modelo de regresión lineal. Cada categoría de una variable categórica se representa como una variable binaria (0 o 1) en el modelo.
+
+Por ejemplo, si tienes una variable categórica "Color" con tres categorías: Rojo, Azul y Verde, necesitarás dos variables ficticias para representar estas categorías:
+
+-   **Variable Dummy 1 (Rojo):** 1 si el color es Rojo, 0 en caso contrario.
+
+-   **Variable Dummy 2 (Azul):** 1 si el color es Azul, 0 en caso contrario.
+
+La categoría restante (Verde) se omite y actúa como la **categoría de referencia** o **base**.
+
+### Ecuación del Modelo
+
+En un modelo de regresión lineal que incluye variables categóricas, la ecuación se expande para incluir términos adicionales para las variables ficticias. Por ejemplo, si estamos modelando el efecto de "Color" en una variable dependiente $y$, la ecuación del modelo puede verse así:
+
+$$y = \beta_0 + \beta_1Rojo + \beta_2Azul + \beta_3x + \epsilon$$
+
+Donde:
+
+-   $\beta_0$ es el intercepto del modelo.
+
+-   $\beta_1$ y $\beta_2$ son los coeficientes asociados a las variables ficticias para las categorías Rojo y Azul.
+
+-   $\beta_3$ es el coeficiente asociado a una variable continua $x$ (si se incluye).
+
+-   $\epsilon$ es el término de error.
+
+### Interpretación de los Coeficientes
+
+-   $\beta_0$: Representa el valor esperado de $y$ cuando todas las variables independientes son 0. En el contexto de las variables ficticias, es el valor medio de $y$ para la categoría de referencia (Verde en nuestro ejemplo).
+
+-   $\beta_1$: Mide el cambio en $y$ cuando la variable "Color" es Rojo en comparación con la categoría de referencia (Verde). Si Rojo es la categoría que se compara con Verde, $\beta_1$ representa la diferencia en el valor esperado de $y$ entre los casos en los que "Color" es Rojo y los casos en los que es Verde.
+
+-   $\beta_2$: Mide el cambio en $y$ cuando la variable "Color" es Azul en comparación con la categoría de referencia (Verde). De manera similar, $\beta_2$ representa la diferencia en el valor esperado de $y$ entre los casos en los que "Color" es Azul y los casos en los que es Verde.
+
+### Ejemplo Práctico
+
+Supongamos que estamos estudiando el efecto del "Color" de un producto sobre su precio, y los colores son Rojo, Azul y Verde. Queremos saber cómo el precio promedio varía con el color del producto. Definimos el modelo de regresión lineal como:
+
+$$Precio = \beta_0 + \beta_1Rojo + \beta_2Azul + \beta_3x + \epsilon$$
+
+Supongamos que los resultados son:
+
+-   $\beta_0 = 50$ (precio promedio del producto Verde).
+
+-   $\beta_1 = 10$ (precio adicional para productos Rojos comparado con productos Verdes).
+
+-   $\beta_2 = -5$ (precio menor para productos Azules comparado con productos Verdes).
+
+Esto significa que el precio promedio de un producto Rojo es 10 unidades más alto que el de un producto Verde, y el precio promedio de un producto Azul es 5 unidades más bajo que el de un producto Verde.
+
+# Ejemplo
+
+Esta guía cubre el uso de regresión lineal con variables categóricas utilizando el conjunto de datos `evals` del paquete `moderndive`. A lo largo de esta práctica, exploraremos cómo manejar factores en R, realizar análisis de regresión con variables categóricas, y visualizar los resultados utilizando `ggplot2`.
+
+#### Cargar Librerías y Datos
+
+Primero, cargaremos las librerías necesarias y los datos.
+
+```{r}
+# install.packages("moderndive")
+
+# Cargar librerías
+library(tidyverse)
+library(moderndive)
+library(broom)
+
+# Cargar datos
+data(evals)
+```
+
+#### Entender los Factores
+
+En R, una variable categórica se denomina factor. Los factores son útiles cuando se desea incluir variables categóricas en modelos estadísticos.
+
+```{r}
+class(evals$ethnicity) 
+attributes(evals$ethnicity)
+
+evals$ethnicity
+
+# Un factor son enteros ordenados para los cuales cada valor tiene una etiqueta
+as.numeric(evals$ethnicity)
+
+# as.numeric(c("minority","no minority"))
+```
+
+#### Regresión Lineal con una Variable Categórica
+
+Realizaremos una regresión lineal donde `score` es la variable dependiente y `ethnicity` es la variable independiente.
+
+```{r}
+# Regresión lineal con una variable categórica
+modelo <- lm(formula = score ~ ethnicity, data = evals)
+```
+
+```{r}
+evals2 <- evals %>% mutate(
+  ethnicity = fct_relevel(ethnicity,c("not minority","minority"))
+)
+
+lm(formula = score ~ ethnicity, data = evals2)
+
+# Resumen del modelo
+summary(modelo)
+```
+
+#### Visualización de Resultados
+
+Visualizamos la relación entre `score` y `ethnicity` utilizando `ggplot2`.
+
+```{r}
+# Gráfico de puntos
+evals %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = ethnicity, y = score))
+
+# Promedio de puntuaciones por tipo de clase
+evals %>% 
+  group_by(ethnicity) %>% 
+  summarise(mean_score = mean(score))
+
+
+4.191228 - 4.071875
+```
+
+#### Regresión Lineal con Variables Adicionales
+
+Añadimos más variables independientes al modelo de regresión.
+
+```{r}
+# Regresión lineal con variables adicionale
+
+modelo_2 <- lm(formula = score ~ age + ethnicity, data = evals)
+
+
+# Resumen del modelo
+summary(modelo_2)
+```
+
+## Rectas paralelas
+
+```{r}
+ggplot(evals, aes(x = age, y = score, color = ethnicity)) +
+  geom_point() +
+  geom_parallel_slopes(se = FALSE) +
+  labs(x = "Age", y = "Teaching score", color = "Ethnicity")
+```
+
+#### Visualización de Modelos Complejos
+
+Visualizamos los resultados de modelos de regresión más complejos.
+
+```{r}
+# Gráfico con regresión lineal
+evals %>% 
+  ggplot(aes(x = age, y = score, color = ethnicity)) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+
+modelo_3 <- lm(formula = score ~ age + ethnicity + age*ethnicity,data = evals)
+
+summary(modelo_3)
+
+# Modelos separados por tipo de clase
+modelos_por_tipo <- evals %>% 
+  split(.$ethnicity) %>%  
+  map(~lm(formula = score ~ age, data = .x))
+
+# Resumen de los modelos por tipo de clase
+modelos_por_tipo
+# Minorities:
+# Coefficients:
+# (Intercept)          age  
+#     2.61182      0.03185 
+# 
+# $`not minority`
+# 
+# Call:
+# lm(formula = score ~ age, data = .x)
+# 
+# Coefficients:
+# (Intercept)          age  
+#    4.606830    -0.008522 
+
+1.99501 + 2.61182
+```
+
+## Extraccion de R cuadrado con map
+
+```{r}
+# Modelo simple
+modelo
+# Modelo con tendencias paralelas
+modelo_2
+# Modelo con interacciones
+modelo_3
+
+resumen <- summary(modelo)
+
+resumen$r.squared
+
+lista <- list(modelo,
+              modelo_2,
+              modelo_3)
+
+
+for(i in lista){
+  print(summary(i)$r.squared)
+}
+
+map_dfr(lista,.f = glance)
+```
+
+```{r}
+evals %>% 
+  ggplot(aes(x = age, y = score, color = ethnicity)) +
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  facet_grid(ethnicity~gender)
+```

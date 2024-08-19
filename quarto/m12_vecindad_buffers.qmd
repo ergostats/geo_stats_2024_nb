@@ -1,0 +1,183 @@
+---
+title: "Análisis de vecindad empleando distancias con buëers"
+format: html
+editor: visual
+---
+
+# Definición de buffer
+
+Un **buffer** es una zona o área que se crea alrededor de un objeto geográfico, como un punto, una línea o un polígono. La función principal de un buffer es definir un área de influencia o proximidad alrededor de un objeto geográfico para realizar análisis espaciales más detallados.
+
+![](https://saylordotorg.github.io/text_essentials-of-geographic-information-systems/section_11/5c7eb6fc4bcbfc5117d778f0aabfded6.jpg)
+
+Por ejemplo, en R con el paquete `sf`, se puede crear un buffer usando la función `st_buffer()`:
+
+```{r}
+library(sf)
+library(ggplot2)
+
+# Crear un objeto sf con puntos, líneas o polígonos
+geom <- st_sfc(st_point(c(1, 1)), crs = 4326)
+
+# Crear un buffer de 500 metros alrededor del punto
+buffer <- st_buffer(geom, dist = 500)
+
+ggplot() +
+  geom_sf(data = buffer, fill = "lightblue", color = "blue", alpha = 0.5) +
+  geom_sf(data = geom, color = "red", size = 3) +
+  coord_sf() +
+  ggtitle("Buffer alrededor de un Punto") +
+  theme_minimal()
+
+```
+
+# Ejemplo
+
+### 1. Crear un Buffer alrededor del Polígono de la Politécnica
+
+Primero, vamos a crear un buffer alrededor de un polígono de interés, en este caso, la Politécnica. Esto nos ayudará a entender cómo funciona un buffer.
+
+Un buffer es una zona de influencia que rodea una geometría espacial (punto, línea, o polígono) a una distancia específica. Es útil para identificar áreas que están dentro de una cierta proximidad a una característica geográfica.
+
+```{r}
+# Instalar y cargar los paquetes necesarios
+install.packages(c("sf", "ggplot2", "dplyr"))
+library(sf)
+library(ggplot2)
+library(dplyr)
+
+# Cargar y preparar los datos
+zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/", layer = "zon_a")
+dmq_zonas <- zonas %>% filter(str_detect(zon, "^170150"))
+
+# Crear un objeto de ejemplo para la Politécnica
+zoom_to <- "170150192"
+poli <- dmq_zonas %>% filter(zon == zoom_to)
+
+# Crear un buffer de 1 km alrededor del polígono de la Politécnica
+buffer <- -----(poli, dist = 1000)
+
+# Definir los límites del mapa para el zoom
+lon_bounds <- c(-78.505, -78.475)  # Ajustar según sea necesario
+lat_bounds <- c(-0.225, -0.195)
+
+# Transformar las coordenadas de las zonas para la visualización
+dmq_4326 <- st_transform(dmq_zonas, ----)
+
+# Mostrar el buffer en un mapa
+
+class(-----)
+
+ggplot() +
+  geom_sf(data = ----, color = "blue", size = 1) +
+  geom_sf(data = ----, fill = "grey", alpha = 0.5) +
+  theme_minimal() +
+  ggtitle("Buffer de 1 km alrededor del Polígono de la Politécnica") +
+  coord_sf(xlim = lon_bounds, ylim = lat_bounds)
+```
+
+### 2. Aplicar el Buffer al Centroide del Polígono
+
+Ahora, aplicaremos el buffer al centroide del polígono en lugar de al polígono completo. Esto puede ser útil en algunos casos donde el análisis se basa en puntos centrales.
+
+El centroide de un polígono es el centro geométrico del mismo. Crear un buffer alrededor del centroide puede simplificar el análisis cuando queremos considerar la influencia desde el punto central del área.
+
+```{r}
+# Calcular el centroide del polígono de la Politécnica
+centroid <- ------(poli)
+
+# Crear un buffer de 1 km alrededor del centroide
+buffer_centroid <- -----(centroid, dist = 1000)
+
+# Mostrar el buffer del centroide en un mapa
+ggplot() +
+  geom_sf(data = -----, color = "blue", size = 1) +
+  geom_sf(data = ----, fill = "grey", alpha = 0.5) +
+  theme_minimal() +
+  ggtitle("Buffer de 1 km alrededor del Centroide de la Politécnica") +
+  coord_sf(xlim = lon_bounds, ylim = lat_bounds)
+```
+
+### 3. Buscar Restaurantes y Hospitales dentro de los Buffers
+
+Ahora vamos a identificar las zonas que contienen tanto restaurantes como hospitales dentro de los buffers de 1 km.
+
+Usamos `st_join` para realizar una unión espacial entre los puntos de interés (restaurantes y hospitales) y los buffers creados alrededor de las zonas censales. Esto nos permite identificar qué puntos caen dentro de cada buffer.
+
+```{r}
+# Transformar las coordenadas de los puntos al mismo CRS que `dmq_zonas`
+restaurants_points <- st_transform(restaurants_points, crs = ------)
+hospitals_points <- st_transform(hospitals_points, crs = ------)
+
+# Crear buffers de 1 km alrededor de cada zona censal
+dmq_zonas_buffers <- st_buffer(------, dist = 1000)
+
+# Identificar zonas con restaurantes en el buffer
+zones_with_restaurants <- st_join(restaurants_points, dmq_zonas_buffers, 
+                                  join = -----)
+
+# Identificar zonas con hospitales en el buffer
+zones_with_hospitals <- st_join(hospitals_points, dmq_zonas_buffers, 
+                                join = -----)
+```
+
+### 4. Crear Listas de IDs que Tienen Ambas Amenidades
+
+Creamos listas que identifican las zonas que tienen tanto un restaurante como un hospital dentro del buffer.
+
+Usamos operaciones de combinación (`inner_join`) y manipulación de datos (`distinct`, `select`) para crear listas que contienen las zonas con ambas amenidades.
+
+```{r}
+amenidades <- list(restaurantes = zones_with_restaurants, hospitales = zones_with_hospitals) %>%
+  map(~.x %>% ------)
+
+ambos <- amenidades %>%
+  -------(inner_join, by = "zon")
+
+amenidades <- ------(amenidades, list(ambos = ambos))
+```
+
+### 5. Mostrar el Mapa Completo con Amenidades
+
+Ahora, mostramos un mapa completo que indica las zonas que tienen restaurantes, hospitales, ambos o ninguna amenidad.
+
+Utilizamos `ggplot2` para visualizar las diferentes categorías de amenidades en las zonas censales. Esto nos permite identificar visualmente las áreas que cumplen con los criterios establecidos.
+
+```{r}
+dmq_zonas <- dmq_zonas %>%
+  mutate(
+    amenidad = case_when(
+   -------
+    )
+  )
+
+dmq_zonas %>% 
+ggplot() +
+  geom_sf(aes(fill = -------)) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  labs(title = "Zonas censales con restaurantes y hospitales", fill = "Amenidad")
+```
+
+### 6. Zoom sobre la Politécnica y sus Amenidades
+
+Finalmente, hacemos zoom sobre el polígono de la Politécnica para mostrar cómo se ven las amenidades en esta zona específica.
+
+Usamos `coord_sf` para ajustar los límites del mapa y hacer zoom en la zona de interés. Esto nos permite enfocarnos en un área específica y ver los detalles con mayor claridad.
+
+```{r}
+# Definir los límites del mapa para el zoom
+lon_bounds <- c(-78.505, -78.475)  # Ajustar según sea necesario
+lat_bounds <- c(-0.225, -0.195)
+
+# Transformar las coordenadas de las zonas para la visualización
+dmq <- st_transform(dmq_zonas, crs = 4326)
+
+# Mostrar el mapa con zoom sobre la Politécnica
+ggplot() +
+  geom_sf(aes(fill = amenidad)) +
+  geom_sf(data = buffer, fill = "grey", alpha = 0.5) +
+  coord_sf(xlim = lon_bounds, ylim = lat_bounds) +
+  theme_minimal() +
+  ggtitle("Zoom sobre la Politécnica y sus Amenidades")
+```

@@ -1,0 +1,90 @@
+---
+title: "Indices de autocorrelación espacial local"
+format: html
+editor: visual
+---
+
+El Índice de Moran Global $I$ nos proporciona una medida de la autocorrelación espacial para toda la región de estudio. Sin embargo, a menudo es útil tener una medida local de la similitud entre el valor de cada área y los valores de las áreas cercanas. Los Indicadores Locales de Asociación Espacial (LISA, por sus siglas en inglés) se diseñaron para proporcionar una indicación del grado de agrupación espacial significativa de valores similares alrededor de cada observación. Una propiedad deseable es que la suma de los valores LISA a través de todas las regiones sea igual a un múltiplo del indicador global de asociación espacial. Como resultado, las estadísticas globales pueden descomponerse en un conjunto de estadísticas locales, y la mayoría de los LISAs se definen como versiones locales de índices globales bien conocidos.
+
+Uno de los LISAs más populares es la versión local del Índice de Moran $I$. Para la región $i$-ésima, el Índice de Moran Local $I_i$ se define como:
+
+$$I_i = \frac{n (Y_i - \bar{Y}) \sum_j w_{ij} (Y_j - \bar{Y})}{\sum_j (Y_j - \bar{Y})^2}$$
+
+Donde: - $n$ es el número total de regiones, - $Y_i$ es el valor observado de la variable de interés en la región $i$, - $\bar{Y}$ es la media de todos los valores, - $w_{ij}$ son los pesos espaciales que indican la proximidad entre las regiones $i$ y $j$.
+
+Es importante notar que el Índice de Moran Global $I$ es proporcional a la suma de los Índices de Moran Locales $I_i$ obtenidos para todas las regiones:
+
+$$
+I = \frac{1}{\sum_{i \neq j} w_{ij}} \sum_i I_i
+$$
+
+### Interpretación del Índice de Moran Local
+
+Los valores del Índice de Moran Local $I_i$ se mapean típicamente para indicar la ubicación de áreas con asociación local alta o baja comparativamente con las áreas vecinas. Un valor alto de $I_i$ sugiere que el área está rodeada de áreas con valores similares. Dichas áreas son parte de un grupo de observaciones altas, bajas o moderadas. Un valor bajo de $I_i$ indica que el área está rodeada de áreas con valores disímiles. Estas áreas son atípicas, indicando que la observación del área $i$ es diferente de la mayoría o todas las observaciones de sus vecinas.
+
+Para interpretar el Índice de Moran Local para cada una de las áreas, es necesario calcular un mapa de valores p (p-values) que representen la probabilidad de exceder los valores observados asumiendo que la hipótesis nula es verdadera. Estos valores p, independientemente de la presencia o ausencia de asociación espacial global, se pueden obtener mediante un proceso de simulación con un enfoque de aleatorización condicional. En este enfoque, el valor observado $Y_i$ en la región $i$ se fija, y los valores restantes se reasignan aleatoriamente sobre las otras regiones.
+
+### Función `localmoran()` en el Paquete `spdep`
+
+La función `localmoran()` del paquete `spdep` se utiliza para calcular el Índice de Moran Local $I$ para un conjunto de datos dado. Los argumentos de `localmoran()` incluyen un vector numérico con los valores de la variable, una lista con los pesos de los vecinos, y el nombre de una hipótesis alternativa que puede ser `greater` (por defecto), `less` o `two.sided`. El objeto devuelto por la función `localmoran()` contiene la siguiente información:
+
+-   **Ii**: Estadístico del Índice de Moran Local para cada área.
+-   **E.Ii**: Valor esperado del Estadístico del Índice de Moran Local.
+-   **Var.Ii**: Varianza del Estadístico del Índice de Moran Local.
+-   **Z.Ii**: Puntaje z (z-score).
+-   **Pr(z \> E(Ii)), Pr(z \< E(Ii)) o Pr(z != E(Ii))**: Valor p para una hipótesis alternativa `greater`, `less` o `two.sided`, respectivamente.
+
+### Identificación de Clústeres con el Índice de Moran Local
+
+El Índice de Moran Local $I$ nos permite identificar los siguientes tipos de clústeres:
+
+-   **High-High**: Áreas con valores altos rodeadas de vecinos con valores altos.
+-   **High-Low**: Áreas con valores altos rodeadas de vecinos con valores bajos.
+-   **Low-High**: Áreas con valores bajos rodeadas de vecinos con valores altos.
+-   **Low-Low**: Áreas con valores bajos rodeadas de vecinos con valores bajos.
+
+Para detectar estos clústeres, primero utilizamos la función `localmoran()` para calcular el Índice de Moran Local $I$. Los valores p para la hipótesis alternativa "dos colas" se encuentran en la columna 5 del objeto devuelto.
+
+# Indice C de Geary
+
+### Estadístico Global C de Geary
+
+El estadístico de Geary (Geary, 1954), al igual que el estadístico de Moran, es un indicador de autocorrelación espacial y se desarrolla a partir de estadísticas de conteo conjunto. Se expresa mediante la fórmula:
+
+$$
+C(d) = \frac{(n-1) \sum_{i=1}^n \sum_{j=1}^n w_{ij}(x_i - x_j)^2}{2 \sum_{i=1}^n \sum_{j=1}^n w_{ij} \sum_{i=1}^n (x_i - \bar{x})^2}
+$$
+
+donde todos los componentes de la fórmula se definen como en el estadístico $I$ de Moran.
+
+### Interpretación del Estadístico de Geary
+
+El valor del estadístico de Geary es siempre positivo y asintóticamente normal, y fluctúa en el rango \[0, 2\]. El valor esperado del estadístico de Geary es 1, asumiendo que no hay autocorrelación espacial. En los cálculos, al igual que en el estadístico $I$ de Moran, se utiliza una matriz estandarizada de primer orden.
+
+-   **Valores de** $C$ por encima de 1: Indican diferenciación de los objetos observados (autocorrelación negativa).
+-   **Valores de** $C$ por debajo de 1 y mayores que 0: Indican similitud de las regiones (autocorrelación positiva).
+
+Los momentos de las estadísticas de Geary fueron derivados por Cliff y Ord (1981). Sin embargo, como indican Cliff y Ord (1981), el estadístico de Moran $I$ es más efectivo que el estadístico de Geary $C$. Esto se debe en parte a la alta sensibilidad de la varianza del estadístico $C$ a la distribución de la muestra. Las pruebas de significancia del estadístico de Geary se basan en la suposición de simetría de la matriz de pesos espaciales. Para matrices asimétricas (como $k$ vecinos más cercanos), el estadístico de Geary $C$ puede verse afectado.
+
+### Comparación entre Moran $I$ y Geary $C$
+
+Las estadísticas de autocorrelación espacial (Moran $I$ y Geary $C$) tienen, además de sus ventajas, muchas desventajas (Cliff & Ord, 1981; Anselin, 1988):
+
+1.  **Invariabilidad de la Matriz de Pesos Espaciales**: La matriz de pesos espaciales es invariante cuando cambian el tamaño, la forma y la fuerza relativa de los enlaces entre áreas.
+2.  **Conexiones entre Vecinos**: En la matriz de pesos, todas las conexiones de vecindad tienen el mismo peso, lo cual no siempre refleja la realidad.
+3.  **Nivel de Agregación de las Variables Estudiadas**: Es arbitrario, pero afecta el tamaño de las estadísticas.
+
+### Cálculo del Estadístico Global de Geary en R
+
+Para calcular la estadística global de Geary en R, se utilizan tres comandos: `geary()`, `geary.test()` y `geary.mc()`. A continuación se describen brevemente:
+
+-   **geary()**: Solo calcula la estadística de Geary; es el comando más pobre y menos utilizado. El primer argumento es la variable examinada, el segundo es la matriz de pesos espaciales $W$ expresada mediante el objeto `listw` de clase `listw`, el tercero y cuarto determinan el número de observaciones $n$ y la suma de los pesos.
+
+El estadístico de Geary $C$, al igual que el estadístico de Moran $I$, proporciona una medida de la autocorrelación espacial. Mientras que Moran $I$ se centra en la similitud de los valores entre áreas vecinas, Geary $C$ se enfoca en la diferenciación entre ellas. Ambos tienen sus ventajas y desventajas, y la elección entre uno u otro depende del contexto del análisis y de las características específicas de los datos y la región de estudio.
+
+### Comparaciones y Comentarios Adicionales
+
+-   **Ventajas de Moran** $I$: Más efectivo en muchos contextos debido a su alta sensibilidad a la distribución de la muestra.
+-   **Desventajas de Ambos Estadísticos**: La invariabilidad de la matriz de pesos, la igual ponderación de todas las conexiones de vecindad, y la arbitrariedad en el nivel de agregación de las variables.
+
+En conclusión, el uso combinado de Moran $I$ y Geary $C$ puede proporcionar una visión más completa de la autocorrelación espacial en un conjunto de datos, permitiendo identificar tanto patrones de similitud como de diferenciación entre las regiones de estudio.

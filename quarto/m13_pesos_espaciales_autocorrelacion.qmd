@@ -1,0 +1,201 @@
+---
+title: "Matrices de pesos espaciales y autocorrelación"
+format: html
+editor: visual
+---
+
+# Matrices de vecindad
+
+### Matriz de Vecindad Espacial
+
+Una matriz de vecindad espacial, denotada como $W$, define una estructura de vecindad sobre toda la región de estudio, y sus elementos pueden ser vistos como pesos. El elemento $(i, j)$ de $W$, denotado como $w_{ij}$, conecta espacialmente las áreas $i$ y $j$ de alguna manera. Se asocia más peso con las áreas más cercanas a $i$ que con las que están más lejos de $i$.
+
+#### Matriz Binaria de Vecindad Espacial Basada en Contigüidad
+
+Si los vecinos están basados en la contigüidad, podemos construir una matriz espacial binaria con $w_{ij} = 1$ si las regiones $i$ y $j$ comparten una frontera común, y $w_{ij} = 0$ en caso contrario. Habitualmente, $w_{ii}$ se establece en 0 para $i = 1, \ldots, n$. Esta elección de medida de proximidad resulta en una matriz espacial simétrica.
+
+![](https://revistas.unal.edu.co/index.php/rcg/article/download/76919/version/61369/html/422727/v28n1a1f5.png){fig-align="center" width="80%"}
+
+#### Otras Definiciones de Pesos Espaciales
+
+Otras definiciones de pesos espaciales pueden incluir:
+
+-   $w_{ij} = 1$ para todos $i$ y $j$ dentro de una distancia especificada.
+
+-   $w_{ij} = 1$ si $j$ es uno de los $k$ vecinos más cercanos de $i$.
+
+-   $w_{ij}$ puede definirse como la distancia inversa entre áreas $w_{ij} = \frac{1}{d_{ij}}$.
+
+Donde $d_{ij}$ es la distancia entre las unidades geográficas $i$ y $j$.
+
+-   Ejemplo: Si dos localidades están a 5 km de distancia, el peso sería $w_{ij} = \frac{1}{5} = 0.2$. Si otra pareja de localidades está a 2 km, el peso sería $w_{ij} = \frac{1}{2} = 0.5$
+
+Además, puede ser necesario ajustar el número total de vecinos en cada área y usar una matriz estandarizada con entradas $w_{std, ij} = \frac{w_{ij}}{\sum_{j=1}^{n} w_{ij}}$.
+
+Esto asegura:
+
+1.  Cada elemento de la matriz $𝑊{std}$ se encuentre entre 0 y 1.
+2.  Que la suma de cada una de sus filas sea siempre 1.
+
+### Matriz de Pesos Espaciales Basada en una Lista de Vecinos Binaria
+
+La función `nb2listw()` del paquete `spdep` se puede utilizar para construir una matriz de vecindad espacial que contenga los pesos espaciales correspondientes a una lista de vecinos. Los vecinos pueden ser binarios o basados en valores de distancia inversa. Para calcular una matriz de pesos espaciales basada en una lista de vecinos binaria, usamos la función `nb2listw()` con los siguientes argumentos:
+
+-   **nb**: lista de vecinos.
+-   **style**: indica el esquema de codificación elegido. Por ejemplo, `style = "B"` es la codificación binaria básica, y `style = "W"` es estandarizada por fila (1/número de vecinos).
+-   **zero.policy**: se usa para tener en cuenta las regiones con 0 vecinos. Específicamente, `zero.policy = TRUE` permite que la lista de pesos contenga vectores de pesos de longitud cero, y `zero.policy = FALSE` detiene la función con un error si hay conjuntos de vecinos vacíos.
+
+### Ejemplo de Construcción de Matriz de Vecindad
+
+A continuación, se muestra un ejemplo de cómo construir una matriz de vecindad espacial basada en contigüidad para tus zonas `dmq_zonas`.
+
+#### Paso 1: Crear una Lista de Vecinos Basada en Contigüidad
+
+```{r}
+# Crear lista de vecinos basada en contigüidad
+nb <- poly2nb(dmq_zonas, queen = TRUE)
+
+# Verificar los primeros elementos de la lista de vecinos
+print(nb[1:3])
+```
+
+#### Paso 2: Crear una Matriz de Pesos Espaciales Basada en Contigüidad
+
+```{r}
+# Crear una matriz de pesos espaciales basada en contigüidad y estandarizada por fila
+nbw <- nb2listw(nb, style = "W", zero.policy = TRUE)
+
+# Verificar los pesos de los primeros vecinos
+print(nbw$weights[1:3])
+```
+
+#### Paso 3: Visualizar la Matriz de Pesos Espaciales
+
+```{r}
+# Convertir la lista de pesos espaciales en una matriz
+m1 <- listw2mat(nbw)
+
+# Visualizar la matriz de pesos espaciales
+levelplot(t(m1),
+          scales = list(y = list(at = seq(10, nrow(m1), by = 10),
+                                 labels = seq(10, nrow(m1), by = 10))),
+          main = "Matriz de Pesos Espaciales Basada en Contigüidad")
+```
+
+### Matriz de Pesos Espaciales Basada en Valores de Distancia Inversa
+
+Dada una lista de vecinos, podemos usar `nbdists()` para calcular las distancias a lo largo de los enlaces. Luego, podemos construir la lista con pesos espaciales basados en valores de distancia inversa usando `nb2listw()` donde el argumento `glist` es igual a una lista de pesos generales correspondientes a los vecinos.
+
+#### Paso 1: Calcular los Centroides y las Distancias
+
+```{r}
+# Calcular los centroides de las zonas
+centroids <- st_centroid(dmq_zonas)
+
+# Calcular la lista de vecinos basada en contigüidad
+nb <- poly2nb(dmq_zonas, queen = TRUE)
+
+# Calcular las distancias entre los centroides de las zonas vecinas
+dists <- nbdists(nb, as.matrix(st_coordinates(centroids)))
+
+# Calcular los pesos inversos de las distancias
+ids <- map(dists, function(x) 1 / x)
+```
+
+#### Paso 2: Crear una Matriz de Pesos Espaciales Basada en Distancia Inversa
+
+```{r}
+# Crear una matriz de pesos espaciales basada en distancia inversa
+nbw_inv <- nb2listw(nb, glist = ids, style = "B", zero.policy = TRUE)
+
+# Verificar los pesos de los primeros vecinos
+print(nbw_inv$weights[1:3])
+```
+
+#### Paso 3: Visualizar la Matriz de Pesos Espaciales Basada en Distancia Inversa
+
+```{r}
+# Convertir la lista de pesos espaciales en una matriz
+m2 <- listw2mat(nbw_inv)
+
+# Visualizar la matriz de pesos espaciales basada en distancia inversa
+levelplot(t(m2),
+          scales = list(y = list(at = seq(10, nrow(m2), by = 10),
+                                 labels = seq(10, nrow(m2), by = 10))),
+          main = "Matriz de Pesos Espaciales Basada en Distancia Inversa")
+```
+
+# Autocorrelación Espacial
+
+La autocorrelación espacial se utiliza para describir en qué medida una variable está correlacionada consigo misma a través del espacio. La autocorrelación espacial positiva se produce cuando las observaciones con valores similares están más próximas entre sí (es decir, agrupadas). La autocorrelación espacial negativa se produce cuando las observaciones con valores distintos están más próximas entre sí (es decir, dispersas).
+
+![](https://www.researchgate.net/publication/345326470/figure/fig4/AS:960053502804001@1605906000766/Conceptual-models-of-spatial-autocorrelation-Positive-spatial-autocorrelation-a-is.png){fig-align="center" width="80%"}
+
+La autocorrelación espacial puede evaluarse utilizando índices que resumen el grado en que observaciones similares tienden a producirse cerca unas de otras en el área de estudio. Dos índices comunes que se utilizan para evaluar la autocorrelación espacial en datos areales son el **índice global de Moran I y la C de Geary.**
+
+## Índice Global de Moran $I$
+
+El Índice Global de Moran $I$ se calcula mediante la fórmula:
+
+$$I = \frac{n \sum_i \sum_j w_{ij} (Y_i - \bar{Y}) (Y_j - \bar{Y})}{\left( \sum_{i \neq j} w_{ij} \right) \sum_i (Y_i - \bar{Y})^2}$$
+
+Donde
+
+-   $n$ es el número total de regiones.
+
+-   $Y_i$ representa el valor observado de la variable de interés en la región $i$.
+
+-   $\bar{Y}$ es la media de todos los valores.
+
+-   Los pesos espaciales $w_{ij}$ indican la proximidad espacial entre las regiones $i$ y $j$, con $w_{ii} = 0$ y $i, j = 1, \ldots, n$. La definición de los pesos espaciales varía según la variable estudiada y el contexto específico.
+
+$I$ de Moran, **mide la similitud entre cada región y sus vecinas**. Bajo la hipótesis nula de no autocorrelación espacial, las observaciones $Y_i$ son independientes y están distribuidas de manera idéntica.
+
+$$
+E[I] = -\frac{1}{n-1}
+$$
+
+$$
+\text{Var}[I] = \frac{n^2 (n-1) S_1 - n (n-1) S_2 + 2 S_0^2}{(n+1)(n-1)^2 S_0^2},
+$$
+
+Donde: $$S_0 = \sum_{i \neq j} w_{ij}$$ $$S_1 = \frac{1}{2} \sum_{i \neq j} (w_{ij} + w_{ji})^2$$
+
+$$S_2 = \sum_k \left( \sum_j w_{kj} + \sum_i w_{ik} \right)^2$$
+
+-   Los valores del índice de Moran $I$ suelen oscilar entre -1 y 1. Valores de $I$ significativamente superiores a $E[I] = -\frac{1}{n-1}$ indican autocorrelación espacial positiva o agrupamiento, lo que sugiere que las regiones vecinas tienden a tener valores similares.
+-   Por otro lado, valores de $I$ significativamente inferiores a $E[I]$ indican autocorrelación espacial negativa o dispersión, lo que implica que las regiones cercanas tienden a tener valores diferentes. Finalmente, valores de $I$ cercanos a $E[I]$ indican aleatoriedad, es decir, la ausencia de un patrón espacial.
+-   Cuando el número de regiones es suficientemente grande, $I$ sigue una distribución normal, permitiendo evaluar si un patrón observado se desvía significativamente de un patrón aleatorio mediante la comparación del puntaje $z$ con la distribución normal estándar.
+
+$$
+z = \frac{I - E(I)}{\sqrt{\text{Var}(I)}}
+$$
+
+Podemos probar la autocorrelación espacial siguiendo estos pasos:
+
+1.  Plantear las hipótesis nula y alternativa:
+
+    -   $H_0: I = E[I]$ (no hay autocorrelación espacial),
+    -   $H_1: I \neq E[I]$ (hay autocorrelación espacial).
+
+2.  Elegir el nivel de significancia $\alpha$, que es el máximo valor permitido para la probabilidad de rechazar incorrectamente la hipótesis nula cuando es verdadera (usualmente $\alpha = 0.05$).
+
+3.  Calcular la estadística de prueba:
+
+    -   $z = \frac{I - E(I)}{\sqrt{\text{Var}(I)}}$.
+
+<!-- -->
+
+4.  Encontrar el valor p para los datos observados comparando el puntaje z con la distribución normal estándar o mediante aleatorización Monte Carlo. El valor p es la probabilidad de obtener una estadística de prueba tan extrema o más extrema que la observada en la dirección de la hipótesis alternativa, asumiendo que la hipótesis nula es verdadera.
+
+5.  Tomar una de estas dos decisiones y formular una conclusión:
+
+    -   Si $\text{p-valor} < \alpha$, rechazamos la hipótesis nula. Concluimos que los datos proporcionan evidencia para la hipótesis alternativa.
+    -   Si $\text{p-valor} \geq \alpha$, no rechazamos la hipótesis nula. Los datos no proporcionan evidencia suficiente para la hipótesis alternativa.
+
+En R la función `moran.test()` del paquete `spdep` permite evaluar la autocorrelación espacial utilizando el índice $I$ de Moran. Los argumentos de `moran.test()` incluyen un vector numérico con los datos, una lista con los pesos espaciales y el tipo de hipótesis. El argumento que indica la hipótesis se llama `alternative` y puede configurarse como `greater` (por defecto), `less` o `two.sided` para representar diferentes hipótesis alternativas. En este ejemplo, planteamos las hipótesis nula y alternativa de la siguiente manera:
+
+-   $H_0: I \leq E[I]$ (autocorrelación espacial negativa o no autocorrelación espacial),
+-   $H_1: I > E[I]$ (autocorrelación espacial positiva).
+
+Utilizamos `moran.test()` para probar esta hipótesis configurando `alternative = "greater"`. La lista con los pesos espaciales se obtiene primero identificando los vecinos de cada área con la función `poly2nb()`, y luego creando una lista que contiene los vecinos con la función `nb2listw()` de `spdep`.

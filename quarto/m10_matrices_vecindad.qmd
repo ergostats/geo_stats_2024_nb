@@ -1,0 +1,254 @@
+---
+title: "Visualización de vecindad con polígonos"
+format: html
+editor: visual
+---
+
+# Matrices de vecindad
+
+Una **matriz de vecindad** es una matriz cuadrada que representa las relaciones espaciales entre diferentes unidades geográficas. Cada fila y cada columna de la matriz corresponden a una unidad espacial, como un municipio, una parcela de terreno o una celda en una cuadrícula. Los elementos de la matriz indican la relación o la proximidad entre las unidades.
+
+**Componentes Generales:**
+
+-   **Filas y Columnas:** Cada fila y columna representan una unidad espacial. Por ejemplo, en un estudio de municipios, cada fila y columna corresponden a un municipio.
+
+-   **Elementos de la Matriz:** Los elementos en la matriz representan la relación de vecindad entre las unidades. Dependiendo del tipo de matriz, esto puede ser una indicación binaria (vecino o no vecino) o una medida de proximidad.
+
+**Tipos Comunes de Matrices de Vecindad:**
+
+1.  **Matriz Binaria:** Indica si una unidad es vecina de otra (0 o 1).
+
+2.  **Matriz de Distancia:** Utiliza distancias reales entre unidades como elementos de la matriz.
+
+3.  **Matriz de Contigüidad:** Basada en la contigüidad espacial entre unidades.
+
+## Matriz de contigüidad
+
+Los vecinos basados en la contigüidad se construyen asumiendo que los vecinos de un área determinada son otras áreas que comparten un límite común. La siguiente figura muestra dos tipos de vecinos por contigüidad. Los vecinos pueden ser de tipo:
+
+-   **Reina (Queen):** dos unidades espaciales se consideran vecinas si comparten una frontera, un borde o un vértice.
+
+-   **Torre (Rook):** dos unidades espaciales se consideran vecinas solo si comparten una frontera completa, es decir, solo los bordes horizontales o verticales, pero no los vértices.
+
+![](https://www.researchgate.net/publication/349718331/figure/fig3/AS:1013770432311298@1618713114930/Rooks-case-contiguity-and-queens-case-contiguity-Source-Reference-60.png){fig-align="center" width="500"}
+
+# Ejemplo
+
+En esta clase utilizaremos los datos del geo portal del INEC, disponible en [Geoportal del INEC](https://www.ecuadorencifras.gob.ec/documentos/web-inec/Geografia_Estadistica/Micrositio_geoportal/index.html#geografia_estad). Esta base de datos es muy amplia y contiene una gran cantidad de información geoespacial detallada. Debido a su tamaño, leeremos y procesaremos los datos gradualmente.
+
+## Cargando y Preparando los Datos
+
+Primero, cargamos los datos de la base de datos geoespacial del INEC:
+
+```{r}
+# Cargar la geo database nacional del INEC
+st_layers("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/")
+
+# Cargar la capa "sec_a"
+zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/",
+                 layer = "sec_a")
+
+# Filtrar por la parroquia de interés
+pichincha <- zonas %>% 
+  filter(str_detect(parroquia, "^17"))
+
+# Remover geometrías vacías
+pichincha <- pichincha %>% 
+  mutate(tam = map_dbl(Shape, length))
+```
+
+## Simplificación y Visualización Inicial
+
+Simplificamos las geometrías y creamos un mapa inicial de la parroquia 170150:
+
+```{r}
+# Simplificar las geometrías
+# pichincha <- pichincha %>% 
+#   st_simplify(dTolerance = 100)
+
+# Crear el mapa inicial
+mapa_proyecto <- pichincha %>% 
+  filter(parroquia == "170150") %>% 
+  ggplot() +
+  geom_sf(fill = "white", color = "black") +
+  theme_minimal()
+
+# Guardar el mapa
+# ggsave("mapa_proyecto.png", plot = mapa_proyecto, dpi = 300)
+
+# Mostrar el mapa
+mapa_proyecto
+```
+
+## Vecindad de la Politécnica
+
+Identificamos los vecinos de la Politécnica:
+
+```{r}
+# Coordenadas de la Politécnica en WGS84
+politecnica <- tibble(lat = -0.211872, long = -78.490520) %>% 
+  st_as_sf(coords = c("long", "lat"), crs = 4326) %>% 
+  st_transform(32717)
+
+# Encontrar intersecciones con la Politécnica
+inter <- st_intersects(politecnica, pichincha)
+
+# Identificar vecinos
+pichincha <- pichincha %>% 
+  mutate(centro = if_else(sec == "170150192004", "Politécnica Nacional", NA_character_))
+
+# Crear mapa con vecinos de la Politécnica
+mapa_vecinos_politecnica <- pichincha %>%
+  filter(parroquia == "170150") %>% 
+  ggplot() +
+  geom_sf(aes(fill = centro)) +
+  theme_minimal()
+
+# Mostrar el mapa
+mapa_vecinos_politecnica
+```
+
+## Vecindad de la Plataforma
+
+Identificamos los vecinos de la Plataforma:
+
+```{r}
+# Coordenadas de la Plataforma en WGS84
+plataforma <- tibble(lat = -0.173385, long = -78.484121) %>% 
+  st_as_sf(coords = c("long", "lat"), crs = 4326) %>% 
+  st_transform(32717)
+
+# Encontrar intersecciones con la Plataforma
+inter <- st_intersects(plataforma, pichincha)
+
+# Identificar vecinos
+pichincha <- pichincha %>% 
+  mutate(sitio = if_else(sec == "170150155010", "Plataforma", NA_character_))
+
+# Crear mapa con vecinos de la Plataforma
+mapa_vecinos_plataforma <- pichincha %>%
+  filter(parroquia == "170150") %>% 
+  ggplot() +
+  geom_sf(aes(fill = sitio)) +
+  theme_minimal()
+
+# Mostrar el mapa
+mapa_vecinos_plataforma
+```
+
+## Creación de la Matriz de Vecindad
+
+Creamos la matriz de vecindad para los polígonos:
+
+```{r}
+# Crear matriz de vecindad
+dmq <- pichincha %>%
+  filter(parroquia == "170150") 
+
+# Remover geometrías vacías
+dmq <- dmq[!st_is_empty(dmq),]
+
+# Crear la lista de vecinos usando el modelo queen
+nb <- spdep::poly2nb(dmq, queen = TRUE)
+
+# Visualizar la lista de vecinos
+head(nb)
+
+# Graficar los vecinos
+plot(st_geometry(dmq), border = "lightgray")
+plot.nb(nb, st_geometry(dmq), add = TRUE)
+```
+
+## Visualización con Vecinos
+
+Visualizamos los vecinos de un polígono específico (ID: 170150192004):
+
+```{r}
+id <- "170150192004" # ID del área
+
+# Identificar posición del ID
+pos <- which(dmq$sec == id)
+
+# Asignar categorías de vecinos
+dmq$neighbors <- "other"
+dmq$neighbors[pos] <- "area"
+dmq$neighbors[nb[[pos]]] <- "neighbors"
+
+# Crear el gráfico con los vecinos
+mapa_proyecto_vecinos <- dmq %>%
+  ggplot() +
+  geom_sf(aes(fill = neighbors)) +
+  theme_minimal() +
+  scale_fill_manual(values = c("gray30", "gray", "white"))
+
+# Guardar el mapa
+# ggsave("mapa_proyecto_vecinos.png", plot = last_plot(), dpi = 300)
+
+# Mostrar el mapa
+mapa_proyecto_vecinos
+```
+
+## Zoom en la Politécnica y Plataforma
+
+Finalmente, hacemos zoom en las coordenadas de la Politécnica y la Plataforma:
+
+```{r}
+# Definir límites de zoom para la Politécnica
+zoom_to <- c(-78.490520, -0.211872)  # Latitud y Longitud correctas
+lon_bounds <- c(-78.505, -78.475)  # Ajustar según sea necesario
+lat_bounds <- c(-0.225, -0.195)  
+
+dmq <- st_transform(dmq, crs = 4326)
+
+# Crear el gráfico con zoom
+mapa_zoom <- dmq %>%
+  ggplot() +
+  geom_sf(aes(fill = neighbors)) +
+  theme_minimal() +
+  coord_sf(xlim = lon_bounds, ylim = lat_bounds)
+
+# Mostrar el gráfico con zoom
+mapa_zoom
+
+```
+
+Opcion B:
+
+```{r}
+
+id <- "170150155010" # ID del área
+
+# Identificar posición del ID
+pos <- which(dmq$sec == id)
+
+# Asignar categorías de vecinos
+dmq$neighbors <- "other"
+dmq$neighbors[pos] <- "area"
+dmq$neighbors[nb[[pos]]] <- "neighbors"
+
+dmq <- st_transform(dmq, crs = 32717)
+
+plataforma <- c(-78.484121, -0.173385)
+
+# Convertir las coordenadas de lat/long a UTM (EPSG:32717)
+plataforma_sf <- st_sfc(st_point(plataforma), crs = 4326) %>% 
+  st_transform(crs = 32717)
+
+# Extraer las coordenadas UTM
+plataforma_utm <- st_coordinates(plataforma_sf)
+
+# Definir el zoom (ajustar según sea necesario)
+zoom_level <- 1000  # Esto define cuánto quieres acercar
+
+# Definir los límites de visualización en coordenadas UTM
+lon_bounds <- c(plataforma_utm[1] - zoom_level, plataforma_utm[1] + zoom_level)
+lat_bounds <- c(plataforma_utm[2] - zoom_level, plataforma_utm[2] + zoom_level)
+
+# Crear el gráfico con los límites definidos
+ggplot(dmq) +
+  geom_sf(aes(fill = neighbors)) +
+  theme_bw() +
+  scale_fill_manual(values = c("gray30", "gray", "white")) +
+  coord_sf(xlim = lon_bounds, ylim = lat_bounds)
+
+```

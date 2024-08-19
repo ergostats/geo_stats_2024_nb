@@ -1,0 +1,134 @@
+---
+title: "Extración y visualización de vecindad en hosptiales y distribución de restaurantes en zonas censales"
+format: html
+editor: visual
+---
+
+# Obtener datos vectoriales `osmdata`
+
+El paquete `osmdata` facilita la obtención y el análisis de datos geoespaciales del sistema de OpenStreetMap (OSM). Permite descargar datos geoespaciales detallados, como calles, edificios, puntos de interés y otros elementos, directamente desde OSM.
+
+### Extrayectos datos de OSM
+
+Para realizar consultas específicas en los datos de OSM utilizando `osmdata` necesitamos:
+
+1.  Obtener las coordenadas de nuestra área de interés con la función `getbb()`.
+
+2.  Crear una consulta vacía con la función `opq()`.
+
+3.  Detallar las características que necesitamos del lugar con la función `add_osm_feature()`.
+
+4.  Detallar cual será el formato de salida con la función `omsdata_sf()`.
+
+Tras la llamada inicial `opq()`, las consultas `osmdata` se construyen añadiendo una o más "características", que se especifican en términos de pares `key-value`. Por ejemplo, todos los hospitales se designan en OSM con `key = amenity`, de modo que una consulta de todas los hospitales en Quito se puede construir de la siguiente manera:
+
+En la [wiki de OSM](https://wiki.openstreetmap.org/wiki/Map_features) se ofrece una descripción detallada de todas las características.
+
+# Extracción y Visualización de Hospitales
+
+-   En esta sección, aprenderemos a extraer las coordenadas de los hospitales en Quito desde - OpenStreetMap (OSM) y a visualizar su vecindad en un mapa utilizando R.
+
+-   Utilizaremos los conceptos de la matriz de vecindad y los modelos de vecindad rook y queen.
+
+**Primero:**
+
+-   Definimos el área de interés (Quito, Ecuador) y realizamos una consulta para obtener los hospitales en esta área.
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+# Cargar librerias 
+library(sf)
+library(tidyverse)
+library(spdep)
+library(ggplot2)
+
+# Cargar la geo database nacional del INEC
+zonas <- st_read("../data/GEODATABASE_NACIONAL_2021/GEODATABASE_NACIONAL_2021.gdb/",
+                 layer = "sec_a")
+
+# Filtrar parroquias que pertenezcan a Pichincha
+pichincha <- zonas %>% 
+  filter(str_detect(parroquia, "^17"))
+
+# Filtrar los sectores censales el Distrito Metropolitano de Quito  
+dmq <- zonas %>% 
+  filter(parroquia == "170150")
+```
+
+
+```{r}
+# Librerias 
+library(osmdata)
+
+# Definir el área de interés (Quito, Ecuador)
+bbox <- getbb("Quito, Ecuador")
+
+# Realizar la consulta para obtener hospitales
+hospitales <- opq(bbox = bbox) %>%
+  add_osm_feature(key = "amenity", 
+                  value = "hospital") %>%
+  osmdata_sf()
+
+# Extraer los puntos de los hospitales
+hospitales_puntos <- hospitales$osm_points
+```
+
+-   Visulizamos los hospitales en un mapa junto con los polígonos de `dmq`.
+
+```{r}
+dmq %>% 
+  ggplot() +
+  geom_sf() +
+  geom_sf(data = hospitales_puntos, color = "red", size = 2) +
+  theme_minimal() +
+  ggtitle("Hospitales en Quito")
+```
+
+## 1. Obtener polígonos que contengan hospitales
+
+-   Ahora identificamos los polígonos que intersectan con los hospitales.
+
+```{r}
+# Transformar las coordenadas de los hospitales al mismo CRS que dmq
+inter_hospitales <- st_intersects(x = hospitales_puntos %>% 
+                                  st_transform(crs = 32717),
+                                  y = dmq) %>% 
+  unlist() %>% 
+  unique()
+
+# Obtener los IDs de los polígonos que intersectan con hospitales
+ids <- dmq[inter_hospitales, ] %>% 
+  pull(sec) 
+
+```
+
+-   Asignamos categorías de vecindad a los polígonos en función de su proximidad a los hospitales.
+
+-   Encontramos las posiciones de los vecinos de los polígonos con hospitales y asignamos categorías de vecindad (`"other"`, `"cerca a un hospital"`, y `"hospitales"`).
+
+## 2. Encontrar cuales son los vecinos de estos polígonos
+
+```{r}
+# Encontrar las posiciones de los vecinos de los polígonos con hospitales
+posiciones_vecinos <- map(ids, function(id){
+  pos <- which(dmq$sec == id)
+  nb[[pos]]
+}) %>% 
+  unlist() %>% 
+  unique() 
+
+# Asignar categorías de vecinos
+dmq$neighbors <- "other"
+dmq$neighbors[posiciones_vecinos] <- "cerca a un hospital"
+dmq$neighbors[which(dmq$sec %in% ids)] <- "hospitales"
+
+# Visualizar los polígonos categorizados por vecindad
+plot_hospitales <- dmq %>% 
+  ggplot() +
+  geom_sf(aes(fill = neighbors)) +
+  theme_minimal() +
+  ggtitle("Vecindad de Hospitales en Quito")
+```

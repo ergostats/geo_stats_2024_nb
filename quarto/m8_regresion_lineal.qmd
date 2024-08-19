@@ -1,0 +1,380 @@
+---
+title: "Clase 8: Relación entre variables atraves del modelo de regresión lineal"
+format: html
+editor: visual
+---
+
+# Significancia estadística y p-valor
+
+La significancia estadística es un concepto clave en la estadística inferencial que se refiere a la probabilidad de que los **resultados observados** en un estudio o experimento **no sean producto del azar**. Cuando un resultado es "*estadísticamente significativo*", implica que es lo suficientemente inusual bajo la hipótesis nula $H_0$ (es decir, la suposición de que no hay efecto o diferencia real) para que podamos considerar que la evidencia es fuerte en favor de una hipótesis alternativa.
+
+El **p-valor** es una medida utilizada para determinar la significancia estadística de los resultados. Representa la probabilidad de obtener un resultado al menos tan extremo como el observado, dado que la hipótesis nula es verdadera.
+
+$$p = P(observación b  % valor \ observado b# H_0)$$
+
+### Interpretación del p-valor
+
+Un p-valor bajo (generalmente menor que un umbral convencional como 0.05) indica que el resultado es improbable bajo la hipótesis nula, lo que lleva a los investigadores a rechazarla en favor de la hipótesis alternativa.
+
+-   $p < 0.05$: Rechaza $H_0$ , resultados significativos.
+
+-   $p > 0.05$: No rechaza $H_0$, resultados no significativos.
+
+### Errores
+
+Cuando se realiza una prueba de hipótesis, se puede cometer dos tipos de error: tipo I y tipo II.
+
+**Error Tipo I**\
+Este error ocurre cuando se rechaza la hipótesis nula $H_0$ cuando en realidad es verdadera. En otras palabras, se concluye incorrectamente que hay un efecto o diferencia significativa cuando en realidad no existe.
+
+**Error Tipo II**\
+Este error ocurre cuando no se rechaza la hipótesis nula $H_0$ cuando en realidad es falsa. Es decir, se concluye incorrectamente que no hay un efecto o diferencia significativa cuando en realidad sí la hay.
+
+### Alternativas al p-valor
+
+Aunque el p-valor es una herramienta ampliamente utilizada en pruebas de hipótesis, ha recibido críticas por su mal uso e interpretación.
+
+-   **Intervalos de Confianza:** Los intervalos de confianza proporcionan un rango de valores dentro del cual se espera que se encuentre el parámetro verdadero (como una media o diferencia de medias) con un cierto nivel de confianza (generalmente 95%). A diferencia del p-valor, que solo indica si un efecto es "estadísticamente significativo", los intervalos de confianza también ofrecen información sobre la magnitud y precisión del efecto estimado.
+
+-   **Bayesianismo (Pruebas de Hipótesis Bayesiana):** En lugar de utilizar un p-valor, las pruebas bayesianas calculan la probabilidad de que una hipótesis sea verdadera dado los datos observados, utilizando información previa (priors) y la distribución de los datos observados (likelihood). Esto permite una interpretación más directa de la evidencia, y puede ser especialmente útil cuando se tiene información previa sobre el problema.
+
+# Funciones en R
+
+En R, una función es un **bloque de código diseñado para realizar una tarea específica**. Las funciones en R permiten reutilizar código y organizar los cálculos de manera modular y eficiente. Las funciones pueden tomar argumentos de entrada, realizar operaciones y devolver un valor o un conjunto de valores.
+
+### Componentes de una Función en R
+
+Una función en R tiene los siguientes componentes principales:
+
+1.  **Nombre de la función:** El identificador que se usa para llamar a la función.
+2.  **Argumentos:** Los valores de entrada que la función puede recibir. Estos se definen entre paréntesis después del nombre de la función.
+3.  **Cuerpo de la función:** El bloque de código donde se realizan las operaciones. Está delimitado por llaves `{}`.
+4.  **Valor de retorno:** El valor o los valores que la función devuelve al finalizar su ejecución. Esto se realiza utilizando la función `return()` o, implícitamente, devolviendo el resultado de la última expresión evaluada.
+
+```{r}
+nombre_de_la_funcion <- function(argumentos) {
+    # Cuerpo de la función: operaciones a realizar
+    resultado <- # alguna operación
+    
+    # Valor de retorno (opcional, puede ser implícito)
+    return(resultado)
+}
+```
+
+### Ejemplos
+
+#### Ejemplo 1: Función para Calcular el Cuadrado de un Número
+
+```{r}
+# Definición de la función
+cuadrado <- function(x) {
+    # Cuerpo de la función
+    resultado <- x^2
+    # Retornar el resultado
+    return(resultado)
+}
+
+# Uso de la función
+cuadrado(4)  # Retorna 16
+```
+
+-   **Nombre de la función:** `cuadrado`.
+
+-   **Argumento:** `x`, que es el número al que se le calculará el cuadrado.
+
+-   **Cuerpo de la función:** Se calcula el cuadrado de `x` usando `x^2`.
+
+-   **Valor de retorno:** El valor calculado de `x^2` se devuelve usando `return(resultado)`.
+
+#### Ejemplo 2: Función con Argumentos con Valores Predeterminados
+
+```{r}
+# Definición de la función
+saludo <- function(nombre = "Amigo", idioma = "es") {
+    if (idioma == "es") {
+        mensaje <- paste("Hola,", nombre)
+    } else if (idioma == "en") {
+        mensaje <- paste("Hello,", nombre)
+    } else {
+        mensaje <- paste("Salut,", nombre)  # Francés como ejemplo
+    }
+    
+    # Retornar el mensaje
+    return(mensaje)
+}
+
+# Uso de la función
+saludo("Juan")            # Retorna "Hola, Juan"
+saludo("John", "en")      # Retorna "Hello, John"
+saludo(idioma = "fr")     # Retorna "Salut, Amigo"
+```
+
+-   **Nombre de la función:** `saludo`.
+
+-   **Argumentos:** `nombre` e `idioma`, con valores predeterminados.
+
+-   **Cuerpo de la función:** Se selecciona un mensaje de saludo basado en el idioma y el nombre proporcionado.
+
+-   **Valor de retorno:** Se devuelve el mensaje de saludo personalizado.
+
+# Introducción: Regresión lineal
+
+La regresión lineal es un método estadístico que se utiliza para modelar la relación entre una variable dependiente (o respuesta) y una o más variables independientes (o predictoras). En su forma más simple, la **regresión lineal simple** se refiere al caso en que hay una sola variable independiente, mientras que la **regresión lineal múltiple** involucra dos o más variables independientes.
+
+La fórmula general de un modelo de regresión lineal simple es:
+
+$$y = \beta_0 + \beta_1x + \epsilon$$
+
+Donde:
+
+-   $y$ es la variable dependiente.
+
+-   $x$ es la variable independiente.
+
+-   $\beta_0$ es la ordenada al origen o intercepto.
+
+-   $\beta_1$ es el coeficiente de regresión que mide el cambio en $y$ por unidad de cambio en $x$.
+
+-   $\epsilon$ es el término de error o residuo, que representa la diferencia entre el valor observado y el valor predicho por el modelo.
+
+### Método de Mínimos Cuadrados
+
+El **método de mínimos cuadrados** es la técnica más comúnmente utilizada para estimar los parámetros $\beta_0$ y $\beta_1$ en un modelo de regresión lineal. Este método busca minimizar la suma de los cuadrados de las diferencias entre los valores observados de la variable dependiente y los valores predichos por el modelo. Matemáticamente, se define como:
+
+$$Suma\ de\ cuadrados\ de\ los\ residuos = \sum_{i=1}^{n}(y_i-\hat{y_i})^2$$
+
+Donde:
+
+-   $y_i$ es el valor observado.
+
+-   $\hat{y_i}$ es el valor predicho por el modelo.
+
+El objetivo es encontrar los valores de $\beta_0$ y $\beta_1$ que minimicen esta suma.
+
+### Relación entre Covarianza y Varianza
+
+En el contexto de la regresión lineal, la **covarianza** y la **varianza** juegan un papel importante en la interpretación de los coeficientes de regresión:
+
+-   **Covarianza (Cov(x, y))**: Mide la dirección de la relación lineal entre dos variables. Si la covarianza es positiva, ambas variables tienden a aumentar juntas; si es negativa, una variable tiende a aumentar mientras la otra disminuye.
+
+-   **Varianza (Var(x))**: Mide la dispersión de una variable alrededor de su media. Específicamente, en regresión lineal, la varianza de la variable independiente es utilizada en el cálculo del coeficiente de regresión.
+
+El coeficiente de regresión $\beta_1$ en la regresión lineal simple se puede calcular como:
+
+$$\beta_1 = \frac{Cov(x,y)}{Var(x)}$$
+
+Esta fórmula muestra cómo el coeficiente de regresión es proporcional a la covarianza entre la variable independiente y la dependiente, ajustada por la varianza de la variable independiente.
+
+### Supuestos de la Regresión Lineal
+
+Para que los resultados de una regresión lineal sean válidos, ciertos supuestos deben cumplirse:
+
+1.  **Linealidad**: La relación entre la variable dependiente y la(s) independiente(s) debe ser lineal.
+
+2.  **Independencia de los errores**: Los errores $\epsilon$ deben ser independientes entre sí.
+
+3.  **Homoscedasticidad**: La varianza de los errores debe ser constante a lo largo de todos los valores de la variable independiente. Si la varianza cambia, se dice que hay heterocedasticidad.
+
+4.  **Normalidad de los errores**: Los errores $\epsilon$ deben seguir una distribución normal con media cero.
+
+5.  **No multicolinealidad (en regresión múltiple)**: En regresión lineal múltiple, las variables independientes no deben estar altamente correlacionadas entre sí.
+
+### Residuos en la Regresión Lineal
+
+Los **residuos** son las diferencias entre los valores observados y los valores predichos por el modelo de regresión:
+
+$$Residuo(e_i) = y_i-\hat{y_i}$$
+
+Los residuos son fundamentales para diagnosticar la adecuación del modelo de regresión. Analizar los residuos permite verificar si se cumplen los supuestos de la regresión lineal:
+
+-   **Distribución Normal**: Los residuos deben seguir una distribución normal. Esto se verifica a través de gráficos de probabilidad normal (Q-Q plots).
+
+-   **Homoscedasticidad**: Se puede verificar mediante un gráfico de residuos vs. valores predichos. Si los residuos muestran un patrón, podría indicar heterocedasticidad.
+
+-   **Independencia**: Los residuos deben ser independientes. Esto se puede evaluar mediante la prueba de Durbin-Watson para detectar autocorrelación.
+
+Si los residuos no cumplen estos supuestos, puede ser necesario reconsiderar el modelo, transformar las variables, o utilizar un enfoque diferente.
+
+### Fuerza de Ajuste
+
+La fuerza de ajuste de un modelo de regresión se refiere a qué tan bien el modelo predice los valores observados de la variable dependiente. Una medida común de la fuerza de ajuste es el **coeficiente de determinación** $R^2$.
+
+### Cálculo del Coeficiente de Determinación $R^2$
+
+El coeficiente de determinación $R^2$ indica la proporción de la varianza en la variable dependiente que es explicada por las variables independientes. Se calcula como:\
+$$R^2 = 1-\frac{SSE}{SST}$$ Donde:
+
+-   $SST$ (Suma total de los cuadrados) $$SST = (y_1-\bar{y})^2 + (y_2-\bar{y})^2 + ... + (y_n-\bar{y})^2$$
+-   $SSE$ (Suma de errores al cuadrado) $$SSE  = (y_1 - \hat{y})^2 + (y_2 - \hat{y})^2 + ... + (y_n - \hat{y})^2$$ $$SSE  = e_1^2 + e_2^2 + ... + e_n^2$$
+
+# Ejemplo
+
+```{r setup, include=FALSE}
+
+# install.packages("broom")
+
+library(tidyverse)
+library(broom)
+
+set.seed(123)  # Para reproducibilidad
+```
+
+## Simulación de Datos
+
+Primero, simulamos los datos de ingresos y gastos del hogar.
+
+```{r}
+# Simulación de ingresos (distribución normal)
+ingresos <- rnorm(1000, mean = 400, sd = 50)
+
+# Simulación de gastos del hogar (correlacionados con los ingresos)
+gastos <- 0.5 * ingresos + rnorm(1000, mean = 0, sd = 30)
+
+# Crear el data frame
+datos <- tibble(ingresos, gastos)
+```
+
+Revisamos los primeros registros del data frame.
+
+```{r}
+head(datos)
+```
+
+## Análisis Descriptivo
+
+### Estadísticas Descriptivas
+
+```{r}
+summary(datos)
+```
+
+### Visualización Inicial
+
+```{r}
+# Gráfico de dispersión
+
+datos <- datos %>% 
+  mutate(
+    region = sample(c("Sierra","Costa"),size = 1000,replace = T)
+  )
+
+
+ggplot(datos, aes(x = ingresos, y = gastos,color = region)) +
+  geom_point() +
+  labs(title = "Relación entre Ingresos y Gastos del Hogar",
+       x = "Ingresos ($)",
+       y = "Gastos del Hogar ($)")
+```
+
+## Regresión Lineal
+
+Ajustamos un modelo de regresión lineal para predecir los gastos del hogar a partir de los ingresos.
+
+```{r}
+# Ajustar el modelo
+modelo <- lm(gastos ~ ingresos, data = datos)
+
+attributes(modelo)
+
+class(modelo)
+class(datos)
+
+# Resumen del modelo
+summary(modelo)
+```
+
+## Resultados del Modelo
+
+Extraemos los coeficientes del modelo y otros resultados relevantes usando `broom`.
+
+```{r}
+# Coeficientes del modelo
+tidy(modelo)
+
+# Estadísticas del modelo
+glance(modelo)
+```
+
+## Análisis de Residuos
+
+### Gráfico de Residuos
+
+```{r}
+# Residuos del modelo
+residuos <- augment(modelo)
+
+# Gráfico de residuos
+ggplot(residuos, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_hline(yintercept = 1, color = "red") +
+  geom_hline(yintercept = -1, color = "red") +
+  labs(title = "Gráfico de Residuos",
+       x = "Valores Ajustados",
+       y = "Residuos")
+```
+
+### Gráfico del Ajuste
+
+```{r}
+# Gráfico de la línea de regresión
+ggplot(datos, aes(x = ingresos, y = gastos)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Ajuste de Regresión Lineal",
+       x = "Ingresos ($)",
+       y = "Gastos del Hogar ($)")
+```
+
+## Análisis de Covarianza y Varianza
+
+### Covarianza
+
+```{r}
+covarianza <- cov(datos$ingresos, datos$gastos)
+```
+
+### Varianza
+
+```{r}
+var_x <- var(datos$ingresos)
+var(datos$gastos)
+```
+
+## Compruebar el OLS
+
+```{r}
+covarianza/var_x
+```
+
+## Distribución del parametro
+
+```{r}
+
+lm_en_esteroides <- function(muestra){
+  
+  covarianza <- cov(muestra$ingresos, muestra$gastos)
+  
+  varianza <- var(muestra$ingresos)
+  
+  beta <- covarianza/varianza
+  
+  return(beta)
+}
+
+resultados <- rerun(.n = 2000,{
+  muestra <- datos %>% 
+    slice_sample(prop = 0.8,replace = T)
+  
+  lm_en_esteroides(muestra)
+  
+})
+
+parametros <- unlist(resultados)
+
+
+ggplot() +
+  geom_histogram(aes(x = parametros)) +
+  geom_vline(xintercept = mean(parametros), color = "red",linetype = "dashed")
+
+```
